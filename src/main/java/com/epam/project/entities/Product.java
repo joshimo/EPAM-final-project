@@ -190,4 +190,21 @@ public class Product {
     public int hashCode() {
         return 31 * id.hashCode() + 31;
     }
+
+    @Override
+    public String toString() {
+        return  "\nProduct ID = " + id +
+                "\nisAvailable: " + isAvailable +
+                "\nnameEn: " + nameEn +
+                "\nnameRu: " + nameRu +
+                "\ndescriptionEn: " + descriptionEn +
+                "\ndescriptionRu: " + descriptionRu +
+                "\ncost: " + cost +
+                "\nquantity: " + quantity +
+                "\nuomEn: " + uomEn +
+                "\nuomRu: " + uomRu +
+                "\nnotesEn: " + notesEn +
+                "\nnotesRu: " + notesRu +
+                "\n---------------------------------------------------------------------------------------------------";
+    }
 }

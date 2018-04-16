@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface IOrderDao {
 
-    List<Order> retrieveAllOrdersByUser(Integer userId);
+    List<Order> findAllOrdersByUser(Integer userId);
 
-    Order retrieveOrderById(Integer id);
+    Order findOrderById(Integer id);
 
     boolean addOrderToDB(Order order) throws Exception;
 

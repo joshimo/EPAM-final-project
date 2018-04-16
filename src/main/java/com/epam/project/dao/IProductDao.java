@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface IProductDao {
 
-    List<Product> retrieveAllProductsFromDB() throws Exception;
+    List<Product> findAllProductsInDB() throws Exception;
 
-    Product retrieveProductById(Integer id) throws Exception;
+    Product findProductById(Integer id) throws Exception;
 
     boolean addProductToDB(Product product) throws Exception;
 
     boolean updateProductInDB(Product product) throws Exception;
 
-    boolean deleteProductFromDB(Product product) throws Exception;
+    boolean deleteProductFromDB(Integer id) throws Exception;
 
 }

@@ -10,6 +10,7 @@ public class User {
     private Boolean isSeniorCashier;
     private Boolean isMerchant;
     private String notes;
+    private UserRole userRole;
 
     public User(String name, String password) {
         this.name = name;
@@ -49,6 +50,10 @@ public class User {
         return notes;
     }
 
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
     /** Setters */
     public void setId(Integer id) {
         this.id = id;
@@ -80,5 +85,20 @@ public class User {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+
+    @Override
+    public String toString() {
+        return  "User ID = " + id +
+                "\nName: " + name +
+                "\nPassword: " + password +
+                "\nRole: " + userRole +
+                "\nNotes: " + notes +
+                "\n---------------------------------------------------------------------------------------------------";
     }
 }
