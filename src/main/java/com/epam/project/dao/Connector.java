@@ -1,12 +1,18 @@
 package com.epam.project.dao;
-
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
+import org.apache.commons.dbcp.BasicDataSource;
+
 public class Connector {
-    public static Connection createConnection() throws SQLException, IOException {
+    private static Connector connectionPool;
+    private BasicDataSource dataSource;
+
+    private Connector() throws IOException, SQLException {
         Properties dbProperties = new Properties();
         dbProperties.load(new FileReader("src/main/java/dbConfig.properties"));
         String user = dbProperties.getProperty("user");
@@ -17,7 +23,24 @@ public class Connector {
         String useUnicode = dbProperties.getProperty("useUnicode");
         String encoding = dbProperties.getProperty("encoding");
         String url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?useUnicode=" + useUnicode + "&characterEncoding=" + encoding;
-        return DriverManager.getConnection(url, user, password);
+        dataSource = new BasicDataSource();
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUsername(user);
+        dataSource.setPassword(password);
+        dataSource.setUrl(url);
+        dataSource.setMinIdle(8);
+        dataSource.setMaxIdle(16);
+        dataSource.setMaxOpenPreparedStatements(180);
+    }
+
+    public static Connector getInstance() throws IOException, SQLException {
+        if (connectionPool == null)
+            connectionPool = new Connector();
+        return connectionPool;
+    }
+
+    public java.sql.Connection getConnection() throws SQLException {
+        return this.dataSource.getConnection();
     }
 
     static ResultSet sendRequest(Statement statement, String query) {
@@ -40,11 +63,18 @@ public class Connector {
         }
     }
 
-    public static void closeConnection(Connection connection) {
+    public static void closeConnection(java.sql.Connection connection) {
         try {
             connection.close();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
+    }
+
+    public void info() {
+        System.out.println("Max. Active connections: " + this.dataSource.getMaxActive());
+        System.out.println("Active connections: " + this.dataSource.getNumActive());
+        System.out.println("Max. Idle connections: " + this.dataSource.getMaxIdle());
+        System.out.println("Idle connections: " + this.dataSource.getNumIdle());
     }
 }

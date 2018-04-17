@@ -18,20 +18,22 @@ public class Application {
     private static List<Order> orders;
 
     public static void main(String... args) throws Exception {
-        Connection connection = Connector.createConnection();
+        Connector connector = Connector.getInstance();
+        //Connection connection = Connector.createConnection();
+        Connection connection = connector.getConnection();
         productDao = new ProductDaoImplementation(connection);
-        products = productDao.findAllProductsInDB();
-        Product product = productDao.findProductById(12).addAvailable(true)
-                .addNameEn("Royal Canin Kitten").addNameRu("Royal Canin Kitten")
+        /*Product product = new Product().addCode("C002A").addAvailable(true)
+                .addNameEn("Royal Canin Kitten 4 - 12").addNameRu("Royal Canin Kitten 4 - 12")
                 .addDescriptionEn("Royal Canin dry feed for kittens 4 - 12 month")
                 .addDescriptionRu("Корм Роял Канин для котят в возрасте 4 - 12 месяцeв")
                 .addCost(247.50).addQuantity(50.0)
                 .addUomEn("kg").addUomRu("кг")
-                .addNotesEn("Added by Application runner").addNotesRu("Сгенерировано классом Application");
+                .addNotesEn("Added by Application runner").addNotesRu("Сгенерировано классом Application");*/
         //productDao.addProductToDB(product);
         //productDao.updateProductInDB(product);
-        System.out.println(productDao.deleteProductFromDB(13));
-        System.out.println(productDao.findAllProductsInDB());
+        //System.out.println(productDao.deleteProductFromDB(14));
+        products = productDao.findAllProductsInDB();
+        System.out.println(products);
         Connector.closeConnection(connection);
     }
 }

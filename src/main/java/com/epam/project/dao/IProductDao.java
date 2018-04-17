@@ -10,10 +10,14 @@ public interface IProductDao {
 
     Product findProductById(Integer id) throws Exception;
 
+    Product findProductByCode(String code) throws Exception;
+
     boolean addProductToDB(Product product) throws Exception;
 
     boolean updateProductInDB(Product product) throws Exception;
 
     boolean deleteProductFromDB(Integer id) throws Exception;
+
+    boolean deleteProductFromDB(String code) throws Exception;
 
 }

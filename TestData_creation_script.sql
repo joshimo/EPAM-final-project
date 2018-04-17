@@ -1,28 +1,44 @@
 START TRANSACTION;
-INSERT INTO `project`.`users` (`USER_NAME`, `USER_PASSWORD`, `IS_CLIENT`, `IS_CASHIER`, `IS_SENIOR_CASHIER`, `IS_MERCHANT`, `USER_NOTES`)
-VALUES ('Yaroslav', 'yaroslav', TRUE, FALSE, FALSE, FALSE, 'Created by test script');
-INSERT INTO `project`.`users` (`USER_NAME`, `USER_PASSWORD`, `IS_CLIENT`, `IS_CASHIER`, `IS_SENIOR_CASHIER`, `IS_MERCHANT`, `USER_NOTES`)
-VALUES ('Client', 'client', TRUE, FALSE, FALSE, FALSE, 'Created by test script');
-INSERT INTO `project`.`users` (`USER_NAME`, `USER_PASSWORD`, `IS_CLIENT`, `IS_CASHIER`, `IS_SENIOR_CASHIER`, `IS_MERCHANT`, `USER_NOTES`)
-VALUES ('Cashier', 'cashier', TRUE, TRUE, FALSE, FALSE, 'Created by test script');
-INSERT INTO `project`.`users` (`USER_NAME`, `USER_PASSWORD`, `IS_CLIENT`, `IS_CASHIER`, `IS_SENIOR_CASHIER`, `IS_MERCHANT`, `USER_NOTES`)
-VALUES ('Senior cashier', 'senior cashier', TRUE, TRUE, TRUE, FALSE, 'Created by test script');
-INSERT INTO `project`.`users` (`USER_NAME`, `USER_PASSWORD`, `IS_CLIENT`, `IS_CASHIER`, `IS_SENIOR_CASHIER`, `IS_MERCHANT`, `USER_NOTES`)
-VALUES ('Merchant', 'merchant', TRUE, FALSE, FALSE, TRUE, 'Created by test script');
+
+INSERT INTO `project`.`order_status` (status_id, status_description) VALUES (1, 'CREATED');
+INSERT INTO `project`.`order_status` (status_id, status_description) VALUES (2, 'FINISHED');
+INSERT INTO `project`.`order_status` (status_id, status_description) VALUES (3, 'CANCELLED');
+
+INSERT INTO `project`.`user_roles` (role_id, role_description) VALUES (1, 'USER');
+INSERT INTO `project`.`user_roles` (role_id, role_description) VALUES (2, 'CASHIER');
+INSERT INTO `project`.`user_roles` (role_id, role_description) VALUES (3, 'SENIOR_CASHIER');
+INSERT INTO `project`.`user_roles` (role_id, role_description) VALUES (4, 'MERCHANT');
+INSERT INTO `project`.`user_roles` (role_id, role_description) VALUES (5, 'ADMIN');
+
+INSERT INTO `project`.`users` (user_name, user_password, role_id, user_notes)
+VALUES ('Yaroslav', 'yaroslav', 1, 'Created by test script');
+INSERT INTO `project`.`users` (user_name, user_password, role_id, user_notes)
+VALUES ('Client', 'client', 1, 'Created by test script');
+INSERT INTO `project`.`users` (user_name, user_password, role_id, user_notes)
+VALUES ('Cashier', 'cashier', 2, 'Created by test script');
+INSERT INTO `project`.`users` (user_name, user_password, role_id, user_notes)
+VALUES ('Senior cashier', 'senior cashier', 3, 'Created by test script');
+INSERT INTO `project`.`users` (user_name, user_password, role_id, user_notes)
+VALUES ('Merchant', 'merchant', 4, 'Created by test script');
+INSERT INTO `project`.`users` (user_name, user_password, role_id, user_notes)
+VALUES ('Admin', 'admin', 5, 'Created by test script');
+
 INSERT INTO `project`.`stock` (
-  `IS_AVAILABLE`,
-  `PRODUCT_NAME_EN`,
-  `PRODUCT_NAME_RU`,
-  `PRODUCT_DESCRIPTION_EN`,
-  `PRODUCT_DESCRIPTION_RU`,
-  `PRODUCT_COST`,
-  `PRODUCT_QUANTITY`,
-  `PRODUCT_UOM_EN`,
-  `PRODUCT_UOM_RU`,
-  `PRODUCT_NOTES_EN`,
-  `PRODUCT_NOTES_RU`
+  is_available,
+  product_code,
+  product_name_en,
+  product_name_ru,
+  product_description_en,
+  product_description_ru,
+  product_cost,
+  product_quantity,
+  product_uom_en,
+  product_uom_ru,
+  product_notes_en,
+  product_notes_ru
 ) VALUES (
   TRUE,
+  'D001',
   'Royal Canin X-Small Junior',
   'Royal Canin X-Small Junior',
   'Royal Canin dry feed for small and miniature puppets',
@@ -35,19 +51,21 @@ INSERT INTO `project`.`stock` (
   'Сгенерировано тестовым скриптом'
 );
 INSERT INTO `project`.`stock` (
-  `IS_AVAILABLE`,
-  `PRODUCT_NAME_EN`,
-  `PRODUCT_NAME_RU`,
-  `PRODUCT_DESCRIPTION_EN`,
-  `PRODUCT_DESCRIPTION_RU`,
-  `PRODUCT_COST`,
-  `PRODUCT_QUANTITY`,
-  `PRODUCT_UOM_EN`,
-  `PRODUCT_UOM_RU`,
-  `PRODUCT_NOTES_EN`,
-  `PRODUCT_NOTES_RU`
+  is_available,
+  product_code,
+  product_name_en,
+  product_name_ru,
+  product_description_en,
+  product_description_ru,
+  product_cost,
+  product_quantity,
+  product_uom_en,
+  product_uom_ru,
+  product_notes_en,
+  product_notes_ru
 ) VALUES (
   TRUE,
+  'D002',
   'Royal Canin X-Small Adult',
   'Royal Canin X-Small Adult',
   'Royal Canin dry feed for small and miniature adult dogs',
@@ -60,19 +78,21 @@ INSERT INTO `project`.`stock` (
   'Сгенерировано тестовым скриптом'
 );
 INSERT INTO `project`.`stock` (
-  `IS_AVAILABLE`,
-  `PRODUCT_NAME_EN`,
-  `PRODUCT_NAME_RU`,
-  `PRODUCT_DESCRIPTION_EN`,
-  `PRODUCT_DESCRIPTION_RU`,
-  `PRODUCT_COST`,
-  `PRODUCT_QUANTITY`,
-  `PRODUCT_UOM_EN`,
-  `PRODUCT_UOM_RU`,
-  `PRODUCT_NOTES_EN`,
-  `PRODUCT_NOTES_RU`
+  is_available,
+  product_code,
+  product_name_en,
+  product_name_ru,
+  product_description_en,
+  product_description_ru,
+  product_cost,
+  product_quantity,
+  product_uom_en,
+  product_uom_ru,
+  product_notes_en,
+  product_notes_ru
 ) VALUES (
   TRUE,
+  'D003',
   'Royal Canin Mini Junior',
   'Royal Canin Mini Junior',
   'Royal Canin dry feed for small puppets',
@@ -85,19 +105,21 @@ INSERT INTO `project`.`stock` (
   'Сгенерировано тестовым скриптом'
 );
 INSERT INTO `project`.`stock` (
-  `IS_AVAILABLE`,
-  `PRODUCT_NAME_EN`,
-  `PRODUCT_NAME_RU`,
-  `PRODUCT_DESCRIPTION_EN`,
-  `PRODUCT_DESCRIPTION_RU`,
-  `PRODUCT_COST`,
-  `PRODUCT_QUANTITY`,
-  `PRODUCT_UOM_EN`,
-  `PRODUCT_UOM_RU`,
-  `PRODUCT_NOTES_EN`,
-  `PRODUCT_NOTES_RU`
+  is_available,
+  product_code,
+  product_name_en,
+  product_name_ru,
+  product_description_en,
+  product_description_ru,
+  product_cost,
+  product_quantity,
+  product_uom_en,
+  product_uom_ru,
+  product_notes_en,
+  product_notes_ru
 ) VALUES (
   TRUE,
+  'D004',
   'Royal Canin Mini Adult',
   'Royal Canin Mini Adult',
   'Royal Canin dry feed for small adult dogs',
@@ -110,19 +132,21 @@ INSERT INTO `project`.`stock` (
   'Сгенерировано тестовым скриптом'
 );
 INSERT INTO `project`.`stock` (
-  `IS_AVAILABLE`,
-  `PRODUCT_NAME_EN`,
-  `PRODUCT_NAME_RU`,
-  `PRODUCT_DESCRIPTION_EN`,
-  `PRODUCT_DESCRIPTION_RU`,
-  `PRODUCT_COST`,
-  `PRODUCT_QUANTITY`,
-  `PRODUCT_UOM_EN`,
-  `PRODUCT_UOM_RU`,
-  `PRODUCT_NOTES_EN`,
-  `PRODUCT_NOTES_RU`
+  is_available,
+  product_code,
+  product_name_en,
+  product_name_ru,
+  product_description_en,
+  product_description_ru,
+  product_cost,
+  product_quantity,
+  product_uom_en,
+  product_uom_ru,
+  product_notes_en,
+  product_notes_ru
 ) VALUES (
   TRUE,
+  'D005',
   'Royal Canin Medium Junior',
   'Royal Canin Medium Junior',
   'Royal Canin dry feed for medium size puppets',
@@ -135,19 +159,21 @@ INSERT INTO `project`.`stock` (
   'Сгенерировано тестовым скриптом'
 );
 INSERT INTO `project`.`stock` (
-  `IS_AVAILABLE`,
-  `PRODUCT_NAME_EN`,
-  `PRODUCT_NAME_RU`,
-  `PRODUCT_DESCRIPTION_EN`,
-  `PRODUCT_DESCRIPTION_RU`,
-  `PRODUCT_COST`,
-  `PRODUCT_QUANTITY`,
-  `PRODUCT_UOM_EN`,
-  `PRODUCT_UOM_RU`,
-  `PRODUCT_NOTES_EN`,
-  `PRODUCT_NOTES_RU`
+  is_available,
+  product_code,
+  product_name_en,
+  product_name_ru,
+  product_description_en,
+  product_description_ru,
+  product_cost,
+  product_quantity,
+  product_uom_en,
+  product_uom_ru,
+  product_notes_en,
+  product_notes_ru
 ) VALUES (
   TRUE,
+  'D006',
   'Royal Canin Medium Adult',
   'Royal Canin Medium Adult',
   'Royal Canin dry feed for medium size adult dogs',
@@ -160,19 +186,21 @@ INSERT INTO `project`.`stock` (
   'Сгенерировано тестовым скриптом'
 );
 INSERT INTO `project`.`stock` (
-  `IS_AVAILABLE`,
-  `PRODUCT_NAME_EN`,
-  `PRODUCT_NAME_RU`,
-  `PRODUCT_DESCRIPTION_EN`,
-  `PRODUCT_DESCRIPTION_RU`,
-  `PRODUCT_COST`,
-  `PRODUCT_QUANTITY`,
-  `PRODUCT_UOM_EN`,
-  `PRODUCT_UOM_RU`,
-  `PRODUCT_NOTES_EN`,
-  `PRODUCT_NOTES_RU`
+  is_available,
+  product_code,
+  product_name_en,
+  product_name_ru,
+  product_description_en,
+  product_description_ru,
+  product_cost,
+  product_quantity,
+  product_uom_en,
+  product_uom_ru,
+  product_notes_en,
+  product_notes_ru
 ) VALUES (
   TRUE,
+  'D007',
   'Royal Canin Maxi Junior',
   'Royal Canin Maxi Junior',
   'Royal Canin dry feed for big size puppets',
@@ -185,19 +213,21 @@ INSERT INTO `project`.`stock` (
   'Сгенерировано тестовым скриптом'
 );
 INSERT INTO `project`.`stock` (
-  `IS_AVAILABLE`,
-  `PRODUCT_NAME_EN`,
-  `PRODUCT_NAME_RU`,
-  `PRODUCT_DESCRIPTION_EN`,
-  `PRODUCT_DESCRIPTION_RU`,
-  `PRODUCT_COST`,
-  `PRODUCT_QUANTITY`,
-  `PRODUCT_UOM_EN`,
-  `PRODUCT_UOM_RU`,
-  `PRODUCT_NOTES_EN`,
-  `PRODUCT_NOTES_RU`
+  is_available,
+  product_code,
+  product_name_en,
+  product_name_ru,
+  product_description_en,
+  product_description_ru,
+  product_cost,
+  product_quantity,
+  product_uom_en,
+  product_uom_ru,
+  product_notes_en,
+  product_notes_ru
 ) VALUES (
   TRUE,
+  'D008',
   'Royal Canin Maxi Adult',
   'Royal Canin Maxi Adult',
   'Royal Canin dry feed for big size adult dogs',
@@ -210,19 +240,21 @@ INSERT INTO `project`.`stock` (
   'Сгенерировано тестовым скриптом'
 );
 INSERT INTO `project`.`stock` (
-  `IS_AVAILABLE`,
-  `PRODUCT_NAME_EN`,
-  `PRODUCT_NAME_RU`,
-  `PRODUCT_DESCRIPTION_EN`,
-  `PRODUCT_DESCRIPTION_RU`,
-  `PRODUCT_COST`,
-  `PRODUCT_QUANTITY`,
-  `PRODUCT_UOM_EN`,
-  `PRODUCT_UOM_RU`,
-  `PRODUCT_NOTES_EN`,
-  `PRODUCT_NOTES_RU`
+  is_available,
+  product_code,
+  product_name_en,
+  product_name_ru,
+  product_description_en,
+  product_description_ru,
+  product_cost,
+  product_quantity,
+  product_uom_en,
+  product_uom_ru,
+  product_notes_en,
+  product_notes_ru
 ) VALUES (
   TRUE,
+  'D009',
   'Royal Canin Energy',
   'Royal Canin Energy',
   'Royal Canin crockets for adult dogs training',
@@ -235,19 +267,21 @@ INSERT INTO `project`.`stock` (
   'Сгенерировано тестовым скриптом'
 );
 INSERT INTO `project`.`stock` (
-  `IS_AVAILABLE`,
-  `PRODUCT_NAME_EN`,
-  `PRODUCT_NAME_RU`,
-  `PRODUCT_DESCRIPTION_EN`,
-  `PRODUCT_DESCRIPTION_RU`,
-  `PRODUCT_COST`,
-  `PRODUCT_QUANTITY`,
-  `PRODUCT_UOM_EN`,
-  `PRODUCT_UOM_RU`,
-  `PRODUCT_NOTES_EN`,
-  `PRODUCT_NOTES_RU`
+  is_available,
+  product_code,
+  product_name_en,
+  product_name_ru,
+  product_description_en,
+  product_description_ru,
+  product_cost,
+  product_quantity,
+  product_uom_en,
+  product_uom_ru,
+  product_notes_en,
+  product_notes_ru
 ) VALUES (
   TRUE,
+  'D010',
   'Royal Canin Educ',
   'Royal Canin Educ',
   'Royal Canin crockets for adult dogs and puppets training',

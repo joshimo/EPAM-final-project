@@ -6,6 +6,7 @@ import java.util.Locale;
 public class Product {
 
     private Integer id;
+    private String code;
     private Boolean isAvailable;
     private String nameEn;
     private String nameRu;
@@ -24,6 +25,10 @@ public class Product {
     /** getters */
     public Integer getId() {
         return id;
+    }
+
+    public String getCode() {
+        return code;
     }
 
     public Boolean getAvailable() {
@@ -76,6 +81,10 @@ public class Product {
         this.id = id;
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public void setAvailable(Boolean available) {
         isAvailable = available;
     }
@@ -120,7 +129,13 @@ public class Product {
         this.notesRu = notesRu;
     }
 
-    /** Add methods for Bilder template */
+    /** Add methods for Builder template */
+
+    public Product addCode(String code) {
+        this.code = code;
+        return this;
+    }
+
     public Product addAvailable(Boolean available) {
         isAvailable = available;
         return this;
@@ -183,7 +198,7 @@ public class Product {
         if (o == null || getClass() != o.getClass())
             return false;
         Product product = (Product) o;
-        return id.equals(product.id);
+        return code.equals(product.code);
     }
 
     @Override
@@ -194,6 +209,7 @@ public class Product {
     @Override
     public String toString() {
         return  "\nProduct ID = " + id +
+                "\nProduct code = " + code +
                 "\nisAvailable: " + isAvailable +
                 "\nnameEn: " + nameEn +
                 "\nnameRu: " + nameRu +

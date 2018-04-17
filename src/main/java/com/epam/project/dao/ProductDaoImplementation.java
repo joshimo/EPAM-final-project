@@ -10,6 +10,19 @@ import java.util.function.Function;
 
 public class ProductDaoImplementation implements IProductDao {
 
+    private static String selectAll = "SELECT * FROM stock;";
+    private static String selectById = "SELECT * FROM stock WHERE product_id=?;";
+    private static String selectByCode = "SELECT * FROM stock WHERE product_code=?;";
+    private static String addNewProduct = "INSERT INTO `project`.`stock` (" +
+            "product_code, is_available, product_name_en, product_name_ru, product_description_en, product_description_ru, " +
+            "product_cost, product_quantity, product_uom_en, product_uom_ru, product_notes_en, product_notes_ru" +
+            ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+    private static String updateProduct = "UPDATE project.stock SET product_code=?, " +
+            "is_available=?, product_name_en=?, product_name_ru=?, product_description_en=?, product_description_ru=?, " +
+            "product_cost=?, product_quantity=?, product_uom_en=?, product_uom_ru=?, " +
+            "product_notes_en=?, product_notes_ru=? WHERE product_id=?";
+    private static String deleteProduct = "DELETE FROM project.stock WHERE PRODUCT_ID=?;";
+
     private Connection connection;
 
     public ProductDaoImplementation(Connection connection) {
@@ -21,64 +34,78 @@ public class ProductDaoImplementation implements IProductDao {
     public List<Product> findAllProductsInDB() throws Exception {
         List<Product> productList = new LinkedList<>();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = Connector.sendRequest(statement,"SELECT * FROM stock;");
+        ResultSet resultSet = Connector.sendRequest(statement, selectAll);
         while (resultSet.next()) {
             Product product = mapProductFromResultSet(resultSet);
             productList.add(product);
         }
-        Connector.closeStatement(statement);
         resultSet.close();
+        Connector.closeStatement(statement);
         return productList;
     }
 
     @Override
     public Product findProductById(Integer id) throws Exception {
         Product product = null;
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = Connector.sendRequest(statement,"SELECT * FROM stock WHERE PRODUCT_ID=" + id + ";");
+        PreparedStatement preparedStatement = createPreparedStatement(selectById);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next())
             product = mapProductFromResultSet(resultSet);
         resultSet.close();
-        Connector.closeStatement(statement);
+        Connector.closeStatement(preparedStatement);
+        return product;
+    }
+
+    @Override
+    public Product findProductByCode(String code) throws Exception {
+        Product product = null;
+        PreparedStatement preparedStatement = createPreparedStatement(selectById);
+        preparedStatement.setString(1, code);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next())
+            product = mapProductFromResultSet(resultSet);
+        resultSet.close();
+        Connector.closeStatement(preparedStatement);
         return product;
     }
 
     @Override
     public boolean addProductToDB(Product product) throws Exception {
-        String preparedRequest = "INSERT INTO `project`.`stock` (" +
-                "`IS_AVAILABLE`, `PRODUCT_NAME_EN`, `PRODUCT_NAME_RU`, `PRODUCT_DESCRIPTION_EN`, `PRODUCT_DESCRIPTION_RU`, " +
-                "`PRODUCT_COST`, `PRODUCT_QUANTITY`, `PRODUCT_UOM_EN`, `PRODUCT_UOM_RU`, `PRODUCT_NOTES_EN`, `PRODUCT_NOTES_RU`" +
-                ") VALUES (?,?,?,?,?,?,?,?,?,?,?);";
-        PreparedStatement preparedStatement = createPreparedStatement(preparedRequest);
+        PreparedStatement preparedStatement = createPreparedStatement(addNewProduct);
         mapper.map(product, preparedStatement);
-        if (preparedStatement.executeUpdate() > 0)
-            return true;
-        return false;
+        boolean result = preparedStatement.executeUpdate() > 0;
+        Connector.closeStatement(preparedStatement);
+        return result;
     }
 
     @Override
     public boolean updateProductInDB(Product product) throws Exception {
-        String preparedRequest = "UPDATE project.stock SET IS_AVAILABLE=?, PRODUCT_NAME_EN=?, PRODUCT_NAME_RU=?, " +
-                          "PRODUCT_DESCRIPTION_EN=?, PRODUCT_DESCRIPTION_RU=?, PRODUCT_COST=?, PRODUCT_QUANTITY=?, " +
-                          "PRODUCT_UOM_EN=?, PRODUCT_UOM_RU=?, PRODUCT_NOTES_EN=?, PRODUCT_NOTES_RU=? " +
-                          "WHERE PRODUCT_ID=" + product.getId() + ";";
-        PreparedStatement preparedStatement = createPreparedStatement(preparedRequest);
+        PreparedStatement preparedStatement = createPreparedStatement(updateProduct);
         mapper.map(product, preparedStatement);
-        if (preparedStatement.executeUpdate() > 0)
-            return true;
-        return false;
+        preparedStatement.setInt(13, product.getId());
+        boolean result = preparedStatement.executeUpdate() > 0;
+        Connector.closeStatement(preparedStatement);
+        return result;
     }
 
     @Override
     public boolean deleteProductFromDB(Integer id) throws Exception {
-        String preparedRequest = "DELETE FROM project.stock WHERE PRODUCT_ID=?;";
-        PreparedStatement preparedStatement = createPreparedStatement(preparedRequest);
+        PreparedStatement preparedStatement = createPreparedStatement(deleteProduct);
         preparedStatement.setInt(1, id);
-        if (preparedStatement.executeUpdate() > 0)
-            return true;
-        return false;
+        boolean result = preparedStatement.executeUpdate() > 0;
+        Connector.closeStatement(preparedStatement);
+        return result;
     }
 
+    @Override
+    public boolean deleteProductFromDB(String productCode) throws Exception {
+        PreparedStatement preparedStatement = createPreparedStatement(deleteProduct);
+        preparedStatement.setString(1, productCode);
+        boolean result = preparedStatement.executeUpdate() > 0;
+        Connector.closeStatement(preparedStatement);
+        return result;
+    }
 
 
     /** Private methods for serving methods implementing DAO interface */
@@ -88,33 +115,35 @@ public class ProductDaoImplementation implements IProductDao {
     }
 
     Mapper mapper = (Product product, PreparedStatement preparedStatement) -> {
-        preparedStatement.setBoolean(1, product.getAvailable());
-        preparedStatement.setString(2, product.getNameEn());
-        preparedStatement.setString(3, product.getNameRu());
-        preparedStatement.setString(4, product.getDescriptionEn());
-        preparedStatement.setString(5, product.getDescriptionRu());
-        preparedStatement.setDouble(6, product.getCost());
-        preparedStatement.setDouble(7, product.getQuantity());
-        preparedStatement.setString(8, product.getUomEn());
-        preparedStatement.setString(9, product.getUomRu());
-        preparedStatement.setString(10, product.getNotesEn());
-        preparedStatement.setString(11, product.getNotesRu());
+        preparedStatement.setString(1, product.getCode());
+        preparedStatement.setBoolean(2, product.getAvailable());
+        preparedStatement.setString(3, product.getNameEn());
+        preparedStatement.setString(4, product.getNameRu());
+        preparedStatement.setString(5, product.getDescriptionEn());
+        preparedStatement.setString(6, product.getDescriptionRu());
+        preparedStatement.setDouble(7, product.getCost());
+        preparedStatement.setDouble(8, product.getQuantity());
+        preparedStatement.setString(9, product.getUomEn());
+        preparedStatement.setString(10, product.getUomRu());
+        preparedStatement.setString(11, product.getNotesEn());
+        preparedStatement.setString(12, product.getNotesRu());
     };
 
     private Product mapProductFromResultSet(ResultSet resultSet) throws SQLException {
         Product product = new Product();
-        product.setId(resultSet.getInt("PRODUCT_ID"));
-        product.setAvailable(resultSet.getBoolean("IS_AVAILABLE"));
-        product.setNameEn(resultSet.getString("PRODUCT_NAME_EN"));
-        product.setNameRu(resultSet.getString("PRODUCT_NAME_RU"));
-        product.setDescriptionEn(resultSet.getString("PRODUCT_DESCRIPTION_EN"));
-        product.setDescriptionRu(resultSet.getString("PRODUCT_DESCRIPTION_RU"));
-        product.setCost(resultSet.getDouble("PRODUCT_COST"));
-        product.setQuantity(resultSet.getDouble("PRODUCT_QUANTITY"));
-        product.setUomEn(resultSet.getString("PRODUCT_UOM_EN"));
-        product.setUomRu(resultSet.getString("PRODUCT_UOM_RU"));
-        product.setNotesEn(resultSet.getString("PRODUCT_NOTES_EN"));
-        product.setNotesRu(resultSet.getString("PRODUCT_NOTES_RU"));
+        product.setId(resultSet.getInt("product_id"));
+        product.setCode(resultSet.getString("product_code"));
+        product.setAvailable(resultSet.getBoolean("is_available"));
+        product.setNameEn(resultSet.getString("product_name_en"));
+        product.setNameRu(resultSet.getString("product_name_ru"));
+        product.setDescriptionEn(resultSet.getString("product_description_en"));
+        product.setDescriptionRu(resultSet.getString("product_description_ru"));
+        product.setCost(resultSet.getDouble("product_cost"));
+        product.setQuantity(resultSet.getDouble("product_quantity"));
+        product.setUomEn(resultSet.getString("product_uom_en"));
+        product.setUomRu(resultSet.getString("product_uom_ru"));
+        product.setNotesEn(resultSet.getString("product_notes_en"));
+        product.setNotesRu(resultSet.getString("product_notes_ru"));
         return product;
     }
 
