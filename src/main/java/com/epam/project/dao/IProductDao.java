@@ -1,23 +1,26 @@
 package com.epam.project.dao;
 
 import com.epam.project.entities.Product;
+import com.epam.project.exceptions.DataBaseConnectionException;
+import com.epam.project.exceptions.DataDuplicationException;
+import com.epam.project.exceptions.IncorrectPropertyException;
 
 import java.util.List;
 
 public interface IProductDao {
 
-    List<Product> findAllProductsInDB() throws Exception;
+    <T extends Exception> List<Product> findAllProductsInDB() throws T;
 
-    Product findProductById(Integer id) throws Exception;
+    <T extends Exception> Product findProductById(Integer id) throws T;
 
-    Product findProductByCode(String code) throws Exception;
+    <T extends Exception> Product findProductByCode(String code) throws T;
 
-    boolean addProductToDB(Product product) throws Exception;
+    <T extends Exception> boolean addProductToDB(Product product) throws T;
 
-    boolean updateProductInDB(Product product) throws Exception;
+    <T extends Exception> boolean updateProductInDB(Product product) throws T;
 
-    boolean deleteProductFromDB(Integer id) throws Exception;
+    <T extends Exception> boolean deleteProductFromDB(Integer id) throws T;
 
-    boolean deleteProductFromDB(String code) throws Exception;
+    <T extends Exception> boolean deleteProductFromDB(String code) throws T;
 
 }

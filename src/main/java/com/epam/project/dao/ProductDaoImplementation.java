@@ -1,120 +1,33 @@
 package com.epam.project.dao;
 
 import com.epam.project.entities.Product;
+import com.epam.project.exceptions.DataBaseConnectionException;
+import com.epam.project.exceptions.DataNotFoundException;
+import com.epam.project.exceptions.IncorrectPropertyException;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 public class ProductDaoImplementation implements IProductDao {
 
-    private static String selectAll = "SELECT * FROM stock;";
-    private static String selectById = "SELECT * FROM stock WHERE product_id=?;";
-    private static String selectByCode = "SELECT * FROM stock WHERE product_code=?;";
-    private static String addNewProduct = "INSERT INTO `project`.`stock` (" +
-            "product_code, is_available, product_name_en, product_name_ru, product_description_en, product_description_ru, " +
+    private static String SQL_selectAll = "SELECT * FROM stock;";
+    private static String SQL_selectById = "SELECT * FROM stock WHERE product_id=?;";
+    private static String SQL_selectByCode = "SELECT * FROM stock WHERE product_code=?;";
+    private static String SQL_addNewProduct = "INSERT INTO project.stock (product_code, is_available, " +
+            "product_name_en, product_name_ru, product_description_en, product_description_ru, " +
             "product_cost, product_quantity, product_uom_en, product_uom_ru, product_notes_en, product_notes_ru" +
             ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
-    private static String updateProduct = "UPDATE project.stock SET product_code=?, " +
-            "is_available=?, product_name_en=?, product_name_ru=?, product_description_en=?, product_description_ru=?, " +
+    private static String SQL_updateProduct = "UPDATE project.stock SET product_code=?, is_available=?, " +
+            "product_name_en=?, product_name_ru=?, product_description_en=?, product_description_ru=?, " +
             "product_cost=?, product_quantity=?, product_uom_en=?, product_uom_ru=?, " +
-            "product_notes_en=?, product_notes_ru=? WHERE product_id=?";
-    private static String deleteProduct = "DELETE FROM project.stock WHERE PRODUCT_ID=?;";
-
-    private Connection connection;
-
-    public ProductDaoImplementation(Connection connection) {
-        this.connection = connection;
-    }
-
-    /** Implementation of IProductDao interface methods */
-    @Override
-    public List<Product> findAllProductsInDB() throws Exception {
-        List<Product> productList = new LinkedList<>();
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = Connector.sendRequest(statement, selectAll);
-        while (resultSet.next()) {
-            Product product = mapProductFromResultSet(resultSet);
-            productList.add(product);
-        }
-        resultSet.close();
-        Connector.closeStatement(statement);
-        return productList;
-    }
-
-    @Override
-    public Product findProductById(Integer id) throws Exception {
-        Product product = null;
-        PreparedStatement preparedStatement = createPreparedStatement(selectById);
-        preparedStatement.setInt(1, id);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next())
-            product = mapProductFromResultSet(resultSet);
-        resultSet.close();
-        Connector.closeStatement(preparedStatement);
-        return product;
-    }
-
-    @Override
-    public Product findProductByCode(String code) throws Exception {
-        Product product = null;
-        PreparedStatement preparedStatement = createPreparedStatement(selectById);
-        preparedStatement.setString(1, code);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next())
-            product = mapProductFromResultSet(resultSet);
-        resultSet.close();
-        Connector.closeStatement(preparedStatement);
-        return product;
-    }
-
-    @Override
-    public boolean addProductToDB(Product product) throws Exception {
-        PreparedStatement preparedStatement = createPreparedStatement(addNewProduct);
-        mapper.map(product, preparedStatement);
-        boolean result = preparedStatement.executeUpdate() > 0;
-        Connector.closeStatement(preparedStatement);
-        return result;
-    }
-
-    @Override
-    public boolean updateProductInDB(Product product) throws Exception {
-        PreparedStatement preparedStatement = createPreparedStatement(updateProduct);
-        mapper.map(product, preparedStatement);
-        preparedStatement.setInt(13, product.getId());
-        boolean result = preparedStatement.executeUpdate() > 0;
-        Connector.closeStatement(preparedStatement);
-        return result;
-    }
-
-    @Override
-    public boolean deleteProductFromDB(Integer id) throws Exception {
-        PreparedStatement preparedStatement = createPreparedStatement(deleteProduct);
-        preparedStatement.setInt(1, id);
-        boolean result = preparedStatement.executeUpdate() > 0;
-        Connector.closeStatement(preparedStatement);
-        return result;
-    }
-
-    @Override
-    public boolean deleteProductFromDB(String productCode) throws Exception {
-        PreparedStatement preparedStatement = createPreparedStatement(deleteProduct);
-        preparedStatement.setString(1, productCode);
-        boolean result = preparedStatement.executeUpdate() > 0;
-        Connector.closeStatement(preparedStatement);
-        return result;
-    }
-
+            "product_notes_en=?, product_notes_ru=? WHERE product_code=?;";
+    private static String SQL_deleteProductById = "DELETE FROM project.stock WHERE product_id=?;";
+    private static String SQL_deleteProductByCode = "DELETE FROM project.stock WHERE product_code=?;";
 
     /** Private methods for serving methods implementing DAO interface */
 
-    private interface Mapper {
-        void map(Product product, PreparedStatement ps) throws SQLException;
-    }
-
-    Mapper mapper = (Product product, PreparedStatement preparedStatement) -> {
+    private Mapper<Product, PreparedStatement> mapperToDB = (Product product, PreparedStatement preparedStatement) -> {
         preparedStatement.setString(1, product.getCode());
         preparedStatement.setBoolean(2, product.getAvailable());
         preparedStatement.setString(3, product.getNameEn());
@@ -129,8 +42,7 @@ public class ProductDaoImplementation implements IProductDao {
         preparedStatement.setString(12, product.getNotesRu());
     };
 
-    private Product mapProductFromResultSet(ResultSet resultSet) throws SQLException {
-        Product product = new Product();
+    private Mapper<ResultSet, Product> mapperFromDB = (ResultSet resultSet, Product product) -> {
         product.setId(resultSet.getInt("product_id"));
         product.setCode(resultSet.getString("product_code"));
         product.setAvailable(resultSet.getBoolean("is_available"));
@@ -144,16 +56,135 @@ public class ProductDaoImplementation implements IProductDao {
         product.setUomRu(resultSet.getString("product_uom_ru"));
         product.setNotesEn(resultSet.getString("product_notes_en"));
         product.setNotesRu(resultSet.getString("product_notes_ru"));
+    };
+
+    public ProductDaoImplementation() {
+    }
+
+    /** Implementation of IProductDao interface methods */
+
+    @Override
+    public List<Product> findAllProductsInDB() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
+        List<Product> products = new LinkedList<>();
+        Connection connection = Connector.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectAll);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Product product = new Product();
+                mapperFromDB.map(resultSet, product);
+                products.add(product);
+            }
+        } catch (SQLException sqle) {
+            throw new DataNotFoundException();
+        } finally {
+            Connector.closeConnection(connection);
+        }
+        return products;
+    }
+
+    @Override
+    public Product findProductById(Integer id) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+        Product product = new Product();
+        Connection connection = Connector.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectById);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                mapperFromDB.map(resultSet, product);
+            else
+                throw new DataNotFoundException();
+        } catch (SQLException sqle) {
+            throw new DataNotFoundException();
+        } finally {
+            Connector.closeConnection(connection);
+        }
         return product;
     }
 
-    private PreparedStatement createPreparedStatement(String preparedRequest) {
-        PreparedStatement ps = null;
+    @Override
+    public Product findProductByCode(String code) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+        Product product = new Product();
+        Connection connection = Connector.getInstance().getConnection();
         try {
-            ps = connection.prepareStatement(preparedRequest);
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectByCode);
+            preparedStatement.setString(1, code);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                mapperFromDB.map(resultSet, product);
+            else
+                throw new DataNotFoundException();
         } catch (SQLException sqle) {
-            sqle.printStackTrace();
+            throw new DataNotFoundException();
+        } finally {
+            Connector.closeConnection(connection);
         }
-        return ps;
+        return product;
+    }
+
+    @Override
+    public boolean addProductToDB(Product product) throws IncorrectPropertyException, DataBaseConnectionException {
+        boolean result = false;
+        Connection connection = Connector.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_addNewProduct);
+            mapperToDB.map(product, preparedStatement);
+            result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException sqle) {
+            result = false;
+        } finally {
+            Connector.closeConnection(connection);
+            return result;
+        }
+    }
+
+    @Override
+    public boolean updateProductInDB(Product product) throws IncorrectPropertyException, DataBaseConnectionException {
+        boolean result = false;
+        Connection connection = Connector.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_updateProduct);
+            preparedStatement.setString(13, product.getCode());
+            mapperToDB.map(product, preparedStatement);
+            result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException sqle) {
+            result = false;
+        } finally {
+            Connector.closeConnection(connection);
+            return result;
+        }
+    }
+
+    @Override
+    public boolean deleteProductFromDB(Integer id) throws IncorrectPropertyException, DataBaseConnectionException {
+        boolean result = false;
+        Connection connection = Connector.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_deleteProductById);
+            preparedStatement.setInt(1, id);
+            result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException sqle) {
+            result = false;
+        } finally {
+            Connector.closeConnection(connection);
+            return result;
+        }
+    }
+
+    @Override
+    public boolean deleteProductFromDB(String code) throws IncorrectPropertyException, DataBaseConnectionException {
+        boolean result = false;
+        Connection connection = Connector.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_deleteProductByCode);
+            preparedStatement.setString(1, code);
+            result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException sqle) {
+            result = false;
+        } finally {
+            Connector.closeConnection(connection);
+            return result;
+        }
     }
 }

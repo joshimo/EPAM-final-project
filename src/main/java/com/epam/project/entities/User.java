@@ -1,12 +1,17 @@
 package com.epam.project.entities;
 
-/** 'User' Enity is mapped both to project.users & project.user_role tables*/
+/** 'User' Enity is mapped both to project.users & project.user_roles tables*/
 public class User {
+
     private Integer id;
     private String name;
     private String password;
     private UserRole userRole;
     private String notes;
+
+    public User() {
+
+    }
 
     public User(String name, String password) {
         this.name = name;
@@ -59,7 +64,7 @@ public class User {
 
     @Override
     public String toString() {
-        return  "User ID = " + id +
+        return  "\nUser ID = " + id +
                 "\nName: " + name +
                 "\nPassword: " + password +
                 "\nRole: " + userRole +

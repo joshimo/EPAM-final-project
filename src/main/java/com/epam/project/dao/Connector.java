@@ -1,80 +1,83 @@
 package com.epam.project.dao;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.Connection;
 import java.util.Properties;
-
+import com.epam.project.exceptions.DataBaseConnectionException;
+import com.epam.project.exceptions.IncorrectPropertyException;
 import org.apache.commons.dbcp.BasicDataSource;
 
 public class Connector {
     private static Connector connectionPool;
     private BasicDataSource dataSource;
 
-    private Connector() throws IOException, SQLException {
+    private Connector() throws IncorrectPropertyException {
+        String user;
+        String password;
+        String host;
+        String port;
+        String database;
+        String useUnicode;
+        String encoding;
+        String url;
+        Integer minIdle;
+        Integer maxIdle;
+        Integer maxOpenPStatements;
         Properties dbProperties = new Properties();
-        dbProperties.load(new FileReader("src/main/java/dbConfig.properties"));
-        String user = dbProperties.getProperty("user");
-        String password = dbProperties.getProperty("password");
-        String host = dbProperties.getProperty("host");
-        String port = dbProperties.getProperty("port");
-        String database = dbProperties.getProperty("database");
-        String useUnicode = dbProperties.getProperty("useUnicode");
-        String encoding = dbProperties.getProperty("encoding");
-        String url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?useUnicode=" + useUnicode + "&characterEncoding=" + encoding;
+        try {
+            dbProperties.load(new FileReader("src/main/java/dbConfig.properties"));
+        } catch (IOException ioe) {
+            throw new IncorrectPropertyException("Database property file not found");
+        }
+        try {
+            user = dbProperties.getProperty("user");
+            password = dbProperties.getProperty("password");
+            host = dbProperties.getProperty("host");
+            port = dbProperties.getProperty("port");
+            database = dbProperties.getProperty("database");
+            useUnicode = dbProperties.getProperty("useUnicode");
+            encoding = dbProperties.getProperty("encoding");
+            url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?useUnicode=" + useUnicode + "&characterEncoding=" + encoding;
+            minIdle = Integer.parseInt(dbProperties.getProperty("minIdle"));
+            maxIdle = Integer.parseInt(dbProperties.getProperty("maxIdle"));
+            maxOpenPStatements = Integer.parseInt(dbProperties.getProperty("maxOpenPreparedStatements"));
+        } catch (NullPointerException npe) {
+            throw new IncorrectPropertyException("Incorrect db property");
+        } catch (NumberFormatException nfe) {
+            throw new IncorrectPropertyException("Incorrect db property");
+        }
         dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUsername(user);
         dataSource.setPassword(password);
         dataSource.setUrl(url);
-        dataSource.setMinIdle(8);
-        dataSource.setMaxIdle(16);
-        dataSource.setMaxOpenPreparedStatements(180);
+        dataSource.setMinIdle(minIdle);
+        dataSource.setMaxIdle(maxIdle);
+        dataSource.setMaxOpenPreparedStatements(maxOpenPStatements);
     }
 
-    public static Connector getInstance() throws IOException, SQLException {
+    public static synchronized Connector getInstance() throws IncorrectPropertyException {
         if (connectionPool == null)
             connectionPool = new Connector();
         return connectionPool;
     }
 
-    public java.sql.Connection getConnection() throws SQLException {
-        return this.dataSource.getConnection();
-    }
-
-    static ResultSet sendRequest(Statement statement, String query) {
-        ResultSet resultSet = null;
+    public Connection getConnection() throws DataBaseConnectionException {
         try {
-            resultSet = statement.executeQuery(query);
+            return this.dataSource.getConnection();
         } catch (SQLException sqle) {
-            sqle.printStackTrace();
-            closeStatement(statement);
-        }
-        return resultSet;
-    }
-
-    static void closeStatement(Statement statement) {
-        try {
-            if (statement != null)
-                statement.close();
-        } catch (SQLException sqle1) {
-            sqle1.printStackTrace();
+            throw new DataBaseConnectionException();
         }
     }
 
-    public static void closeConnection(java.sql.Connection connection) {
+    public static void closeConnection(Connection connection) throws DataBaseConnectionException {
         try {
             connection.close();
         } catch (SQLException sqle) {
-            sqle.printStackTrace();
+            throw new DataBaseConnectionException("Unable to close database connection");
+        } catch (NullPointerException npe) {
+            /** Nothing to close if null */
         }
-    }
-
-    public void info() {
-        System.out.println("Max. Active connections: " + this.dataSource.getMaxActive());
-        System.out.println("Active connections: " + this.dataSource.getNumActive());
-        System.out.println("Max. Idle connections: " + this.dataSource.getMaxIdle());
-        System.out.println("Idle connections: " + this.dataSource.getNumIdle());
     }
 }

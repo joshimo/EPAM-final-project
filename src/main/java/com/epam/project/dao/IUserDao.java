@@ -6,14 +6,16 @@ import java.util.List;
 
 public interface IUserDao {
 
-    List<User> retrieveAllUsersFromDB();
+    <T extends Exception> List<User> findAllUsersInDB() throws T;
 
-    User retrieveUserById(Integer id);
+    <T extends Exception> User findUserById(Integer id) throws T;
 
-    boolean addUserToDB(User user) throws Exception;
+    <T extends Exception> User findUserByName(String name) throws T;
 
-    boolean updateUserInDB(User user) throws Exception;
+    <T extends Exception> boolean addUserToDB(User user) throws T;
 
-    boolean deleteUserFromDB(User user) throws Exception;
+    <T extends Exception> boolean updateUserInDB(User user) throws T;
+
+    <T extends Exception> boolean deleteUserFromDB(User user) throws T;
 
 }
