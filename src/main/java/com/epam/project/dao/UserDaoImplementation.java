@@ -23,8 +23,11 @@ public class UserDaoImplementation implements IUserDao {
             "WHERE user_name=?;";
     private static String SQL_addNew = "INSERT INTO project.users " +
             "(user_name, user_password, role_id, user_notes) VALUES (?,?,?,?)";
-    private static String SQL_updateExist = "UPDATE project.users SET " +
+    private static String SQL_updateByName = "UPDATE project.users SET " +
             "user_name=?, user_password=?, role_id=?, user_notes=? WHERE user_name=?;";
+    private static String SQL_updateById = "UPDATE project.users SET " +
+            "user_name=?, user_password=?, role_id=?, user_notes=? WHERE user_id=?;";
+    private static String SQL_deleteUser = "DELETE FROM project.users WHERE user_name=?;";
 
     private Mapper<User, PreparedStatement> mapperToDB = (User user, PreparedStatement preparedStatement) -> {
         preparedStatement.setString(1, user.getName());
@@ -125,7 +128,7 @@ public class UserDaoImplementation implements IUserDao {
         boolean result = false;
         Connection connection = Connector.getInstance().getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_updateExist);
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_updateByName);
             preparedStatement.setString(5, user.getName());
             mapperToDB.map(user, preparedStatement);
             result = preparedStatement.executeUpdate() > 0;
@@ -138,7 +141,18 @@ public class UserDaoImplementation implements IUserDao {
     }
 
     @Override
-    public <T extends Exception> boolean deleteUserFromDB(User user) throws T {
-        return false;
+    public boolean deleteUserFromDB(User user) throws IncorrectPropertyException, DataBaseConnectionException {
+        boolean result = false;
+        Connection connection = Connector.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_deleteUser);
+            preparedStatement.setString(1, user.getName());
+            result = preparedStatement.executeUpdate() > 0;
+        } catch (SQLException sqle) {
+            result = false;
+        } finally {
+            Connector.closeConnection(connection);
+            return result;
+        }
     }
 }

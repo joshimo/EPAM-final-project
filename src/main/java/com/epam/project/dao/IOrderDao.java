@@ -6,14 +6,17 @@ import java.util.List;
 
 public interface IOrderDao {
 
-    List<Order> findAllOrdersByUser(Integer userId);
+    <T extends Exception> List<Order> findAllOrders() throws T;
 
-    Order findOrderById(Integer id);
+    <T extends Exception> List<Order> findAllOrdersByUser(Integer userId) throws T;
 
-    boolean addOrderToDB(Order order) throws Exception;
+    <T extends Exception> Order findOrderById(Integer id) throws T;
 
-    boolean updateOrderInDB(Order order) throws Exception;
+    <T extends Exception> boolean addOrderToDB(Order order) throws T;
 
-    boolean deleteOrderFromDB(Order order) throws Exception;
+    <T extends Exception> boolean updateOrderInDB(Order order) throws T;
 
+    <T extends Exception> boolean deleteOrderFromDB(Order order) throws T;
+
+    <T extends Exception> boolean closeOrder(Order order) throws T;
 }

@@ -1,20 +1,24 @@
 package com.epam.project.entities;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.Map;
 
 /** 'Order' Enity is mapped both to project.orders and project.payments tables*/
 public class Order {
+
     private Integer orderId;
-    private Integer userId;
+    private String userName;
+    private OrderStatus orderStatus;
     private Timestamp orderDate;
-    private Boolean isApproved;
-    private Boolean isCancelled;
     private Map<Product, Double> products;
-    private Map<Integer, Double> productsAlt;
+    private Map<String, Double> prod;
     private String notes;
 
     public Order() {
+        products = new HashMap<>();
+        prod = new HashMap<>();
     }
 
     /** Getters */
@@ -22,20 +26,16 @@ public class Order {
         return orderId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
     public Timestamp getOrderDate() {
         return orderDate;
-    }
-
-    public Boolean getApproved() {
-        return isApproved;
-    }
-
-    public Boolean getCancelled() {
-        return isCancelled;
     }
 
     public Map<Product, Double> getProducts() {
@@ -51,20 +51,16 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public void setOrderDate(Timestamp orderDate) {
         this.orderDate = orderDate;
-    }
-
-    public void setApproved(Boolean approved) {
-        isApproved = approved;
-    }
-
-    public void setCancelled(Boolean cancelled) {
-        isCancelled = cancelled;
     }
 
     public void setProducts(Map<Product, Double> products) {
@@ -73,6 +69,16 @@ public class Order {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    /** Methods to add a product to order */
+
+    public void addProduct(Product product, Double quantity) {
+        products.put(product, quantity);
+    }
+
+    public void addProduct(String productCode, Double quantity) {
+        prod.put(productCode, quantity);
     }
 
     @Override
@@ -86,5 +92,32 @@ public class Order {
     @Override
     public int hashCode() {
         return orderId.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        int num = 0;
+        StringBuilder sb = new StringBuilder("\nOrder Id = ").append(orderId);
+        sb.append("\nUser name: ").append(userName);
+        sb.append("\nStatus: ").append(orderStatus.name());
+        sb.append("\nDate: ").append(orderDate);
+        sb.append("\nNotes: ").append(notes);
+        sb.append("\nOrder details:").append("\n*********************************************************************");
+        for (Map.Entry<Product, Double> entry : products.entrySet()) {
+            num ++;
+            Product product = entry.getKey();
+            Double quantity = entry.getValue();
+            sb.append("\n").append(num).append(". ").append(product.getCode()).append(": ")
+                    .append(product.getNameEn()).append(" = ").append(quantity).append(product.getUomEn()).append(";");
+        }
+        for (Map.Entry<String, Double> entry : prod.entrySet()) {
+            num ++;
+            String code = entry.getKey();
+            Double quantity = entry.getValue();
+            sb.append("\n").append(num).append(". ").append(code).append(": ").append(quantity).append(";");
+        }
+        sb.append("\n*********************************************************************");
+        sb.append("\n------------------------------------------------------------------------------------------------");
+        return  sb.toString();
     }
 }

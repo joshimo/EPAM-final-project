@@ -293,4 +293,19 @@ INSERT INTO `project`.`stock` (
   'Created by test script',
   'Сгенерировано тестовым скриптом'
 );
+
+INSERT INTO project.orders (user_id, status_id, order_notes) VALUES (1, 1, 'Created by test script');
+INSERT INTO project.payments (order_id, product_code, quantity, pament_notes) VALUES (1, 'D006', 5.0, 'Created by test script');
+INSERT INTO project.payments (order_id, product_code, quantity, pament_notes) VALUES (1, 'D008', 7.0, 'Created by test script');
+INSERT INTO project.payments (order_id, product_code, quantity, pament_notes) VALUES (1, 'D009', 20, 'Created by test script');
+
+INSERT INTO project.orders (user_id, status_id, order_notes) VALUES (2, 1, 'Created by test script');
+INSERT INTO project.payments (order_id, product_code, quantity, pament_notes) VALUES (2, 'D003', 3.0, 'Created by test script');
+INSERT INTO project.payments (order_id, product_code, quantity, pament_notes) VALUES (2, 'D010', 10, 'Created by test script');
+
+INSERT INTO project.orders (user_id, status_id, order_notes) VALUES (2, 1, 'Created by test script');
+INSERT INTO project.payments (order_id, product_code, quantity, pament_notes) VALUES (3, 'D008', 20, 'Created by test script');
+INSERT INTO project.payments (order_id, product_code, quantity, pament_notes) VALUES (3, 'D009', 50, 'Created by test script');
+INSERT INTO project.payments (order_id, product_code, quantity, pament_notes) VALUES (3, 'D010', 50, 'Created by test script');
+
 COMMIT;

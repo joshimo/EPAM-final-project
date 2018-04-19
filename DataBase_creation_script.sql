@@ -54,7 +54,7 @@ CREATE TABLE project.payments (
   product_code VARCHAR(12) NOT NULL,
   quantity DOUBLE NOT NULL DEFAULT 0,
   is_paid BIT(1) NOT NULL DEFAULT FALSE,
-  payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  payment_date TIMESTAMP,
   pament_notes VARCHAR(255),
   FOREIGN KEY (order_id) REFERENCES project.orders(order_id),
   FOREIGN KEY (product_code) REFERENCES project.stock(product_code)
