@@ -66,7 +66,7 @@ public class ProductDaoImplementation implements IProductDao {
     @Override
     public List<Product> findAllProductsInDB() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
         List<Product> products = new LinkedList<>();
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectAll);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -78,7 +78,7 @@ public class ProductDaoImplementation implements IProductDao {
         } catch (SQLException sqle) {
             throw new DataNotFoundException();
         } finally {
-            Connector.closeConnection(connection);
+            MySQLDaoFactory.closeConnection(connection);
         }
         return products;
     }
@@ -86,7 +86,7 @@ public class ProductDaoImplementation implements IProductDao {
     @Override
     public Product findProductById(Integer id) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         Product product = new Product();
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectById);
             preparedStatement.setInt(1, id);
@@ -98,7 +98,7 @@ public class ProductDaoImplementation implements IProductDao {
         } catch (SQLException sqle) {
             throw new DataNotFoundException();
         } finally {
-            Connector.closeConnection(connection);
+            MySQLDaoFactory.closeConnection(connection);
         }
         return product;
     }
@@ -106,7 +106,7 @@ public class ProductDaoImplementation implements IProductDao {
     @Override
     public Product findProductByCode(String code) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         Product product = new Product();
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectByCode);
             preparedStatement.setString(1, code);
@@ -118,7 +118,7 @@ public class ProductDaoImplementation implements IProductDao {
         } catch (SQLException sqle) {
             throw new DataNotFoundException();
         } finally {
-            Connector.closeConnection(connection);
+            MySQLDaoFactory.closeConnection(connection);
         }
         return product;
     }
@@ -126,7 +126,7 @@ public class ProductDaoImplementation implements IProductDao {
     @Override
     public boolean addProductToDB(Product product) throws IncorrectPropertyException, DataBaseConnectionException {
         boolean result = false;
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_addNewProduct);
             mapperToDB.map(product, preparedStatement);
@@ -134,7 +134,7 @@ public class ProductDaoImplementation implements IProductDao {
         } catch (SQLException sqle) {
             result = false;
         } finally {
-            Connector.closeConnection(connection);
+            MySQLDaoFactory.closeConnection(connection);
             return result;
         }
     }
@@ -142,7 +142,7 @@ public class ProductDaoImplementation implements IProductDao {
     @Override
     public boolean updateProductInDB(Product product) throws IncorrectPropertyException, DataBaseConnectionException {
         boolean result = false;
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_updateProduct);
             preparedStatement.setString(13, product.getCode());
@@ -151,7 +151,7 @@ public class ProductDaoImplementation implements IProductDao {
         } catch (SQLException sqle) {
             result = false;
         } finally {
-            Connector.closeConnection(connection);
+            MySQLDaoFactory.closeConnection(connection);
             return result;
         }
     }
@@ -159,7 +159,7 @@ public class ProductDaoImplementation implements IProductDao {
     @Override
     public boolean deleteProductFromDB(Integer id) throws IncorrectPropertyException, DataBaseConnectionException {
         boolean result = false;
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_deleteProductById);
             preparedStatement.setInt(1, id);
@@ -167,7 +167,7 @@ public class ProductDaoImplementation implements IProductDao {
         } catch (SQLException sqle) {
             result = false;
         } finally {
-            Connector.closeConnection(connection);
+            MySQLDaoFactory.closeConnection(connection);
             return result;
         }
     }
@@ -175,7 +175,7 @@ public class ProductDaoImplementation implements IProductDao {
     @Override
     public boolean deleteProductFromDB(String code) throws IncorrectPropertyException, DataBaseConnectionException {
         boolean result = false;
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_deleteProductByCode);
             preparedStatement.setString(1, code);
@@ -183,7 +183,7 @@ public class ProductDaoImplementation implements IProductDao {
         } catch (SQLException sqle) {
             result = false;
         } finally {
-            Connector.closeConnection(connection);
+            MySQLDaoFactory.closeConnection(connection);
             return result;
         }
     }

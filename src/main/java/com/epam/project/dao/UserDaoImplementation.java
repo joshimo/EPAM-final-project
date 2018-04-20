@@ -50,7 +50,7 @@ public class UserDaoImplementation implements IUserDao {
     @Override
     public List<User> findAllUsersInDB() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         List<User> users = new LinkedList<>();
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectAll);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -62,7 +62,7 @@ public class UserDaoImplementation implements IUserDao {
         } catch (SQLException sqle) {
             throw new DataNotFoundException();
         } finally {
-            Connector.closeConnection(connection);
+            MySQLDaoFactory.closeConnection(connection);
         }
         return users;
     }
@@ -70,7 +70,7 @@ public class UserDaoImplementation implements IUserDao {
     @Override
     public User findUserById(Integer id) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         User user = new User();
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectById);
             preparedStatement.setInt(1, id);
@@ -82,7 +82,7 @@ public class UserDaoImplementation implements IUserDao {
         } catch (SQLException sqle) {
             throw new DataNotFoundException();
         } finally {
-            Connector.closeConnection(connection);
+            MySQLDaoFactory.closeConnection(connection);
         }
         return user;
     }
@@ -90,7 +90,7 @@ public class UserDaoImplementation implements IUserDao {
     @Override
     public User findUserByName(String name) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         User user = new User();
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectByName);
             preparedStatement.setString(1, name);
@@ -102,7 +102,7 @@ public class UserDaoImplementation implements IUserDao {
         } catch (SQLException sqle) {
             throw new DataNotFoundException();
         } finally {
-            Connector.closeConnection(connection);
+            MySQLDaoFactory.closeConnection(connection);
         }
         return user;
     }
@@ -110,7 +110,7 @@ public class UserDaoImplementation implements IUserDao {
     @Override
     public boolean addUserToDB(User user) throws IncorrectPropertyException, DataBaseConnectionException  {
         boolean result = false;
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_addNew);
             mapperToDB.map(user, preparedStatement);
@@ -118,7 +118,7 @@ public class UserDaoImplementation implements IUserDao {
         } catch (SQLException sqle) {
             result = false;
         } finally {
-            Connector.closeConnection(connection);
+            MySQLDaoFactory.closeConnection(connection);
             return result;
         }
     }
@@ -126,7 +126,7 @@ public class UserDaoImplementation implements IUserDao {
     @Override
     public boolean updateUserInDB(User user) throws IncorrectPropertyException, DataBaseConnectionException   {
         boolean result = false;
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_updateByName);
             preparedStatement.setString(5, user.getName());
@@ -135,7 +135,7 @@ public class UserDaoImplementation implements IUserDao {
         } catch (SQLException sqle) {
             result = false;
         } finally {
-            Connector.closeConnection(connection);
+            MySQLDaoFactory.closeConnection(connection);
             return result;
         }
     }
@@ -143,7 +143,7 @@ public class UserDaoImplementation implements IUserDao {
     @Override
     public boolean deleteUserFromDB(User user) throws IncorrectPropertyException, DataBaseConnectionException {
         boolean result = false;
-        Connection connection = Connector.getInstance().getConnection();
+        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_deleteUser);
             preparedStatement.setString(1, user.getName());
@@ -151,7 +151,7 @@ public class UserDaoImplementation implements IUserDao {
         } catch (SQLException sqle) {
             result = false;
         } finally {
-            Connector.closeConnection(connection);
+            MySQLDaoFactory.closeConnection(connection);
             return result;
         }
     }
