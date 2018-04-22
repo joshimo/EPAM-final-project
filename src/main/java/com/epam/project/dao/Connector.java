@@ -8,6 +8,7 @@ import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.IncorrectPropertyException;
 import org.apache.commons.dbcp.BasicDataSource;
 
+@Deprecated
 public class Connector {
     private static Connector connectionPool;
     private BasicDataSource dataSource;

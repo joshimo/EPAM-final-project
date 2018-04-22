@@ -294,18 +294,18 @@ INSERT INTO `project`.`stock` (
   'Сгенерировано тестовым скриптом'
 );
 
-INSERT INTO project.orders (user_id, status_id, order_notes) VALUES (1, 1, 'Created by test script');
-INSERT INTO project.payments (order_id, product_code, quantity, payment_notes) VALUES (1, 'D006', 5.0, 'Created by test script');
-INSERT INTO project.payments (order_id, product_code, quantity, payment_notes) VALUES (1, 'D008', 7.0, 'Created by test script');
-INSERT INTO project.payments (order_id, product_code, quantity, payment_notes) VALUES (1, 'D009', 20, 'Created by test script');
+INSERT INTO project.orders (order_code, user_name, status_id, order_notes) VALUES (1, 'Yaroslav', 1, 'Created by test script');
+INSERT INTO project.payments (order_code, product_code, quantity, payment_value, status_id, payment_notes) VALUES (1, 'D006', 5.0, 0.01, 1, 'Created by test script');
+INSERT INTO project.payments (order_code, product_code, quantity, payment_value, status_id, payment_notes) VALUES (1, 'D008', 7.0, 0.01, 1, 'Created by test script');
+INSERT INTO project.payments (order_code, product_code, quantity, payment_value, status_id, payment_notes) VALUES (1, 'D009', 20, 0.01, 1, 'Created by test script');
 
-INSERT INTO project.orders (user_id, status_id, order_notes) VALUES (2, 1, 'Created by test script');
-INSERT INTO project.payments (order_id, product_code, quantity, payment_notes) VALUES (2, 'D003', 3.0, 'Created by test script');
-INSERT INTO project.payments (order_id, product_code, quantity, payment_notes) VALUES (2, 'D010', 10, 'Created by test script');
+INSERT INTO project.orders (order_code, user_name, status_id, order_notes) VALUES (2, 'Client', 1, 'Created by test script');
+INSERT INTO project.payments (order_code, product_code, quantity, payment_value, status_id, payment_notes) VALUES (2, 'D003', 3.0, 0.02, 1, 'Created by test script');
+INSERT INTO project.payments (order_code, product_code, quantity, payment_value, status_id, payment_notes) VALUES (2, 'D010', 10, 0.02, 1, 'Created by test script');
 
-INSERT INTO project.orders (user_id, status_id, order_notes) VALUES (2, 1, 'Created by test script');
-INSERT INTO project.payments (order_id, product_code, quantity, payment_notes) VALUES (3, 'D008', 20, 'Created by test script');
-INSERT INTO project.payments (order_id, product_code, quantity, payment_notes) VALUES (3, 'D009', 50, 'Created by test script');
-INSERT INTO project.payments (order_id, product_code, quantity, payment_notes) VALUES (3, 'D010', 50, 'Created by test script');
+INSERT INTO project.orders (order_code, user_name, status_id, order_notes) VALUES (3, 'Client', 1, 'Created by test script');
+INSERT INTO project.payments (order_code, product_code, quantity, payment_value, status_id, payment_notes) VALUES (3, 'D008', 20, 0.03, 1, 'Created by test script');
+INSERT INTO project.payments (order_code, product_code, quantity, payment_value, status_id, payment_notes) VALUES (3, 'D009', 50, 0.03, 1, 'Created by test script');
+INSERT INTO project.payments (order_code, product_code, quantity, payment_value, status_id, payment_notes) VALUES (3, 'D010', 50, 0.03, 1, 'Created by test script');
 
 COMMIT;

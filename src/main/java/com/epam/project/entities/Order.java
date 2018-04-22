@@ -9,8 +9,8 @@ import java.util.Map;
 public class Order {
 
     private Integer orderId;
+    private Long orderCode;
     private String userName;
-    private Integer userId;
     private OrderStatus orderStatus;
     private Timestamp orderDate;
     private Map<Product, Double> products;
@@ -26,6 +26,7 @@ public class Order {
         this();
         orderId = id;
     }
+
     /** Getters */
     public Integer getOrderId() {
         return orderId;
@@ -33,10 +34,6 @@ public class Order {
 
     public String getUserName() {
         return userName;
-    }
-
-    public Integer getUserId() {
-        return userId;
     }
 
     public OrderStatus getOrderStatus() {
@@ -62,10 +59,6 @@ public class Order {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {

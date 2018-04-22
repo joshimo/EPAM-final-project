@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+@Deprecated
 public class ProductDaoImplementation implements IProductDao {
 
     private static String SQL_selectAll = "SELECT * FROM stock;";

@@ -40,22 +40,24 @@ CREATE TABLE project.users (
 
 CREATE TABLE project.orders (
   order_id SMALLINT NOT NULL AUTO_INCREMENT KEY,
-  user_id SMALLINT NOT NULL,
+  order_code BIGINT UNIQUE NOT NULL,
+  user_name VARCHAR(128) NOT NULL,
   status_id SMALLINT NOT NULL,
   order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   order_notes VARCHAR(255),
-  FOREIGN KEY (user_id) REFERENCES project.users (user_id),
+  FOREIGN KEY (user_name) REFERENCES project.users (user_name),
   FOREIGN KEY (status_id) REFERENCES project.order_status (status_id)
 ) ENGINE InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE project.payments (
   payment_id SMALLINT NOT NULL AUTO_INCREMENT KEY,
-  order_id SMALLINT NOT NULL,
+  order_code BIGINT NOT NULL,
   product_code VARCHAR(12) NOT NULL,
   quantity DOUBLE NOT NULL DEFAULT 0,
-  is_paid BIT(1) NOT NULL DEFAULT FALSE,
-  payment_date TIMESTAMP,
+  payment_value DOUBLE NOT NULL DEFAULT 0,
+  status_id SMALLINT NOT NULL,
   payment_notes VARCHAR(255),
-  FOREIGN KEY (order_id) REFERENCES project.orders(order_id),
-  FOREIGN KEY (product_code) REFERENCES project.stock(product_code)
+  FOREIGN KEY (product_code) REFERENCES project.stock(product_code),
+  FOREIGN KEY (order_code) REFERENCES project.orders(order_code),
+  FOREIGN KEY (status_id) REFERENCES project.orders(status_id)
 ) ENGINE InnoDB DEFAULT CHARSET=utf8;

@@ -70,7 +70,7 @@ public class OrderDaoImplementation implements IOrderDao {
     };
 
     private Mapper<Order, PreparedStatement> mapperToDB = (Order order, PreparedStatement preparedStatement) -> {
-        preparedStatement.setInt(1, order.getUserId());
+        //preparedStatement.setInt(1, order.getUserId());
         preparedStatement.setInt(2, order.getOrderStatus().ordinal() + 1);
         preparedStatement.setString(3, order.getNotes());
     };

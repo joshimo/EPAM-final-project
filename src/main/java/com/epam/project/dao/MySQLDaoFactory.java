@@ -79,14 +79,15 @@ public class MySQLDaoFactory extends DaoFactory {
 
     @Override
     public IUserDao getUserDao() {
-        return new UserDaoImplementation();
+        return new UserDaoImpl();
     }
 
     @Override
     public IProductDao getProductDao() {
-        return new ProductDaoImplementation();
+        return new ProductDaoImpl();
     }
 
+    //ToDo: will be changed to GenericAbstractDAO implementation
     @Override
     public IOrderDao getOrderDao() {
         return new OrderDaoImplementation();
