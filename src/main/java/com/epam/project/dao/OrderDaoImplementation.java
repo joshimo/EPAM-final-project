@@ -15,9 +15,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class OrderDaoImplementation implements IOrderDao {
+@Deprecated
+public class OrderDaoImplementation /*implements IOrderDao*/ {
 
-    private static String SQL_selectAll = "SELECT orders.order_id, " +
+    /*private static String SQL_selectAll = "SELECT orders.order_id, " +
             "users.user_name, " +
             "order_status.status_description, " +
             "orders.order_date, " +
@@ -174,9 +175,9 @@ public class OrderDaoImplementation implements IOrderDao {
         boolean result = false;
         Connection connection = MySQLDaoFactory.getConnection();
         List<PreparedStatement> statements = new LinkedList<>();
-        try {
+        try {*/
             /** Begin of transaction */
-            connection.setAutoCommit(false);
+            /*connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_add_order);
             mapperToDB.map(order, preparedStatement);
             statements.add(preparedStatement);
@@ -191,9 +192,9 @@ public class OrderDaoImplementation implements IOrderDao {
             }
             for (PreparedStatement ps : statements)
                 ps.executeUpdate();
-            connection.commit();
+            connection.commit();*/
             /** Transaction finished */
-        } catch (SQLException sqle) {
+        /*} catch (SQLException sqle) {
             result = false;
         } finally {
             MySQLDaoFactory.closeConnection(connection);
@@ -215,18 +216,18 @@ public class OrderDaoImplementation implements IOrderDao {
     public boolean closeOrder(Order order) throws IncorrectPropertyException, DataBaseConnectionException  {
         boolean result = false;
         Connection connection = MySQLDaoFactory.getConnection();
-        try {
+        try {*/
             /** Begin of transaction */
-            connection.setAutoCommit(false);
+            /*connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection.prepareStatement("");
             result = preparedStatement.executeUpdate() > 0;
-            connection.commit();
+            connection.commit();*/
             /** Transaction finished */
-        } catch (SQLException sqle) {
+        /*} catch (SQLException sqle) {
             result = false;
         } finally {
             MySQLDaoFactory.closeConnection(connection);
             return result;
         }
-    }
+    }*/
 }

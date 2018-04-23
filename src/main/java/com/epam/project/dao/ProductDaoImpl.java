@@ -5,6 +5,7 @@ import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -65,40 +66,58 @@ public class ProductDaoImpl extends GenericAbstractDao<Product> implements IProd
 
     @Override
     public List<Product> findAllProductsInDB() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        List<Product> products = findAll(Product.class, SQL_selectAll);
+        Connection connection = MySQLDaoFactory.getConnection();
+        List<Product> products = findAll(connection, Product.class, SQL_selectAll);
+        MySQLDaoFactory.closeConnection(connection);
         return products;
     }
 
     @Override
     public Product findProductById(Integer id) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        Product product = findBy(Product.class, SQL_selectById, id);
+        Connection connection = MySQLDaoFactory.getConnection();
+        Product product = findBy(connection, Product.class, SQL_selectById, id);
+        MySQLDaoFactory.closeConnection(connection);
         return product;
     }
 
     @Override
     public Product findProductByCode(String code) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        Product product = findBy(Product.class, SQL_selectByCode, code);
+        Connection connection = MySQLDaoFactory.getConnection();
+        Product product = findBy(connection, Product.class, SQL_selectByCode, code);
+        MySQLDaoFactory.closeConnection(connection);
         return product;
     }
 
     @Override
     public boolean addProductToDB(Product product) throws IncorrectPropertyException, DataBaseConnectionException {
-        return addToDB(product, SQL_addNewProduct);
+        Connection connection = MySQLDaoFactory.getConnection();
+        boolean result = addToDB(connection, product, SQL_addNewProduct);
+        MySQLDaoFactory.closeConnection(connection);
+        return result;
     }
 
     @Override
     public boolean updateProductInDB(Product product) throws IncorrectPropertyException, DataBaseConnectionException {
+        Connection connection = MySQLDaoFactory.getConnection();
         String code = product.getCode();
-        return updateInDB(product, SQL_updateProduct, 13, code);
+        boolean result = updateInDB(connection, product, SQL_updateProduct, 13, code);
+        MySQLDaoFactory.closeConnection(connection);
+        return result;
     }
 
     @Override
     public boolean deleteProductFromDB(Integer id) throws IncorrectPropertyException, DataBaseConnectionException {
-        return deleteFromDB(SQL_deleteProductById, id);
+        Connection connection = MySQLDaoFactory.getConnection();
+        boolean result = deleteFromDB(connection, SQL_deleteProductById, id);
+        MySQLDaoFactory.closeConnection(connection);
+        return result;
     }
 
     @Override
     public boolean deleteProductFromDB(String code) throws IncorrectPropertyException, DataBaseConnectionException {
-        return deleteFromDB(SQL_deleteProductByCode, code);
+        Connection connection = MySQLDaoFactory.getConnection();
+        boolean result = deleteFromDB(connection, SQL_deleteProductByCode, code);
+        MySQLDaoFactory.closeConnection(connection);
+        return result;
     }
 }

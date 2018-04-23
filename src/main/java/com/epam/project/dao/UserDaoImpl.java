@@ -6,6 +6,7 @@ import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -47,34 +48,49 @@ public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao{
 
     @Override
     public List<User> findAllUsersInDB() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        List<User> users = findAll(User.class, SQL_selectAll);
+        Connection connection = MySQLDaoFactory.getConnection();
+        List<User> users = findAll(connection, User.class, SQL_selectAll);
+        MySQLDaoFactory.closeConnection(connection);
         return users;
     }
 
     @Override
     public User findUserById(Integer id) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
-        User user = findBy(User.class, SQL_selectById, id);
+        Connection connection = MySQLDaoFactory.getConnection();
+        User user = findBy(connection, User.class, SQL_selectById, id);
+        MySQLDaoFactory.closeConnection(connection);
         return user;
     }
 
     @Override
     public User findUserByName(String name) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
-        User user = findBy(User.class, SQL_selectByName, name);
+        Connection connection = MySQLDaoFactory.getConnection();
+        User user = findBy(connection, User.class, SQL_selectByName, name);
+        MySQLDaoFactory.closeConnection(connection);
         return user;
     }
 
     @Override
     public boolean addUserToDB(User user) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
-        return addToDB(user, SQL_addNew);
+        Connection connection = MySQLDaoFactory.getConnection();
+        boolean result = addToDB(connection, user, SQL_addNew);
+        MySQLDaoFactory.closeConnection(connection);
+        return result;
     }
 
     @Override
     public boolean updateUserInDB(User user) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
-        return updateInDB(user, SQL_updateByName, 5, user.getName());
+        Connection connection = MySQLDaoFactory.getConnection();
+        boolean result = updateInDB(connection, user, SQL_updateByName, 5, user.getName());
+        MySQLDaoFactory.closeConnection(connection);
+        return result;
     }
 
     @Override
     public boolean deleteUserFromDB(User user) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
-        return deleteFromDB(SQL_deleteUser, user.getName());
+        Connection connection = MySQLDaoFactory.getConnection();
+        boolean result = deleteFromDB(connection, SQL_deleteUser, user.getName());
+        MySQLDaoFactory.closeConnection(connection);
+        return result;
     }
 }

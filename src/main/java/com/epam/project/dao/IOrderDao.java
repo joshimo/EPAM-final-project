@@ -8,7 +8,7 @@ public interface IOrderDao {
 
     <T extends Exception> List<Order> findAllOrders() throws T;
 
-    <T extends Exception> List<Order> findAllOrdersByUser(Integer userId) throws T;
+    <T extends Exception> List<Order> findAllOrdersByUser(String userName) throws T;
 
     <T extends Exception> Order findOrderById(Integer id) throws T;
 
@@ -18,5 +18,4 @@ public interface IOrderDao {
 
     <T extends Exception> boolean deleteOrderFromDB(Order order) throws T;
 
-    <T extends Exception> boolean closeOrder(Order order) throws T;
 }

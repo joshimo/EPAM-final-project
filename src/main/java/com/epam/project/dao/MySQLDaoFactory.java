@@ -90,6 +90,6 @@ public class MySQLDaoFactory extends DaoFactory {
     //ToDo: will be changed to GenericAbstractDAO implementation
     @Override
     public IOrderDao getOrderDao() {
-        return new OrderDaoImplementation();
+        return null;
     }
 }

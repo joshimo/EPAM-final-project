@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-// ToDo: add optional connection open/close inside methods implementations
 public abstract class GenericAbstractDao<T> {
 
     protected Mapper<T, PreparedStatement> mapperToDB;
@@ -28,9 +27,8 @@ public abstract class GenericAbstractDao<T> {
         this.mapperFromDB = mapperFromDB;
     }
 
-    List<T> findAll(Class t, String SQL_getAll) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+    List<T> findAll(Connection connection, Class t, String SQL_getAll) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         List<T> items = new LinkedList<>();
-        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_getAll);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -45,13 +43,11 @@ public abstract class GenericAbstractDao<T> {
             }
         } catch (SQLException sqle) {
             throw new DataNotFoundException();
-        } finally {
-            MySQLDaoFactory.closeConnection(connection);
         }
         return items;
     }
 
-    public T findBy(Class t, String SQL_selectByParameter, Integer parameter) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+    public T findBy(Connection connection, Class t, String SQL_selectByParameter, Integer parameter) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         T item = null;
         try {
             item = (T) t.newInstance();
@@ -60,7 +56,6 @@ public abstract class GenericAbstractDao<T> {
         } catch (IllegalAccessException iae) {
             throw new DataNotFoundException();
         }
-        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectByParameter);
             preparedStatement.setInt(1, parameter);
@@ -71,13 +66,11 @@ public abstract class GenericAbstractDao<T> {
                 throw new DataNotFoundException();
         } catch (SQLException sqle) {
             throw new DataNotFoundException();
-        } finally {
-            MySQLDaoFactory.closeConnection(connection);
         }
         return item;
     }
 
-    public T findBy(Class t, String SQL_selectByParameter, String parameter) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+    public T findBy(Connection connection, Class t, String SQL_selectByParameter, String parameter) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         T item = null;
         try {
             item = (T) t.newInstance();
@@ -86,7 +79,6 @@ public abstract class GenericAbstractDao<T> {
         } catch (IllegalAccessException iae) {
             throw new DataNotFoundException();
         }
-        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectByParameter);
             preparedStatement.setString(1, parameter);
@@ -97,15 +89,12 @@ public abstract class GenericAbstractDao<T> {
                 throw new DataNotFoundException();
         } catch (SQLException sqle) {
             throw new DataNotFoundException();
-        } finally {
-            MySQLDaoFactory.closeConnection(connection);
         }
         return item;
     }
 
-    public boolean addToDB(T item, String SQL_addNew) throws IncorrectPropertyException, DataBaseConnectionException {
+    public boolean addToDB(Connection connection, T item, String SQL_addNew) throws IncorrectPropertyException, DataBaseConnectionException {
         boolean result = false;
-        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_addNew);
             mapperToDB.map(item, preparedStatement);
@@ -113,14 +102,12 @@ public abstract class GenericAbstractDao<T> {
         } catch (SQLException sqle) {
             result = false;
         } finally {
-            MySQLDaoFactory.closeConnection(connection);
             return result;
         }
     }
 
-    public boolean updateInDB(T item, String SQL_update, Integer paramNum, Integer param) throws IncorrectPropertyException, DataBaseConnectionException {
+    public boolean updateInDB(Connection connection, T item, String SQL_update, Integer paramNum, Integer param) throws IncorrectPropertyException, DataBaseConnectionException {
         boolean result = false;
-        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_update);
             mapperToDB.map(item, preparedStatement);
@@ -129,14 +116,12 @@ public abstract class GenericAbstractDao<T> {
         } catch (SQLException sqle) {
             result = false;
         } finally {
-            MySQLDaoFactory.closeConnection(connection);
             return result;
         }
     }
 
-    public boolean updateInDB(T item, String SQL_update, Integer paramNum, String param) throws IncorrectPropertyException, DataBaseConnectionException {
+    public boolean updateInDB(Connection connection, T item, String SQL_update, Integer paramNum, String param) throws IncorrectPropertyException, DataBaseConnectionException {
         boolean result = false;
-        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_update);
             mapperToDB.map(item, preparedStatement);
@@ -145,14 +130,12 @@ public abstract class GenericAbstractDao<T> {
         } catch (SQLException sqle) {
             result = false;
         } finally {
-            MySQLDaoFactory.closeConnection(connection);
             return result;
         }
     }
 
-    public boolean deleteFromDB(String SQL_delete, Integer id) throws IncorrectPropertyException, DataBaseConnectionException {
+    public boolean deleteFromDB(Connection connection, String SQL_delete, Integer id) throws IncorrectPropertyException, DataBaseConnectionException {
         boolean result = false;
-        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_delete);
             preparedStatement.setInt(1, id);
@@ -160,14 +143,12 @@ public abstract class GenericAbstractDao<T> {
         } catch (SQLException sqle) {
             result = false;
         } finally {
-            MySQLDaoFactory.closeConnection(connection);
             return result;
         }
     }
 
-    public boolean deleteFromDB(String SQL_delete, String param) throws IncorrectPropertyException, DataBaseConnectionException {
+    public boolean deleteFromDB(Connection connection, String SQL_delete, String param) throws IncorrectPropertyException, DataBaseConnectionException {
         boolean result = false;
-        Connection connection = MySQLDaoFactory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_delete);
             preparedStatement.setString(1, param);
@@ -175,7 +156,6 @@ public abstract class GenericAbstractDao<T> {
         } catch (SQLException sqle) {
             result = false;
         } finally {
-            MySQLDaoFactory.closeConnection(connection);
             return result;
         }
     }
