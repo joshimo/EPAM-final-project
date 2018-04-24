@@ -41,7 +41,7 @@ public class PaymentDaoTester {
         System.out.println("All payments\n");
         payments = paymentDao.findAllPayments();
         System.out.println(payments);
-        System.out.println("\nPayments by order code 1:");
+        System.out.println("\nPayments by order code 999:");
         payments = paymentDao.findAllPaymentsByOrderCode(1L);
         System.out.println(payments);
         System.out.println("\nPayments by id 1:");

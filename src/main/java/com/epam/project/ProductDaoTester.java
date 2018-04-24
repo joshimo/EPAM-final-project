@@ -24,16 +24,16 @@ public class ProductDaoTester {
     }
 
     public void testProductDao() {
-        Product product = new Product().addCode("C002A").addAvailable(true)
-                .addNameEn("Royal Canin Kitten 3 - 120").addNameRu("Royal Canin Kitten 3 - 120")
-                .addDescriptionEn("Royal Canin dry feed for kittens 3 - 120 month")
-                .addDescriptionRu("Корм Роял Канин для котят в возрасте 3 - 120 месяцeв")
+        Product product = new Product().addCode("C002").addAvailable(true)
+                .addNameEn("Royal Canin Kitten 3 - 12").addNameRu("Royal Canin Kitten 3 - 12")
+                .addDescriptionEn("Royal Canin dry feed for kittens 3 - 12 month")
+                .addDescriptionRu("Корм Роял Канин для котят в возрасте 3 - 12 месяцeв")
                 .addCost(247.50).addQuantity(50.0)
                 .addUomEn("kg").addUomRu("кг")
                 .addNotesEn("Added by ProductDaoTester runner").addNotesRu("Сгенерировано классом ProductDaoTester");
         //System.out.println(productDao.addProductToDB(product));
         //System.out.println(productDao.updateProductInDB(product));
-        System.out.println(productDao.deleteProductFromDB("C002A"));
+        //System.out.println(productDao.deleteProductFromDB("C002A"));
         System.out.println("All products\n");
         products = productDao.findAllProductsInDB();
         System.out.println(products);

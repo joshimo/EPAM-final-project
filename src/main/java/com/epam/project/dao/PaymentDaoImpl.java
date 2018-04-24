@@ -62,11 +62,7 @@ public class PaymentDaoImpl extends GenericAbstractDao<Payment> implements IPaym
     @Override
     public List<Payment> findAllPaymentsByOrderCode(Long orderCode)
             throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        List<Payment> payments = findAll(this.connection, Payment.class, SQL_selectAll);
-        List<Payment> results = new LinkedList<>();
-        for (Payment payment : payments)
-            if (payment.getOrderCode() == orderCode)
-                results.add(payment);
+        List<Payment> results = findAsListBy(this.connection, Payment.class, SQL_selectByOrderCode, orderCode);
         return results;
     }
 

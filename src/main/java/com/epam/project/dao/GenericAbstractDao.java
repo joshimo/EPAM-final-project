@@ -93,6 +93,51 @@ public abstract class GenericAbstractDao<T> {
         return item;
     }
 
+    public List<T> findAsListBy(Connection connection, Class t, String SQL_selectByParameter, Long parameter) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+        List<T> items = new LinkedList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectByParameter);
+            preparedStatement.setLong(1, parameter);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                try {
+                    T item = (T) t.newInstance();
+                    mapperFromDB.map(resultSet, item);
+                    items.add(item);
+                } catch (InstantiationException ie) {
+                } catch (IllegalAccessException iae) {
+                }
+            }
+
+        } catch (SQLException sqle) {
+            throw new DataNotFoundException();
+        }
+        return items;
+    }
+
+    public List<T> findAsListBy(Connection connection, Class t, String SQL_selectByParameter, String parameter) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+        List<T> items = new LinkedList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectByParameter);
+            preparedStatement.setString(1, parameter);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                try {
+                    T item = (T) t.newInstance();
+                    mapperFromDB.map(resultSet, item);
+                    items.add(item);
+                } catch (InstantiationException ie) {
+                } catch (IllegalAccessException iae) {
+                }
+            }
+
+        } catch (SQLException sqle) {
+            throw new DataNotFoundException();
+        }
+        return items;
+    }
+
+
     public boolean addToDB(Connection connection, T item, String SQL_addNew) throws IncorrectPropertyException, DataBaseConnectionException {
         boolean result = false;
         try {

@@ -15,6 +15,8 @@ import java.util.List;
 public class OrderDaoImpl extends GenericAbstractDao<Order> implements IOrderDao {
 
     private Connection connection;
+
+
     private static String SQL_selectAll = "SELECT * FROM orders " +
             "JOIN order_status ON orders.status_id=order_status.status_id;";
     private static String SQL_selectAllByUserName = "SELECT * FROM orders " +

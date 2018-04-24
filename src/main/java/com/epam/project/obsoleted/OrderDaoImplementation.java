@@ -1,4 +1,4 @@
-package com.epam.project.dao;
+package com.epam.project.obsoleted;
 
 import com.epam.project.entities.Order;
 import com.epam.project.entities.OrderStatus;
