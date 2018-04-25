@@ -34,7 +34,7 @@ public class PaymentDaoTester {
         payment.setQuantity(0.4);
         payment.setPaymentValue(0.01);
         payment.setStatusId(OrderStatus.CREATED);
-        payment.setPaymentNotes("Added by PaymentDaoTester runner");
+        payment.setPaymentNotes("Created by " + this.getClass().getSimpleName());
         //System.out.println(paymentDao.addPaymentToDB(payment));
         //System.out.println(paymentDao.updatePaymentInDB(payment));
         //System.out.println(paymentDao.deletePaymentFromDB(payment));

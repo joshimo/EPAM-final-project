@@ -6,6 +6,7 @@ import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataBaseNotSupportedException;
 import com.epam.project.exceptions.IncorrectPropertyException;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class ProductDaoTester {
@@ -20,26 +21,45 @@ public class ProductDaoTester {
 
     public static void main(String... args) throws Exception {
         ProductDaoTester productDaoTester = new ProductDaoTester();
-        productDaoTester.testProductDao();
+        productDaoTester.testFind(11, "D010");
+        //System.out.println("Product updated: " + productDaoTester.testUpdateProduct("C002"));
+        //System.out.println("Product added: " + productDaoTester.testAddProduct(productDaoTester.createTestProduct("C002A")));
+        //System.out.println("Product deleted: " + productDaoTester.testDeleteProduct("C002A"));
     }
 
-    public void testProductDao() {
-        Product product = new Product().addCode("C002").addAvailable(true)
-                .addNameEn("Royal Canin Kitten 3 - 12").addNameRu("Royal Canin Kitten 3 - 12")
-                .addDescriptionEn("Royal Canin dry feed for kittens 3 - 12 month")
-                .addDescriptionRu("Корм Роял Канин для котят в возрасте 3 - 12 месяцeв")
+    private Product createTestProduct(String code) {
+        Product product = new Product().addCode(code).addAvailable(true)
+                .addNameEn("Royal Canin Kitten 30 - 120").addNameRu("Royal Canin Kitten 30 - 120")
+                .addDescriptionEn("Royal Canin dry feed for kittens 30 - 120 month")
+                .addDescriptionRu("Корм Роял Канин для котят в возрасте 30 - 120 месяцeв")
                 .addCost(247.50).addQuantity(50.0)
                 .addUomEn("kg").addUomRu("кг")
-                .addNotesEn("Added by ProductDaoTester runner").addNotesRu("Сгенерировано классом ProductDaoTester");
-        //System.out.println(productDao.addProductToDB(product));
-        //System.out.println(productDao.updateProductInDB(product));
-        //System.out.println(productDao.deleteProductFromDB("C002A"));
-        System.out.println("All products\n");
-        products = productDao.findAllProductsInDB();
-        System.out.println(products);
-        System.out.println("\nProduct by id = 11");
-        System.out.println(productDao.findProductById(11));
-        System.out.println("\nProduct by code = D005");
-        System.out.println(productDao.findProductByCode("D005"));
+                .addNotesEn("Created by " + this.getClass().getSimpleName()).addNotesRu("Сгенерировано классом " + this.getClass().getSimpleName());
+        return product;
     }
+
+    private boolean testAddProduct(Product product) {
+        return productDao.addProductToDB(product);
+    }
+
+    private boolean testUpdateProduct(String code) {
+        Product product = productDao.findProductByCode(code);
+        product.setNotesEn("Updated by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
+        product.setNotesRu("Обновлено " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
+        return productDao.updateProductInDB(product);
+    }
+
+    private boolean testDeleteProduct(String code) {
+        return productDao.deleteProductFromDB(code);
+    }
+
+    private void testFind(Integer id, String code) {
+        System.out.println("All products:");
+        System.out.println(productDao.findAllProductsInDB());
+        System.out.println("Product by id = " + id);
+        System.out.println(productDao.findProductById(id));
+        System.out.println("Product by code = " + code);
+        System.out.println(productDao.findProductByCode(code));
+    }
+
 }

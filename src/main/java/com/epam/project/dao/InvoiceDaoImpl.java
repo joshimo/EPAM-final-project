@@ -20,12 +20,12 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
             "JOIN order_status ON orders.status_id=order_status.status_id;";
     private static String SQL_selectAllByUserName = "SELECT * FROM orders " +
             "JOIN order_status ON orders.status_id=order_status.status_id WHERE user_name=?;";
-    private static String SQL_selectById = "SELECT * FROM orders " +
-            "JOIN order_status ON orders.status_id=order_status.status_id WHERE order_id=?;";
+    private static String SQL_selectByCode = "SELECT * FROM orders " +
+            "JOIN order_status ON orders.status_id=order_status.status_id WHERE order_code=?;";
     private static String SQL_addNew = "INSERT INTO project.orders (order_code, user_name, status_id, order_notes)" +
             " VALUES (?,?,?,?);";
     private static String SQL_update = "UPDATE project.orders SET order_code=?, user_name=?, status_id=?, order_notes=? " +
-            "WHERE order_id=?;";
+            "WHERE order_code=?;";
     private static String SQL_deleteById = "DELETE FROM project.orders WHERE order_id=?;";
 
     private Mapper<Invoice, PreparedStatement> mapperToDB = (Invoice invoice, PreparedStatement preparedStatement) -> {
@@ -89,6 +89,23 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
     }
 
     @Override
+    public Invoice findInvoiceByOrderNumber(Long orderCode) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+        Connection connection = MySQLDaoFactory.getConnection();
+        productDao = new ProductDaoImpl();
+        paymentDao = new PaymentDaoImpl(connection);
+        Invoice invoice = findBy(connection, Invoice.class, SQL_selectByCode, orderCode);
+        List<Payment> payments = paymentDao.findAllPaymentsByOrderCode(invoice.getOrderCode());
+        for (Payment payment : payments) {
+            String productCode = payment.getProductCode();
+            Product product = productDao.findProductByCode(productCode);
+            invoice.addPayment(productCode, payment);
+            invoice.addProduct(productCode, product);
+        }
+        MySQLDaoFactory.closeConnection(connection);
+        return invoice;
+    }
+
+    @Override
     public boolean addInvoiceToDB(Invoice invoice) throws IncorrectPropertyException, DataBaseConnectionException {
         Set<String> productCodes = invoice.getPayments().keySet();
         Connection connection = MySQLDaoFactory.getConnection();
@@ -109,7 +126,23 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
 
     @Override
     public boolean updateInvoiceInDB(Invoice invoice) throws IncorrectPropertyException, DataBaseConnectionException {
-        return false;
+        Set<String> productCodes = invoice.getPayments().keySet();
+        Connection connection = MySQLDaoFactory.getConnection();
+        try {
+            connection.setAutoCommit(false);
+            paymentDao = new PaymentDaoImpl(connection);
+            for (String productCode : productCodes)
+                if (!paymentDao.updatePaymentInDB(invoice.getPayments().get(productCode)))
+                    connection.rollback();
+            if (!updateInDB(connection, invoice, SQL_update, 5, invoice.getOrderCode()))
+                connection.rollback();
+            connection.commit();
+            connection.setAutoCommit(true);
+            MySQLDaoFactory.closeConnection(connection);
+            return true;
+        } catch (SQLException sqle) {
+            return false;
+        }
     }
 
     @Override

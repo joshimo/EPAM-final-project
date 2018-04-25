@@ -14,6 +14,9 @@ public interface IInvoiceDao {
     List<Invoice> findAllInvoicesByUser(String userName)
             throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException;
 
+    Invoice findInvoiceByOrderNumber(Long orderNum)
+            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException;
+
     boolean addInvoiceToDB(Invoice invoice) throws IncorrectPropertyException, DataBaseConnectionException;
 
     boolean updateInvoiceInDB(Invoice invoice) throws IncorrectPropertyException, DataBaseConnectionException;

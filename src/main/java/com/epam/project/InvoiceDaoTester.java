@@ -8,7 +8,10 @@ import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;
 
 import java.sql.Connection;
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class InvoiceDaoTester {
 
@@ -17,11 +20,13 @@ public class InvoiceDaoTester {
 
     public InvoiceDaoTester() throws DataBaseNotSupportedException, IncorrectPropertyException {
         DaoFactory daoFactory = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL);
+        invoiceDao = new InvoiceDaoImpl();
     }
 
     public static void main(String... args) throws Exception {
         InvoiceDaoTester invoiceDaoTester = new InvoiceDaoTester();
-        invoiceDaoTester.testInvoiceDao();
+        //invoiceDaoTester.testInvoiceDao();
+        System.out.println("Invoice updated: " + invoiceDaoTester.updateInvoiceTester());
     }
 
     public void testInvoiceDao() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
@@ -36,10 +41,24 @@ public class InvoiceDaoTester {
         System.out.println(invoices);
     }
 
+    private boolean updateInvoiceTester() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException{
+        Invoice inv = invoiceDao.findInvoiceByOrderNumber(1L);
+        String notes = "Updated by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis());
+        inv.setOrderNotes(notes);
+        inv.setStatus(OrderStatus.FINISHED);
+        Map<String, Payment> payments = inv.getPayments();
+        for (Map.Entry<String, Payment> paymentEntry : payments.entrySet()) {
+            paymentEntry.getValue().setQuantity(paymentEntry.getValue().getQuantity() + 20);
+            paymentEntry.getValue().setPaymentValue(paymentEntry.getValue().getPaymentValue() + 20);
+            paymentEntry.getValue().setPaymentNotes(notes);
+        }
+        return invoiceDao.updateInvoiceInDB(inv);
+    }
+
     private Invoice createTestInvoice() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
-        Long orderCode = 998L;
+        Long orderCode = System.currentTimeMillis();
         String userName = "Yaroslav";
-        String note = "Created by " + this.getClass().getSimpleName();
+        String note = "Created by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis());
         String productCode1 = "C001";
         String productCode2 = "C002";
         Double quantity1 = 1.0;
