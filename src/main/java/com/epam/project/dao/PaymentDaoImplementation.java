@@ -89,17 +89,17 @@ public class PaymentDaoImplementation implements IPaymentDao {
     }
 
     @Override
-    public <T extends Exception> boolean addPaymentToDB(Payment payment) throws T {
+    public boolean addPaymentToDB(Payment payment) {
         return false;
     }
 
     @Override
-    public <T extends Exception> boolean updatePaymentInDB(Payment payment) throws T {
+    public boolean updatePaymentInDB(Payment payment) {
         return false;
     }
 
     @Override
-    public <T extends Exception> boolean deletePaymentFromDB(Payment payment) throws T {
+    public boolean deletePaymentFromDB(Payment payment) {
         return false;
     }
 }

@@ -53,41 +53,32 @@ public class PaymentDaoImpl extends GenericAbstractDao<Payment> implements IPaym
     }
 
     @Override
-    public List<Payment> findAllPayments()
-            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        List<Payment> payments = findAll(this.connection, Payment.class, SQL_selectAll);
-        return payments;
+    public List<Payment> findAllPayments() throws DataNotFoundException {
+        return findAll(this.connection, Payment.class, SQL_selectAll);
     }
 
     @Override
-    public List<Payment> findAllPaymentsByOrderCode(Long orderCode)
-            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        List<Payment> results = findAsListBy(this.connection, Payment.class, SQL_selectByOrderCode, orderCode);
-        return results;
+    public List<Payment> findAllPaymentsByOrderCode(Long orderCode) throws DataNotFoundException {
+        return findAsListBy(this.connection, Payment.class, SQL_selectByOrderCode, orderCode);
     }
 
     @Override
-    public Payment findPaymentById(Integer id)
-            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        Payment payment = findBy(this.connection, Payment.class, SQL_selectById, id);
-        return payment;
+    public Payment findPaymentById(Integer id) throws DataNotFoundException {
+        return findBy(this.connection, Payment.class, SQL_selectById, id);
     }
 
     @Override
-    public boolean addPaymentToDB(Payment payment)
-            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+    public boolean addPaymentToDB(Payment payment) {
         return addToDB(this.connection, payment, SQL_addNewPayment);
     }
 
     @Override
-    public boolean updatePaymentInDB(Payment payment)
-            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+    public boolean updatePaymentInDB(Payment payment) {
         return updateInDB(connection, payment, SQL_updatePayment, 7, payment.getPaymentId());
     }
 
     @Override
-    public boolean deletePaymentFromDB(Payment payment)
-            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+    public boolean deletePaymentFromDB(Payment payment) {
         return deleteFromDB(connection, SQL_deletePaymentById, payment.getPaymentId());
     }
 }

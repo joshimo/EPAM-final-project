@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** 'Order' Enity is mapped to project.orders table */
+@Deprecated
 public class Order {
 
     private Integer orderId;

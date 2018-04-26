@@ -1,20 +1,21 @@
 package com.epam.project.dao;
 
 import com.epam.project.entities.Payment;
+import com.epam.project.exceptions.DataNotFoundException;
 
 import java.util.List;
 
 public interface IPaymentDao {
 
-    <T extends Exception> List<Payment> findAllPayments() throws T;
+    List<Payment> findAllPayments() throws DataNotFoundException;
 
-    <T extends Exception> List<Payment> findAllPaymentsByOrderCode(Long orderCode) throws T;
+    List<Payment> findAllPaymentsByOrderCode(Long orderCode) throws DataNotFoundException;
 
-    <T extends Exception> Payment findPaymentById(Integer id) throws T;
+    Payment findPaymentById(Integer id) throws DataNotFoundException;
 
-    <T extends Exception> boolean addPaymentToDB(Payment payment) throws T;
+    boolean addPaymentToDB(Payment payment);
 
-    <T extends Exception> boolean updatePaymentInDB(Payment payment) throws T;
+    boolean updatePaymentInDB(Payment payment);
 
-    <T extends Exception> boolean deletePaymentFromDB(Payment payment) throws T;
+    boolean deletePaymentFromDB(Payment payment);
 }

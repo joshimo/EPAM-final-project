@@ -5,11 +5,13 @@ import com.epam.project.entities.OrderStatus;
 import com.epam.project.entities.Payment;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataBaseNotSupportedException;
+import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;
 
 import java.sql.Connection;
 import java.util.List;
 
+@Deprecated
 public class PaymentDaoTester {
     private static IPaymentDao paymentDao;
     private static List<Payment> payments;
@@ -23,7 +25,7 @@ public class PaymentDaoTester {
         paymentDaoTester.testPaymentDao();
     }
 
-    public void testPaymentDao() throws DataBaseConnectionException {
+    public void testPaymentDao() throws DataBaseConnectionException, DataNotFoundException {
         Connection connection = MySQLDaoFactory.getConnection();
         paymentDao = new PaymentDaoImpl(connection);
 

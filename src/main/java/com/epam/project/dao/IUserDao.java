@@ -1,21 +1,24 @@
 package com.epam.project.dao;
 
 import com.epam.project.entities.User;
+import com.epam.project.exceptions.DataBaseConnectionException;
+import com.epam.project.exceptions.DataNotFoundException;
+import com.epam.project.exceptions.IncorrectPropertyException;
 
 import java.util.List;
 
 public interface IUserDao {
 
-    <T extends Exception> List<User> findAllUsersInDB() throws T;
+    List<User> findAllUsersInDB() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException;
 
-    <T extends Exception> User findUserById(Integer id) throws T;
+    User findUserById(Integer id) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException;
 
-    <T extends Exception> User findUserByName(String name) throws T;
+    User findUserByName(String name) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException;
 
-    <T extends Exception> boolean addUserToDB(User user) throws T;
+    boolean addUserToDB(User user) throws IncorrectPropertyException, DataBaseConnectionException;
 
-    <T extends Exception> boolean updateUserInDB(User user) throws T;
+    boolean updateUserInDB(User user) throws IncorrectPropertyException, DataBaseConnectionException;
 
-    <T extends Exception> boolean deleteUserFromDB(User user) throws T;
+    boolean deleteUserFromDB(User user) throws IncorrectPropertyException, DataBaseConnectionException;
 
 }

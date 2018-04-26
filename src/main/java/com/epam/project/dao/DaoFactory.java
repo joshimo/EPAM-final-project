@@ -7,7 +7,7 @@ public abstract class DaoFactory {
 
     public abstract IUserDao getUserDao();
     public abstract IProductDao getProductDao();
-    public abstract IOrderDao getOrderDao();
+    public abstract IInvoiceDao getInvoiceDao();
 
     public static DaoFactory getDaoFactory(DataBaseSelector dataBase) throws DataBaseNotSupportedException, IncorrectPropertyException {
         switch (dataBase) {

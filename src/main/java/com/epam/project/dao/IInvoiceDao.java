@@ -8,14 +8,14 @@ import java.util.List;
 
 public interface IInvoiceDao {
 
-    List<Invoice> findAllInvoices()
-            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException;
+    List<Invoice> findAllInvoices() throws IncorrectPropertyException, DataBaseConnectionException,
+            DataNotFoundException;
 
-    List<Invoice> findAllInvoicesByUser(String userName)
-            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException;
+    List<Invoice> findAllInvoicesByUser(String userName) throws IncorrectPropertyException, DataBaseConnectionException,
+            DataNotFoundException;
 
-    Invoice findInvoiceByOrderNumber(Long orderNum)
-            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException;
+    Invoice findInvoiceByOrderNumber(Long orderNum) throws IncorrectPropertyException, DataBaseConnectionException,
+            DataNotFoundException;
 
     boolean addInvoiceToDB(Invoice invoice) throws IncorrectPropertyException, DataBaseConnectionException;
 

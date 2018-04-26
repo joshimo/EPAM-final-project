@@ -5,7 +5,6 @@ import com.epam.project.entities.UserRole;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -55,7 +54,7 @@ public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao{
     }
 
     @Override
-    public User findUserById(Integer id) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
+    public User findUserById(Integer id) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         Connection connection = MySQLDaoFactory.getConnection();
         User user = findBy(connection, User.class, SQL_selectById, id);
         MySQLDaoFactory.closeConnection(connection);
@@ -63,7 +62,7 @@ public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao{
     }
 
     @Override
-    public User findUserByName(String name) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
+    public User findUserByName(String name) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         Connection connection = MySQLDaoFactory.getConnection();
         User user = findBy(connection, User.class, SQL_selectByName, name);
         MySQLDaoFactory.closeConnection(connection);
@@ -71,7 +70,7 @@ public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao{
     }
 
     @Override
-    public boolean addUserToDB(User user) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
+    public boolean addUserToDB(User user) throws IncorrectPropertyException, DataBaseConnectionException {
         Connection connection = MySQLDaoFactory.getConnection();
         boolean result = addToDB(connection, user, SQL_addNew);
         MySQLDaoFactory.closeConnection(connection);
@@ -79,7 +78,7 @@ public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao{
     }
 
     @Override
-    public boolean updateUserInDB(User user) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
+    public boolean updateUserInDB(User user) throws IncorrectPropertyException, DataBaseConnectionException {
         Connection connection = MySQLDaoFactory.getConnection();
         boolean result = updateInDB(connection, user, SQL_updateByName, 5, user.getName());
         MySQLDaoFactory.closeConnection(connection);
@@ -87,7 +86,7 @@ public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao{
     }
 
     @Override
-    public boolean deleteUserFromDB(User user) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
+    public boolean deleteUserFromDB(User user) throws IncorrectPropertyException, DataBaseConnectionException {
         Connection connection = MySQLDaoFactory.getConnection();
         boolean result = deleteFromDB(connection, SQL_deleteUser, user.getName());
         MySQLDaoFactory.closeConnection(connection);

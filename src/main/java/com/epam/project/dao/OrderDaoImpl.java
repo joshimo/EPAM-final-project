@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
 
+@Deprecated
 public class OrderDaoImpl extends GenericAbstractDao<Order> implements IOrderDao {
 
     private Connection connection;

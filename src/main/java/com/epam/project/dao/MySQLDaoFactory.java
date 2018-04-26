@@ -87,9 +87,8 @@ public class MySQLDaoFactory extends DaoFactory {
         return new ProductDaoImpl();
     }
 
-    //ToDo: will be changed to GenericAbstractDAO implementation
     @Override
-    public IOrderDao getOrderDao() {
-        return null;
+    public IInvoiceDao getInvoiceDao() {
+        return new InvoiceDaoImpl();
     }
 }

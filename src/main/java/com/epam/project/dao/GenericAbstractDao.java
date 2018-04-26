@@ -154,10 +154,9 @@ public abstract class GenericAbstractDao<T> {
             mapperToDB.map(item, preparedStatement);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException sqle) {
-            result = false;
-        } finally {
-            return result;
+            return false;
         }
+        return result;
     }
 
     @Deprecated
@@ -198,10 +197,9 @@ public abstract class GenericAbstractDao<T> {
             addParameterToPreparedStatement(preparedStatement, paramNum, value);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException sqle) {
-            result = false;
-        } finally {
-            return result;
+            return false;
         }
+        return result;
     }
 
     @Deprecated
@@ -239,10 +237,9 @@ public abstract class GenericAbstractDao<T> {
             addParameterToPreparedStatement(preparedStatement, 1, value);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException sqle) {
-            result = false;
-        } finally {
-            return result;
+            return false;
         }
+        return result;
     }
 
     /** Private method witch returns a concrete instance on entity */

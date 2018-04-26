@@ -7,11 +7,9 @@ import com.epam.project.exceptions.DataBaseNotSupportedException;
 import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;
 
-import java.sql.Connection;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class InvoiceDaoTester {
 
@@ -20,29 +18,33 @@ public class InvoiceDaoTester {
 
     public InvoiceDaoTester() throws DataBaseNotSupportedException, IncorrectPropertyException {
         DaoFactory daoFactory = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL);
-        invoiceDao = new InvoiceDaoImpl();
+        invoiceDao = daoFactory.getInvoiceDao();
     }
 
     public static void main(String... args) throws Exception {
         InvoiceDaoTester invoiceDaoTester = new InvoiceDaoTester();
-        //invoiceDaoTester.testInvoiceDao();
-        System.out.println("Invoice updated: " + invoiceDaoTester.updateInvoiceTester());
+        invoiceDaoTester.testFind(2L, "Yaroslav");
+        //System.out.println("Invoice added: " + invoiceDaoTester.testAddInvoice());
+        //System.out.println("Invoice updated: " + invoiceDaoTester.testUpdateInvoice(1524747335490L));
+        //System.out.println("Invoice deleted: " + invoiceDaoTester.testDeleteInvoice(1524747335490L));
     }
 
-    public void testInvoiceDao() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        invoiceDao = new InvoiceDaoImpl();
+    private void testFind(Long order, String userName) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+        System.out.println("\nAll invoices:");
+        System.out.println(invoiceDao.findAllInvoices());
+        System.out.println("\nProduct by User = " + order);
+        System.out.println(invoiceDao.findAllInvoicesByUser(userName));
+        System.out.println("\nProduct by Order num. = " + order);
+        System.out.println(invoiceDao.findInvoiceByOrderNumber(order));
+    }
+
+    public boolean testAddInvoice() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         Invoice invoice = createTestInvoice();
-        System.out.println(invoiceDao.addInvoiceToDB(invoice));
-        /*System.out.println("All orders\n");
-        invoices = invoiceDao.findAllInvoices();
-        System.out.println(invoices);*/
-        System.out.println("All orders by user 'Yaroslav'\n");
-        invoices = invoiceDao.findAllInvoicesByUser("Yaroslav");
-        System.out.println(invoices);
+        return invoiceDao.addInvoiceToDB(invoice);
     }
 
-    private boolean updateInvoiceTester() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException{
-        Invoice inv = invoiceDao.findInvoiceByOrderNumber(1L);
+    private boolean testUpdateInvoice(Long orderNum) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+        Invoice inv = invoiceDao.findInvoiceByOrderNumber(orderNum);
         String notes = "Updated by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis());
         inv.setOrderNotes(notes);
         inv.setStatus(OrderStatus.FINISHED);
@@ -53,6 +55,11 @@ public class InvoiceDaoTester {
             paymentEntry.getValue().setPaymentNotes(notes);
         }
         return invoiceDao.updateInvoiceInDB(inv);
+    }
+
+    private boolean testDeleteInvoice(Long code) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+        Invoice inv = invoiceDao.findInvoiceByOrderNumber(code);
+        return invoiceDao.deleteInvoiceFromDB(inv);
     }
 
     private Invoice createTestInvoice() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {

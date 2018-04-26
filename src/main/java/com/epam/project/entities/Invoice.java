@@ -101,6 +101,11 @@ public class Invoice {
         payments.put(productCode, payment);
     }
 
+    public void removePaymentAndProduct(String productCode) {
+        payments.remove(productCode);
+        products.remove(productCode);
+    }
+
     @Override
     public String toString() {
         int num = 0;

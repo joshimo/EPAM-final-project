@@ -4,6 +4,7 @@ import com.epam.project.entities.Order;
 
 import java.util.List;
 
+@Deprecated
 public interface IOrderDao {
 
     <T extends Exception> List<Order> findAllOrders() throws T;
