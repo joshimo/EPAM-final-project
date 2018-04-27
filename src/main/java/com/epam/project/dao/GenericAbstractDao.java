@@ -1,6 +1,8 @@
 package com.epam.project.dao;
 
 import com.epam.project.exceptions.DataNotFoundException;
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +14,8 @@ public abstract class GenericAbstractDao<T> {
 
     protected Mapper<T, PreparedStatement> mapperToDB;
     protected Mapper<ResultSet, T> mapperFromDB;
+
+    private static final Logger log = Logger.getLogger(GenericAbstractDao.class);
 
     GenericAbstractDao() {
     }
@@ -87,6 +91,7 @@ public abstract class GenericAbstractDao<T> {
             else
                 throw new DataNotFoundException();
         } catch (SQLException sqle) {
+            log.error(sqle);
             throw new DataNotFoundException();
         }
         return item;
@@ -142,18 +147,20 @@ public abstract class GenericAbstractDao<T> {
                 items.add(item);
             }
         } catch (SQLException sqle) {
+            log.error(sqle);
             throw new DataNotFoundException();
         }
         return items;
     }
 
     public boolean addToDB(Connection connection, T item, String SQL_addNew) {
-        boolean result = false;
+        boolean result;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_addNew);
             mapperToDB.map(item, preparedStatement);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException sqle) {
+            log.error(sqle);
             return false;
         }
         return result;
@@ -190,13 +197,14 @@ public abstract class GenericAbstractDao<T> {
     }
 
     public <V> boolean updateInDB(Connection connection, T item, String SQL_update, Integer paramNum, V value) {
-        boolean result = false;
+        boolean result;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_update);
             mapperToDB.map(item, preparedStatement);
             addParameterToPreparedStatement(preparedStatement, paramNum, value);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException sqle) {
+            log.error(sqle);
             return false;
         }
         return result;
@@ -231,12 +239,13 @@ public abstract class GenericAbstractDao<T> {
     }
 
     public <V> boolean deleteFromDB(Connection connection, String SQL_delete, V value) {
-        boolean result = false;
+        boolean result;
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_delete);
             addParameterToPreparedStatement(preparedStatement, 1, value);
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException sqle) {
+            log.error(sqle);
             return false;
         }
         return result;
@@ -247,8 +256,11 @@ public abstract class GenericAbstractDao<T> {
         T item = null;
         try {
             item = (T) t.newInstance();
-        } catch (InstantiationException ie) { }
-        catch (IllegalAccessException iae) { }
+        } catch (InstantiationException ie) {
+            log.error(ie);
+        } catch (IllegalAccessException iae) {
+            log.error(iae);
+        }
         return item;
     }
 

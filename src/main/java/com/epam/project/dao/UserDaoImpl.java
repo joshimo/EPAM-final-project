@@ -80,7 +80,7 @@ public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao{
     @Override
     public boolean updateUserInDB(User user) throws IncorrectPropertyException, DataBaseConnectionException {
         Connection connection = MySQLDaoFactory.getConnection();
-        boolean result = updateInDB(connection, user, SQL_updateByName, 5, user.getName());
+        boolean result = updateInDB(connection, user, SQL_updateById, 5, user.getId());
         MySQLDaoFactory.closeConnection(connection);
         return result;
     }

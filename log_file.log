@@ -1,0 +1,808 @@
+27-04-2018 19:06:50 INFO ProductDaoTester.testFind, line 66 -> All products:
+27-04-2018 19:06:51 INFO ProductDaoTester.testFind, line 67 -> [
+Product ID = 1
+Product code = D001
+isAvailable: true
+nameEn: Royal Canin X-Small Junior
+nameRu: Royal Canin X-Small Junior
+descriptionEn: Royal Canin dry feed for small and miniature puppets
+descriptionRu: Корм Роял Канин для щенков миниатюрных пород
+cost: 282.0
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 2
+Product code = D002
+isAvailable: true
+nameEn: Royal Canin X-Small Adult
+nameRu: Royal Canin X-Small Adult
+descriptionEn: Royal Canin dry feed for small and miniature adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак миниатюрных пород
+cost: 258.0
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 3
+Product code = D003
+isAvailable: true
+nameEn: Royal Canin Mini Junior
+nameRu: Royal Canin Mini Junior
+descriptionEn: Royal Canin dry feed for small puppets
+descriptionRu: Корм Роял Канин для щенков мeлких пород
+cost: 226.25
+quantity: 100.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 4
+Product code = D004
+isAvailable: true
+nameEn: Royal Canin Mini Adult
+nameRu: Royal Canin Mini Adult
+descriptionEn: Royal Canin dry feed for small adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак мелких пород
+cost: 216.25
+quantity: 150.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 5
+Product code = D005
+isAvailable: true
+nameEn: Royal Canin Medium Junior
+nameRu: Royal Canin Medium Junior
+descriptionEn: Royal Canin dry feed for medium size puppets
+descriptionRu: Корм Роял Канин для щенков средних пород
+cost: 189.0
+quantity: 250.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 6
+Product code = D006
+isAvailable: true
+nameEn: Royal Canin Medium Adult
+nameRu: Royal Canin Medium Adult
+descriptionEn: Royal Canin dry feed for medium size adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак средних пород
+cost: 189.0
+quantity: 300.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 7
+Product code = D007
+isAvailable: true
+nameEn: Royal Canin Maxi Junior
+nameRu: Royal Canin Maxi Junior
+descriptionEn: Royal Canin dry feed for big size puppets
+descriptionRu: Корм Роял Канин для щенков крупных пород
+cost: 197.0
+quantity: 300.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 8
+Product code = D008
+isAvailable: true
+nameEn: Royal Canin Maxi Adult
+nameRu: Royal Canin Maxi Adult
+descriptionEn: Royal Canin dry feed for big size adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак крупных пород
+cost: 148.5
+quantity: 400.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 9
+Product code = D009
+isAvailable: true
+nameEn: Royal Canin Energy
+nameRu: Royal Canin Energy
+descriptionEn: Royal Canin crockets for adult dogs training
+descriptionRu: Крокеты Роял Канин для дрессировки взрослых собак
+cost: 21.7
+quantity: 1500.0
+uomEn: pcs
+uomRu: шт
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 10
+Product code = D010
+isAvailable: true
+nameEn: Royal Canin Educ
+nameRu: Royal Canin Educ
+descriptionEn: Royal Canin crockets for adult dogs and puppets training
+descriptionRu: Крокеты Роял Канин для дрессировки взрослых собак и щенков
+cost: 21.7
+quantity: 3000.0
+uomEn: pcs
+uomRu: шт
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 11
+Product code = C001
+isAvailable: true
+nameEn: Royal Canin Kitten 0 - 3
+nameRu: Royal Canin Kitten 0 - 3
+descriptionEn: Royal Canin dry feed for kittens 0 - 3 month
+descriptionRu: Корм Роял Канин для котят в возрасте 0 - 3 месяцeв
+cost: 247.5
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Added by ProductDaoTester runner
+notesRu: Сгенерировано классом ProductDaoTester
+---------------------------------------------------------------------------------------------------, 
+Product ID = 12
+Product code = C002
+isAvailable: true
+nameEn: Royal Canin Kitten 3 - 12
+nameRu: Royal Canin Kitten 3 - 12
+descriptionEn: Royal Canin dry feed for kittens 3 - 12 month
+descriptionRu: Корм Роял Канин для котят в возрасте 3 - 12 месяцeв
+cost: 247.5
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Updated by ProductDaoTester at 2018-04-27 13:35:50.089
+notesRu: Обновлено ProductDaoTester at 2018-04-27 13:35:50.089
+---------------------------------------------------------------------------------------------------]
+27-04-2018 19:06:51 INFO ProductDaoTester.testFind, line 68 -> Product by id = 11
+27-04-2018 19:06:51 INFO ProductDaoTester.testFind, line 69 -> 
+Product ID = 11
+Product code = C001
+isAvailable: true
+nameEn: Royal Canin Kitten 0 - 3
+nameRu: Royal Canin Kitten 0 - 3
+descriptionEn: Royal Canin dry feed for kittens 0 - 3 month
+descriptionRu: Корм Роял Канин для котят в возрасте 0 - 3 месяцeв
+cost: 247.5
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Added by ProductDaoTester runner
+notesRu: Сгенерировано классом ProductDaoTester
+---------------------------------------------------------------------------------------------------
+27-04-2018 19:06:51 INFO ProductDaoTester.testFind, line 70 -> Product by code = D010
+27-04-2018 19:06:51 INFO ProductDaoTester.testFind, line 71 -> 
+Product ID = 10
+Product code = D010
+isAvailable: true
+nameEn: Royal Canin Educ
+nameRu: Royal Canin Educ
+descriptionEn: Royal Canin crockets for adult dogs and puppets training
+descriptionRu: Крокеты Роял Канин для дрессировки взрослых собак и щенков
+cost: 21.7
+quantity: 3000.0
+uomEn: pcs
+uomRu: шт
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------
+27-04-2018 19:08:35 INFO ProductDaoTester.testFind, line 66 -> All products:
+27-04-2018 19:08:35 INFO ProductDaoTester.testFind, line 67 -> [
+Product ID = 1
+Product code = D001
+isAvailable: true
+nameEn: Royal Canin X-Small Junior
+nameRu: Royal Canin X-Small Junior
+descriptionEn: Royal Canin dry feed for small and miniature puppets
+descriptionRu: Корм Роял Канин для щенков миниатюрных пород
+cost: 282.0
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 2
+Product code = D002
+isAvailable: true
+nameEn: Royal Canin X-Small Adult
+nameRu: Royal Canin X-Small Adult
+descriptionEn: Royal Canin dry feed for small and miniature adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак миниатюрных пород
+cost: 258.0
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 3
+Product code = D003
+isAvailable: true
+nameEn: Royal Canin Mini Junior
+nameRu: Royal Canin Mini Junior
+descriptionEn: Royal Canin dry feed for small puppets
+descriptionRu: Корм Роял Канин для щенков мeлких пород
+cost: 226.25
+quantity: 100.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 4
+Product code = D004
+isAvailable: true
+nameEn: Royal Canin Mini Adult
+nameRu: Royal Canin Mini Adult
+descriptionEn: Royal Canin dry feed for small adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак мелких пород
+cost: 216.25
+quantity: 150.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 5
+Product code = D005
+isAvailable: true
+nameEn: Royal Canin Medium Junior
+nameRu: Royal Canin Medium Junior
+descriptionEn: Royal Canin dry feed for medium size puppets
+descriptionRu: Корм Роял Канин для щенков средних пород
+cost: 189.0
+quantity: 250.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 6
+Product code = D006
+isAvailable: true
+nameEn: Royal Canin Medium Adult
+nameRu: Royal Canin Medium Adult
+descriptionEn: Royal Canin dry feed for medium size adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак средних пород
+cost: 189.0
+quantity: 300.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 7
+Product code = D007
+isAvailable: true
+nameEn: Royal Canin Maxi Junior
+nameRu: Royal Canin Maxi Junior
+descriptionEn: Royal Canin dry feed for big size puppets
+descriptionRu: Корм Роял Канин для щенков крупных пород
+cost: 197.0
+quantity: 300.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 8
+Product code = D008
+isAvailable: true
+nameEn: Royal Canin Maxi Adult
+nameRu: Royal Canin Maxi Adult
+descriptionEn: Royal Canin dry feed for big size adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак крупных пород
+cost: 148.5
+quantity: 400.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 9
+Product code = D009
+isAvailable: true
+nameEn: Royal Canin Energy
+nameRu: Royal Canin Energy
+descriptionEn: Royal Canin crockets for adult dogs training
+descriptionRu: Крокеты Роял Канин для дрессировки взрослых собак
+cost: 21.7
+quantity: 1500.0
+uomEn: pcs
+uomRu: шт
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 10
+Product code = D010
+isAvailable: true
+nameEn: Royal Canin Educ
+nameRu: Royal Canin Educ
+descriptionEn: Royal Canin crockets for adult dogs and puppets training
+descriptionRu: Крокеты Роял Канин для дрессировки взрослых собак и щенков
+cost: 21.7
+quantity: 3000.0
+uomEn: pcs
+uomRu: шт
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 11
+Product code = C001
+isAvailable: true
+nameEn: Royal Canin Kitten 0 - 3
+nameRu: Royal Canin Kitten 0 - 3
+descriptionEn: Royal Canin dry feed for kittens 0 - 3 month
+descriptionRu: Корм Роял Канин для котят в возрасте 0 - 3 месяцeв
+cost: 247.5
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Added by ProductDaoTester runner
+notesRu: Сгенерировано классом ProductDaoTester
+---------------------------------------------------------------------------------------------------, 
+Product ID = 12
+Product code = C002
+isAvailable: true
+nameEn: Royal Canin Kitten 3 - 12
+nameRu: Royal Canin Kitten 3 - 12
+descriptionEn: Royal Canin dry feed for kittens 3 - 12 month
+descriptionRu: Корм Роял Канин для котят в возрасте 3 - 12 месяцeв
+cost: 247.5
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Updated by ProductDaoTester at 2018-04-27 13:35:50.089
+notesRu: Обновлено ProductDaoTester at 2018-04-27 13:35:50.089
+---------------------------------------------------------------------------------------------------]
+27-04-2018 19:08:35 INFO ProductDaoTester.testFind, line 68 -> Product by id = 11
+27-04-2018 19:08:35 INFO ProductDaoTester.testFind, line 69 -> 
+Product ID = 11
+Product code = C001
+isAvailable: true
+nameEn: Royal Canin Kitten 0 - 3
+nameRu: Royal Canin Kitten 0 - 3
+descriptionEn: Royal Canin dry feed for kittens 0 - 3 month
+descriptionRu: Корм Роял Канин для котят в возрасте 0 - 3 месяцeв
+cost: 247.5
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Added by ProductDaoTester runner
+notesRu: Сгенерировано классом ProductDaoTester
+---------------------------------------------------------------------------------------------------
+27-04-2018 19:08:35 INFO ProductDaoTester.testFind, line 70 -> Product by code = D010
+27-04-2018 19:08:35 INFO ProductDaoTester.testFind, line 71 -> 
+Product ID = 10
+Product code = D010
+isAvailable: true
+nameEn: Royal Canin Educ
+nameRu: Royal Canin Educ
+descriptionEn: Royal Canin crockets for adult dogs and puppets training
+descriptionRu: Крокеты Роял Канин для дрессировки взрослых собак и щенков
+cost: 21.7
+quantity: 3000.0
+uomEn: pcs
+uomRu: шт
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------
+27-04-2018 19:09:10 INFO ProductDaoTester.testFind, line 66 -> All products:
+27-04-2018 19:09:10 INFO ProductDaoTester.testFind, line 67 -> [
+Product ID = 1
+Product code = D001
+isAvailable: true
+nameEn: Royal Canin X-Small Junior
+nameRu: Royal Canin X-Small Junior
+descriptionEn: Royal Canin dry feed for small and miniature puppets
+descriptionRu: Корм Роял Канин для щенков миниатюрных пород
+cost: 282.0
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 2
+Product code = D002
+isAvailable: true
+nameEn: Royal Canin X-Small Adult
+nameRu: Royal Canin X-Small Adult
+descriptionEn: Royal Canin dry feed for small and miniature adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак миниатюрных пород
+cost: 258.0
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 3
+Product code = D003
+isAvailable: true
+nameEn: Royal Canin Mini Junior
+nameRu: Royal Canin Mini Junior
+descriptionEn: Royal Canin dry feed for small puppets
+descriptionRu: Корм Роял Канин для щенков мeлких пород
+cost: 226.25
+quantity: 100.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 4
+Product code = D004
+isAvailable: true
+nameEn: Royal Canin Mini Adult
+nameRu: Royal Canin Mini Adult
+descriptionEn: Royal Canin dry feed for small adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак мелких пород
+cost: 216.25
+quantity: 150.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 5
+Product code = D005
+isAvailable: true
+nameEn: Royal Canin Medium Junior
+nameRu: Royal Canin Medium Junior
+descriptionEn: Royal Canin dry feed for medium size puppets
+descriptionRu: Корм Роял Канин для щенков средних пород
+cost: 189.0
+quantity: 250.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 6
+Product code = D006
+isAvailable: true
+nameEn: Royal Canin Medium Adult
+nameRu: Royal Canin Medium Adult
+descriptionEn: Royal Canin dry feed for medium size adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак средних пород
+cost: 189.0
+quantity: 300.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 7
+Product code = D007
+isAvailable: true
+nameEn: Royal Canin Maxi Junior
+nameRu: Royal Canin Maxi Junior
+descriptionEn: Royal Canin dry feed for big size puppets
+descriptionRu: Корм Роял Канин для щенков крупных пород
+cost: 197.0
+quantity: 300.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 8
+Product code = D008
+isAvailable: true
+nameEn: Royal Canin Maxi Adult
+nameRu: Royal Canin Maxi Adult
+descriptionEn: Royal Canin dry feed for big size adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак крупных пород
+cost: 148.5
+quantity: 400.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 9
+Product code = D009
+isAvailable: true
+nameEn: Royal Canin Energy
+nameRu: Royal Canin Energy
+descriptionEn: Royal Canin crockets for adult dogs training
+descriptionRu: Крокеты Роял Канин для дрессировки взрослых собак
+cost: 21.7
+quantity: 1500.0
+uomEn: pcs
+uomRu: шт
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 10
+Product code = D010
+isAvailable: true
+nameEn: Royal Canin Educ
+nameRu: Royal Canin Educ
+descriptionEn: Royal Canin crockets for adult dogs and puppets training
+descriptionRu: Крокеты Роял Канин для дрессировки взрослых собак и щенков
+cost: 21.7
+quantity: 3000.0
+uomEn: pcs
+uomRu: шт
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 11
+Product code = C001
+isAvailable: true
+nameEn: Royal Canin Kitten 0 - 3
+nameRu: Royal Canin Kitten 0 - 3
+descriptionEn: Royal Canin dry feed for kittens 0 - 3 month
+descriptionRu: Корм Роял Канин для котят в возрасте 0 - 3 месяцeв
+cost: 247.5
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Added by ProductDaoTester runner
+notesRu: Сгенерировано классом ProductDaoTester
+---------------------------------------------------------------------------------------------------, 
+Product ID = 12
+Product code = C002
+isAvailable: true
+nameEn: Royal Canin Kitten 3 - 12
+nameRu: Royal Canin Kitten 3 - 12
+descriptionEn: Royal Canin dry feed for kittens 3 - 12 month
+descriptionRu: Корм Роял Канин для котят в возрасте 3 - 12 месяцeв
+cost: 247.5
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Updated by ProductDaoTester at 2018-04-27 13:35:50.089
+notesRu: Обновлено ProductDaoTester at 2018-04-27 13:35:50.089
+---------------------------------------------------------------------------------------------------]
+27-04-2018 19:09:10 INFO ProductDaoTester.testFind, line 68 -> Product by id = 11
+27-04-2018 19:09:10 INFO ProductDaoTester.testFind, line 69 -> 
+Product ID = 11
+Product code = C001
+isAvailable: true
+nameEn: Royal Canin Kitten 0 - 3
+nameRu: Royal Canin Kitten 0 - 3
+descriptionEn: Royal Canin dry feed for kittens 0 - 3 month
+descriptionRu: Корм Роял Канин для котят в возрасте 0 - 3 месяцeв
+cost: 247.5
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Added by ProductDaoTester runner
+notesRu: Сгенерировано классом ProductDaoTester
+---------------------------------------------------------------------------------------------------
+27-04-2018 19:09:10 INFO ProductDaoTester.testFind, line 70 -> Product by code = D010
+27-04-2018 19:09:10 INFO ProductDaoTester.testFind, line 71 -> 
+Product ID = 10
+Product code = D010
+isAvailable: true
+nameEn: Royal Canin Educ
+nameRu: Royal Canin Educ
+descriptionEn: Royal Canin crockets for adult dogs and puppets training
+descriptionRu: Крокеты Роял Канин для дрессировки взрослых собак и щенков
+cost: 21.7
+quantity: 3000.0
+uomEn: pcs
+uomRu: шт
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------
+27-04-2018 19:10:58 INFO ProductDaoTester.testFind, line 66 -> All products:
+27-04-2018 19:10:58 INFO ProductDaoTester.testFind, line 67 -> [
+Product ID = 1
+Product code = D001
+isAvailable: true
+nameEn: Royal Canin X-Small Junior
+nameRu: Royal Canin X-Small Junior
+descriptionEn: Royal Canin dry feed for small and miniature puppets
+descriptionRu: Корм Роял Канин для щенков миниатюрных пород
+cost: 282.0
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 2
+Product code = D002
+isAvailable: true
+nameEn: Royal Canin X-Small Adult
+nameRu: Royal Canin X-Small Adult
+descriptionEn: Royal Canin dry feed for small and miniature adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак миниатюрных пород
+cost: 258.0
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 3
+Product code = D003
+isAvailable: true
+nameEn: Royal Canin Mini Junior
+nameRu: Royal Canin Mini Junior
+descriptionEn: Royal Canin dry feed for small puppets
+descriptionRu: Корм Роял Канин для щенков мeлких пород
+cost: 226.25
+quantity: 100.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 4
+Product code = D004
+isAvailable: true
+nameEn: Royal Canin Mini Adult
+nameRu: Royal Canin Mini Adult
+descriptionEn: Royal Canin dry feed for small adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак мелких пород
+cost: 216.25
+quantity: 150.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 5
+Product code = D005
+isAvailable: true
+nameEn: Royal Canin Medium Junior
+nameRu: Royal Canin Medium Junior
+descriptionEn: Royal Canin dry feed for medium size puppets
+descriptionRu: Корм Роял Канин для щенков средних пород
+cost: 189.0
+quantity: 250.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 6
+Product code = D006
+isAvailable: true
+nameEn: Royal Canin Medium Adult
+nameRu: Royal Canin Medium Adult
+descriptionEn: Royal Canin dry feed for medium size adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак средних пород
+cost: 189.0
+quantity: 300.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 7
+Product code = D007
+isAvailable: true
+nameEn: Royal Canin Maxi Junior
+nameRu: Royal Canin Maxi Junior
+descriptionEn: Royal Canin dry feed for big size puppets
+descriptionRu: Корм Роял Канин для щенков крупных пород
+cost: 197.0
+quantity: 300.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 8
+Product code = D008
+isAvailable: true
+nameEn: Royal Canin Maxi Adult
+nameRu: Royal Canin Maxi Adult
+descriptionEn: Royal Canin dry feed for big size adult dogs
+descriptionRu: Корм Роял Канин для взрослых собак крупных пород
+cost: 148.5
+quantity: 400.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 9
+Product code = D009
+isAvailable: true
+nameEn: Royal Canin Energy
+nameRu: Royal Canin Energy
+descriptionEn: Royal Canin crockets for adult dogs training
+descriptionRu: Крокеты Роял Канин для дрессировки взрослых собак
+cost: 21.7
+quantity: 1500.0
+uomEn: pcs
+uomRu: шт
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 10
+Product code = D010
+isAvailable: true
+nameEn: Royal Canin Educ
+nameRu: Royal Canin Educ
+descriptionEn: Royal Canin crockets for adult dogs and puppets training
+descriptionRu: Крокеты Роял Канин для дрессировки взрослых собак и щенков
+cost: 21.7
+quantity: 3000.0
+uomEn: pcs
+uomRu: шт
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------, 
+Product ID = 11
+Product code = C001
+isAvailable: true
+nameEn: Royal Canin Kitten 0 - 3
+nameRu: Royal Canin Kitten 0 - 3
+descriptionEn: Royal Canin dry feed for kittens 0 - 3 month
+descriptionRu: Корм Роял Канин для котят в возрасте 0 - 3 месяцeв
+cost: 247.5
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Added by ProductDaoTester runner
+notesRu: Сгенерировано классом ProductDaoTester
+---------------------------------------------------------------------------------------------------, 
+Product ID = 12
+Product code = C002
+isAvailable: true
+nameEn: Royal Canin Kitten 3 - 12
+nameRu: Royal Canin Kitten 3 - 12
+descriptionEn: Royal Canin dry feed for kittens 3 - 12 month
+descriptionRu: Корм Роял Канин для котят в возрасте 3 - 12 месяцeв
+cost: 247.5
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Updated by ProductDaoTester at 2018-04-27 13:35:50.089
+notesRu: Обновлено ProductDaoTester at 2018-04-27 13:35:50.089
+---------------------------------------------------------------------------------------------------]
+27-04-2018 19:10:58 INFO ProductDaoTester.testFind, line 68 -> Product by id = 11
+27-04-2018 19:10:58 INFO ProductDaoTester.testFind, line 69 -> 
+Product ID = 11
+Product code = C001
+isAvailable: true
+nameEn: Royal Canin Kitten 0 - 3
+nameRu: Royal Canin Kitten 0 - 3
+descriptionEn: Royal Canin dry feed for kittens 0 - 3 month
+descriptionRu: Корм Роял Канин для котят в возрасте 0 - 3 месяцeв
+cost: 247.5
+quantity: 50.0
+uomEn: kg
+uomRu: кг
+notesEn: Added by ProductDaoTester runner
+notesRu: Сгенерировано классом ProductDaoTester
+---------------------------------------------------------------------------------------------------
+27-04-2018 19:10:58 INFO ProductDaoTester.testFind, line 70 -> Product by code = D010
+27-04-2018 19:10:58 INFO ProductDaoTester.testFind, line 71 -> 
+Product ID = 10
+Product code = D010
+isAvailable: true
+nameEn: Royal Canin Educ
+nameRu: Royal Canin Educ
+descriptionEn: Royal Canin crockets for adult dogs and puppets training
+descriptionRu: Крокеты Роял Канин для дрессировки взрослых собак и щенков
+cost: 21.7
+quantity: 3000.0
+uomEn: pcs
+uomRu: шт
+notesEn: Created by test script
+notesRu: Сгенерировано тестовым скриптом
+---------------------------------------------------------------------------------------------------

@@ -3,6 +3,7 @@ package com.epam.project.dao;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.IncorrectPropertyException;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.log4j.Logger;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,11 +26,14 @@ public class MySQLDaoFactory extends DaoFactory {
     private Integer maxOpenPStatements;
     private static BasicDataSource basicDataSource;
 
+    private static final Logger log = Logger.getLogger(MySQLDaoFactory.class);
+
     MySQLDaoFactory() throws IncorrectPropertyException {
         Properties dbProperties = new Properties();
         try {
             dbProperties.load(new FileReader("src/main/java/dbConfig.properties"));
         } catch (IOException ioe) {
+            log.error("Database property file not found");
             throw new IncorrectPropertyException("Database property file not found");
         }
         try {
@@ -45,8 +49,10 @@ public class MySQLDaoFactory extends DaoFactory {
             maxIdle = Integer.parseInt(dbProperties.getProperty("maxIdle"));
             maxOpenPStatements = Integer.parseInt(dbProperties.getProperty("maxOpenPreparedStatements"));
         } catch (NullPointerException npe) {
+            log.error("Incorrect db property");
             throw new IncorrectPropertyException("Incorrect db property");
         } catch (NumberFormatException nfe) {
+            log.error("Incorrect db property");
             throw new IncorrectPropertyException("Incorrect db property");
         }
         basicDataSource = new BasicDataSource();
@@ -63,6 +69,7 @@ public class MySQLDaoFactory extends DaoFactory {
         try {
             return basicDataSource.getConnection();
         } catch (SQLException sqle) {
+            log.error(sqle);
             throw new DataBaseConnectionException();
         }
     }
@@ -71,6 +78,7 @@ public class MySQLDaoFactory extends DaoFactory {
         try {
             connection.close();
         } catch (SQLException sqle) {
+            log.error(sqle);
             throw new DataBaseConnectionException("Unable to close database connection");
         } catch (NullPointerException npe) {
             /** Nothing to close if null */

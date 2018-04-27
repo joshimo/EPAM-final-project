@@ -49,7 +49,8 @@ public class UserDaoTester {
     private boolean testUpdateUser(String name) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         User user = userDao.findUserByName(name);
         user.setUserRole(UserRole.ADMIN);
-        user.setPassword("yaroslav");
+        user.setName("Yarik");
+        user.setPassword("Yarik");
         user.setNotes("Updated by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
         return userDao.updateUserInDB(user);
     }

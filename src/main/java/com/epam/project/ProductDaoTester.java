@@ -6,6 +6,7 @@ import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataBaseNotSupportedException;
 import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;
+import org.apache.log4j.Logger;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -15,6 +16,8 @@ public class ProductDaoTester {
     private static IProductDao productDao;
     private static List<Product> products;
 
+    private static final Logger log = Logger.getLogger(ProductDaoTester.class);
+
     public ProductDaoTester() throws DataBaseNotSupportedException, IncorrectPropertyException {
         DaoFactory daoFactory = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL);
         productDao = daoFactory.getProductDao();
@@ -22,10 +25,10 @@ public class ProductDaoTester {
 
     public static void main(String... args) throws Exception {
         ProductDaoTester productDaoTester = new ProductDaoTester();
-        //productDaoTester.testFind(11, "D010");
-        //System.out.println("Product updated: " + productDaoTester.testUpdateProduct("C002"));
-        //System.out.println("Product added: " + productDaoTester.testAddProduct(productDaoTester.createTestProduct("C002A")));
-        System.out.println("Product deleted: " + productDaoTester.testDeleteProduct("C002A"));
+        productDaoTester.testFind(11, "D010");
+        //log.info("Product updated: " + productDaoTester.testUpdateProduct("C002A"));
+        //log.info("Product added: " + productDaoTester.testAddProduct(productDaoTester.createTestProduct("C002A")));
+        //log.info("Product deleted: " + productDaoTester.testDeleteProduct("C002A"));
     }
 
     private Product createTestProduct(String code) {
@@ -45,6 +48,11 @@ public class ProductDaoTester {
 
     private boolean testUpdateProduct(String code) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         Product product = productDao.findProductByCode(code);
+        String productCode = product.getCode();
+        if (productCode.endsWith("A"))
+            product.setCode(productCode.replace("A", ""));
+        else
+            product.setCode(productCode.concat("A"));
         product.setNotesEn("Updated by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
         product.setNotesRu("Обновлено " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
         return productDao.updateProductInDB(product);
@@ -55,11 +63,11 @@ public class ProductDaoTester {
     }
 
     private void testFind(Integer id, String code) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        System.out.println("All products:");
-        System.out.println(productDao.findAllProductsInDB());
-        System.out.println("Product by id = " + id);
-        System.out.println(productDao.findProductById(id));
-        System.out.println("Product by code = " + code);
-        System.out.println(productDao.findProductByCode(code));
+        log.info("All products:");
+        log.info(productDao.findAllProductsInDB());
+        log.info("Product by id = " + id);
+        log.info(productDao.findProductById(id));
+        log.info("Product by code = " + code);
+        log.info(productDao.findProductByCode(code));
     }
 }

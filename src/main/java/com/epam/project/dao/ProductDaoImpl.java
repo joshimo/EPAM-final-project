@@ -22,7 +22,7 @@ public class ProductDaoImpl extends GenericAbstractDao<Product> implements IProd
     private static String SQL_updateProduct = "UPDATE project.stock SET product_code=?, is_available=?, " +
             "product_name_en=?, product_name_ru=?, product_description_en=?, product_description_ru=?, " +
             "product_cost=?, product_quantity=?, product_uom_en=?, product_uom_ru=?, " +
-            "product_notes_en=?, product_notes_ru=? WHERE product_code=?;";
+            "product_notes_en=?, product_notes_ru=? WHERE product_id=?;";
     private static String SQL_deleteProductById = "DELETE FROM project.stock WHERE product_id=?;";
     private static String SQL_deleteProductByCode = "DELETE FROM project.stock WHERE product_code=?;";
 
@@ -99,8 +99,8 @@ public class ProductDaoImpl extends GenericAbstractDao<Product> implements IProd
     @Override
     public boolean updateProductInDB(Product product) throws IncorrectPropertyException, DataBaseConnectionException {
         Connection connection = MySQLDaoFactory.getConnection();
-        String code = product.getCode();
-        boolean result = updateInDB(connection, product, SQL_updateProduct, 13, code);
+        Integer id = product.getId();
+        boolean result = updateInDB(connection, product, SQL_updateProduct, 13, id);
         MySQLDaoFactory.closeConnection(connection);
         return result;
     }
