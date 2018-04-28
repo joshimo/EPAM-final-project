@@ -1,4 +1,4 @@
-package com.epam.project.entities;
+package com.epam.project.domain;
 
 public enum OrderStatus {
     CREATED,

@@ -1,6 +1,4 @@
-package com.epam.project.entities;
-
-import java.util.Locale;
+package com.epam.project.domain;
 
 /** 'Pruduct' Enity is mapped to project.stock table*/
 public class Product {

@@ -1,7 +1,7 @@
 package com.epam.project;
 
 import com.epam.project.dao.*;
-import com.epam.project.entities.*;
+import com.epam.project.domain.*;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataBaseNotSupportedException;
 import com.epam.project.exceptions.DataNotFoundException;

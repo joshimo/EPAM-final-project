@@ -1,6 +1,6 @@
 package com.epam.project.dao;
 
-import com.epam.project.entities.Invoice;
+import com.epam.project.domain.Invoice;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;

@@ -1,6 +1,6 @@
 package com.epam.project.dao;
 
-import com.epam.project.entities.Order;
+import com.epam.project.domain.Order;
 
 import java.util.List;
 

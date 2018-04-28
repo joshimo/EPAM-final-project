@@ -1,8 +1,7 @@
-package com.epam.project.entities;
+package com.epam.project.domain;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Invoice {

@@ -1,7 +1,7 @@
 package com.epam.project.dao;
 
-import com.epam.project.entities.Order;
-import com.epam.project.entities.OrderStatus;
+import com.epam.project.domain.Order;
+import com.epam.project.domain.OrderStatus;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;

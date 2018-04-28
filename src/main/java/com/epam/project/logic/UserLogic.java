@@ -3,7 +3,7 @@ package com.epam.project.logic;
 import com.epam.project.dao.DaoFactory;
 import com.epam.project.dao.DataBaseSelector;
 import com.epam.project.dao.IUserDao;
-import com.epam.project.entities.User;
+import com.epam.project.domain.User;
 import com.epam.project.exceptions.*;
 
 public class UserLogic {
@@ -27,16 +27,31 @@ public class UserLogic {
         }
     }
 
+    /** User validation method to check user before storing in DB */
+
+    public static boolean validateUserData(User user) {
+        return !(user.getName() == null
+                || user.getName().isEmpty()
+                || user.getPassword() == null
+                || user.getPassword().isEmpty()
+                || user.getUserRole() == null);
+    }
+
+    /** Data access and storing methods */
     static boolean checkIfSuperAdmin(String name, String password) {
         return name.equals(SUPER_ADMIN_NAME) && password.equals(SUPER_ADMIN_PASSWORD);
     }
 
     static boolean addUser(User user) throws IncorrectPropertyException, DataBaseConnectionException {
-        return userDao.addUserToDB(user);
+        if (validateUserData(user))
+            return userDao.addUserToDB(user);
+        return false;
     }
 
     static boolean updateUser(User user) throws IncorrectPropertyException, DataBaseConnectionException {
-        return userDao.updateUserInDB(user);
+        if (validateUserData(user))
+            return userDao.updateUserInDB(user);
+        return false;
     }
 
     static boolean deleteUser(User user) throws IncorrectPropertyException, DataBaseConnectionException {

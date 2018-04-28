@@ -1,6 +1,6 @@
 package com.epam.project.dao;
-import com.epam.project.entities.OrderStatus;
-import com.epam.project.entities.Payment;
+import com.epam.project.domain.OrderStatus;
+import com.epam.project.domain.Payment;
 import com.epam.project.exceptions.DataNotFoundException;
 
 import java.sql.Connection;

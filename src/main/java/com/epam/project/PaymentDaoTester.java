@@ -1,8 +1,8 @@
 package com.epam.project;
 
 import com.epam.project.dao.*;
-import com.epam.project.entities.OrderStatus;
-import com.epam.project.entities.Payment;
+import com.epam.project.domain.OrderStatus;
+import com.epam.project.domain.Payment;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataBaseNotSupportedException;
 import com.epam.project.exceptions.DataNotFoundException;

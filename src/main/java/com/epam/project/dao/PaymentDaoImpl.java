@@ -1,15 +1,12 @@
 package com.epam.project.dao;
 
-import com.epam.project.entities.OrderStatus;
-import com.epam.project.entities.Payment;
-import com.epam.project.exceptions.DataBaseConnectionException;
+import com.epam.project.domain.OrderStatus;
+import com.epam.project.domain.Payment;
 import com.epam.project.exceptions.DataNotFoundException;
-import com.epam.project.exceptions.IncorrectPropertyException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.LinkedList;
 import java.util.List;
 
 public class PaymentDaoImpl extends GenericAbstractDao<Payment> implements IPaymentDao {

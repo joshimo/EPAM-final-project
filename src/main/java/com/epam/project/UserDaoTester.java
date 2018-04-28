@@ -1,11 +1,12 @@
 package com.epam.project;
 
 import com.epam.project.dao.*;
-import com.epam.project.entities.*;
+import com.epam.project.domain.*;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataBaseNotSupportedException;
 import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;
+import org.apache.log4j.Logger;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -15,6 +16,7 @@ public class UserDaoTester {
     private static IUserDao userDao;
     private static List<User> users;
 
+    private static final Logger log = Logger.getLogger(ProductDaoTester.class);
 
     public UserDaoTester() throws DataBaseNotSupportedException, IncorrectPropertyException {
         DaoFactory daoFactory = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL);
@@ -24,8 +26,8 @@ public class UserDaoTester {
     public static void main(String... args) throws Exception {
         UserDaoTester userDaoTester = new UserDaoTester();
         //userDaoTester.testFindUsers("Yaroslav");
-        //System.out.println("User created: " + userDaoTester.testAddUser(userDaoTester.createTestUser()));
-        System.out.println("User updated: " + userDaoTester.testUpdateUser("Yaroslav"));
+        //log.info("User created: " + userDaoTester.testAddUser(userDaoTester.createTestUser()));
+        log.info("User updated: " + userDaoTester.testUpdateUser("Yaroslav"));
     }
 
     private User createTestUser() {
@@ -36,10 +38,10 @@ public class UserDaoTester {
     }
 
     private void testFindUsers(String name) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        System.out.println("All users\n");
-        System.out.println(userDao.findAllUsersInDB());
-        System.out.println("\nUser by name = " + name);
-        System.out.println(userDao.findUserByName(name));
+        log.info("All users\n");
+        log.info(userDao.findAllUsersInDB());
+        log.info("\nUser by name = " + name);
+        log.info(userDao.findUserByName(name));
     }
 
     private boolean testAddUser(User user) throws IncorrectPropertyException, DataBaseConnectionException {

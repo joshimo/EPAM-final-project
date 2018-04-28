@@ -1,9 +1,6 @@
-package com.epam.project.entities;
+package com.epam.project.domain;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
 
 /** 'Order' Enity is mapped to project.orders table */
 @Deprecated

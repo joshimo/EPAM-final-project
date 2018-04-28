@@ -1,6 +1,6 @@
 package com.epam.project.dao;
 
-import com.epam.project.entities.Payment;
+import com.epam.project.domain.Payment;
 import com.epam.project.exceptions.DataNotFoundException;
 
 import java.util.List;

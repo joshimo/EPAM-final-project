@@ -1,11 +1,12 @@
 package com.epam.project;
 
 import com.epam.project.dao.*;
-import com.epam.project.entities.*;
+import com.epam.project.domain.*;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataBaseNotSupportedException;
 import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;
+import org.apache.log4j.Logger;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -16,6 +17,8 @@ public class InvoiceDaoTester {
     private static IInvoiceDao invoiceDao;
     private static List<Invoice> invoices;
 
+    private static final Logger log = Logger.getLogger(ProductDaoTester.class);
+
     public InvoiceDaoTester() throws DataBaseNotSupportedException, IncorrectPropertyException {
         DaoFactory daoFactory = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL);
         invoiceDao = daoFactory.getInvoiceDao();
@@ -24,18 +27,18 @@ public class InvoiceDaoTester {
     public static void main(String... args) throws Exception {
         InvoiceDaoTester invoiceDaoTester = new InvoiceDaoTester();
         invoiceDaoTester.testFind(2L, "Yaroslav");
-        //System.out.println("Invoice added: " + invoiceDaoTester.testAddInvoice());
-        //System.out.println("Invoice updated: " + invoiceDaoTester.testUpdateInvoice(1524747335490L));
-        //System.out.println("Invoice deleted: " + invoiceDaoTester.testDeleteInvoice(1524747335490L));
+        //log.info("Invoice added: " + invoiceDaoTester.testAddInvoice());
+        //log.info("Invoice updated: " + invoiceDaoTester.testUpdateInvoice(1524747335490L));
+        //log.info("Invoice deleted: " + invoiceDaoTester.testDeleteInvoice(1524747335490L));
     }
 
     private void testFind(Long order, String userName) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        System.out.println("\nAll invoices:");
-        System.out.println(invoiceDao.findAllInvoices());
-        System.out.println("\nProduct by User = " + order);
-        System.out.println(invoiceDao.findAllInvoicesByUser(userName));
-        System.out.println("\nProduct by Order num. = " + order);
-        System.out.println(invoiceDao.findInvoiceByOrderNumber(order));
+        log.info("\nAll invoices:");
+        log.info(invoiceDao.findAllInvoices());
+        log.info("\nProduct by User = " + order);
+        log.info(invoiceDao.findAllInvoicesByUser(userName));
+        log.info("\nProduct by Order num. = " + order);
+        log.info(invoiceDao.findInvoiceByOrderNumber(order));
     }
 
     public boolean testAddInvoice() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {

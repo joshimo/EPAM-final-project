@@ -1,4 +1,4 @@
-package com.epam.project.entities;
+package com.epam.project.domain;
 
 /** 'User' Enity is mapped both to project.users & project.user_roles tables*/
 public class User {
