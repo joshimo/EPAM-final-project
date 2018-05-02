@@ -16,7 +16,7 @@ public class PaymentDaoTester {
     private static IPaymentDao paymentDao;
     private static List<Payment> payments;
 
-    public PaymentDaoTester() throws DataBaseNotSupportedException, IncorrectPropertyException {
+    public PaymentDaoTester() throws DataBaseNotSupportedException, IncorrectPropertyException, DataBaseConnectionException {
         DaoFactory daoFactory = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL);
     }
 
@@ -26,7 +26,7 @@ public class PaymentDaoTester {
     }
 
     public void testPaymentDao() throws DataBaseConnectionException, DataNotFoundException {
-        Connection connection = MySQLDaoFactory.getConnection();
+        Connection connection = null;
         paymentDao = new PaymentDaoImpl(connection);
 
         Payment payment = new Payment();

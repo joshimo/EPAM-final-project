@@ -97,6 +97,7 @@ public class ProductLogicTest {
             DataBaseConnectionException,
             DataNotFoundException {
         Product testProduct = createTestProduct();
+        log.info(testProduct);
         boolean result = ProductLogic.addProduct(testProduct);
         Product product = ProductLogic.findProductByCode(PRODUCT_CODE);
         assertTrue(result && product.equals(testProduct));

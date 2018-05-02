@@ -19,7 +19,7 @@ public class InvoiceDaoTester {
 
     private static final Logger log = Logger.getLogger(ProductDaoTester.class);
 
-    public InvoiceDaoTester() throws DataBaseNotSupportedException, IncorrectPropertyException {
+    public InvoiceDaoTester() throws DataBaseNotSupportedException, IncorrectPropertyException, DataBaseConnectionException {
         DaoFactory daoFactory = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL);
         invoiceDao = daoFactory.getInvoiceDao();
     }
@@ -27,7 +27,7 @@ public class InvoiceDaoTester {
     public static void main(String... args) throws Exception {
         InvoiceDaoTester invoiceDaoTester = new InvoiceDaoTester();
         invoiceDaoTester.testFind(2L, "Yaroslav");
-        //log.info("Invoice added: " + invoiceDaoTester.testAddInvoice());
+        log.info("Invoice added: " + invoiceDaoTester.testAddInvoice());
         //log.info("Invoice updated: " + invoiceDaoTester.testUpdateInvoice(1524747335490L));
         //log.info("Invoice deleted: " + invoiceDaoTester.testDeleteInvoice(1524747335490L));
     }
@@ -41,7 +41,7 @@ public class InvoiceDaoTester {
         log.info(invoiceDao.findInvoiceByOrderNumber(order));
     }
 
-    public boolean testAddInvoice() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+    public boolean testAddInvoice() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException, DataBaseNotSupportedException {
         Invoice invoice = createTestInvoice();
         return invoiceDao.addInvoiceToDB(invoice);
     }
@@ -65,7 +65,7 @@ public class InvoiceDaoTester {
         return invoiceDao.deleteInvoiceFromDB(inv);
     }
 
-    private Invoice createTestInvoice() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException  {
+    private Invoice createTestInvoice() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException, DataBaseNotSupportedException  {
         Long orderCode = System.currentTimeMillis();
         String userName = "Yaroslav";
         String note = "Created by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis());
@@ -98,8 +98,8 @@ public class InvoiceDaoTester {
         p2.setStatusId(OrderStatus.CREATED);
         p2.setPaymentNotes(note);
 
-        Product pr1 = new ProductDaoImpl().findProductByCode(productCode1);
-        Product pr2 = new ProductDaoImpl().findProductByCode(productCode2);
+        Product pr1 = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL).getProductDao().findProductByCode(productCode1);
+        Product pr2 = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL).getProductDao().findProductByCode(productCode1);
 
         invoice.addProduct(productCode1, pr1);
         invoice.addProduct(productCode2, pr2);

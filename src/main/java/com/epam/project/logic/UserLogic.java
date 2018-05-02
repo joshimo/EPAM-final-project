@@ -22,6 +22,8 @@ public class UserLogic {
             log.error(ipe);
         } catch (DataBaseNotSupportedException dbnse) {
             log.error(dbnse);
+        } catch (DataBaseConnectionException dbce) {
+            log.error(dbce);
         }
     }
 

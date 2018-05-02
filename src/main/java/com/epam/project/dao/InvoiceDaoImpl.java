@@ -15,7 +15,7 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
 
     private static IProductDao productDao;
     private static IPaymentDao paymentDao;
-
+    private Connection connection;
     private static String SQL_selectAll = "SELECT * FROM orders " +
             "JOIN order_status ON orders.status_id=order_status.status_id;";
     private static String SQL_selectAllByUserName = "SELECT * FROM orders " +
@@ -44,16 +44,17 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
         invoice.setOrderNotes(resultSet.getString("order_notes"));
     };
 
-    public InvoiceDaoImpl() {
+    public InvoiceDaoImpl(Connection connection) {
         super.setMapperToDB(mapperToDB);
         super.setMapperFromDB(mapperFromDB);
-        productDao = new ProductDaoImpl();
+        this.connection = connection;
+        productDao = new ProductDaoImpl(connection);
     }
 
     @Override
     public List<Invoice> findAllInvoices() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        Connection connection = MySQLDaoFactory.getConnection();
-        productDao = new ProductDaoImpl();
+        //Connection connection = MySQLDaoFactory.getConnection();
+        productDao = new ProductDaoImpl(connection);
         paymentDao = new PaymentDaoImpl(connection);
         List<Invoice> invoices = findAll(connection, Invoice.class, SQL_selectAll);
         for (Invoice invoice : invoices) {
@@ -65,14 +66,14 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
                 invoice.addProduct(productCode, product);
             }
         }
-        MySQLDaoFactory.closeConnection(connection);
+        //MySQLDaoFactory.closeConnection(connection);
         return invoices;
     }
 
     @Override
     public List<Invoice> findAllInvoicesByUser(String userName) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        Connection connection = MySQLDaoFactory.getConnection();
-        productDao = new ProductDaoImpl();
+        //Connection connection = MySQLDaoFactory.getConnection();
+        productDao = new ProductDaoImpl(connection);
         paymentDao = new PaymentDaoImpl(connection);
         List<Invoice> invoices = findAsListBy(connection, Invoice.class, SQL_selectAllByUserName, userName);
         for (Invoice invoice : invoices) {
@@ -84,14 +85,14 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
                 invoice.addProduct(productCode, product);
             }
         }
-        MySQLDaoFactory.closeConnection(connection);
+        //MySQLDaoFactory.closeConnection(connection);
         return invoices;
     }
 
     @Override
     public Invoice findInvoiceByOrderNumber(Long orderCode) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        Connection connection = MySQLDaoFactory.getConnection();
-        productDao = new ProductDaoImpl();
+        //Connection connection = MySQLDaoFactory.getConnection();
+        productDao = new ProductDaoImpl(connection);
         paymentDao = new PaymentDaoImpl(connection);
         Invoice invoice = findBy(connection, Invoice.class, SQL_selectByCode, orderCode);
         List<Payment> payments = paymentDao.findAllPaymentsByOrderCode(invoice.getOrderCode());
@@ -101,14 +102,14 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
             invoice.addPayment(productCode, payment);
             invoice.addProduct(productCode, product);
         }
-        MySQLDaoFactory.closeConnection(connection);
+        //MySQLDaoFactory.closeConnection(connection);
         return invoice;
     }
 
     @Override
     public boolean addInvoiceToDB(Invoice invoice) throws DataBaseConnectionException {
         Set<String> productCodes = invoice.getPayments().keySet();
-        Connection connection = MySQLDaoFactory.getConnection();
+        //Connection connection = MySQLDaoFactory.getConnection();
         try {
             connection.setAutoCommit(false);
             paymentDao = new PaymentDaoImpl(connection);
@@ -119,7 +120,7 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
                     connection.rollback();
             connection.commit();
             connection.setAutoCommit(true);
-            MySQLDaoFactory.closeConnection(connection);
+            //MySQLDaoFactory.closeConnection(connection);
             return true;
         } catch (SQLException sqle) {
             return false;
@@ -129,7 +130,7 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
     @Override
     public boolean updateInvoiceInDB(Invoice invoice) throws DataBaseConnectionException {
         Set<String> productCodes = invoice.getPayments().keySet();
-        Connection connection = MySQLDaoFactory.getConnection();
+        //Connection connection = MySQLDaoFactory.getConnection();
         try {
             connection.setAutoCommit(false);
             paymentDao = new PaymentDaoImpl(connection);
@@ -140,7 +141,7 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
                 connection.rollback();
             connection.commit();
             connection.setAutoCommit(true);
-            MySQLDaoFactory.closeConnection(connection);
+            //MySQLDaoFactory.closeConnection(connection);
             return true;
         } catch (SQLException sqle) {
             return false;
@@ -150,7 +151,7 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
     @Override
     public boolean deleteInvoiceFromDB(Invoice invoice) throws DataBaseConnectionException {
         Set<String> productCodes = invoice.getPayments().keySet();
-        Connection connection = MySQLDaoFactory.getConnection();
+        //Connection connection = MySQLDaoFactory.getConnection();
         try {
             connection.setAutoCommit(false);
             paymentDao = new PaymentDaoImpl(connection);
@@ -161,7 +162,7 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
                 connection.rollback();
             connection.commit();
             connection.setAutoCommit(true);
-            MySQLDaoFactory.closeConnection(connection);
+            //MySQLDaoFactory.closeConnection(connection);
             return true;
         } catch (SQLException sqle) {
             return false;

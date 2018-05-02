@@ -76,5 +76,4 @@ public class UserLogicTest {
         User user = UserLogic.findUser("Yaroslav", "yaroslav");
         assertTrue(user.getName().equals("Yaroslav"));
     }
-
 }

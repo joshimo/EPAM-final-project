@@ -18,16 +18,16 @@ public class ProductDaoTester {
 
     private static final Logger log = Logger.getLogger(ProductDaoTester.class);
 
-    public ProductDaoTester() throws DataBaseNotSupportedException, IncorrectPropertyException {
+    public ProductDaoTester() throws DataBaseNotSupportedException, IncorrectPropertyException, DataBaseConnectionException {
         DaoFactory daoFactory = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL);
         productDao = daoFactory.getProductDao();
     }
 
     public static void main(String... args) throws Exception {
         ProductDaoTester productDaoTester = new ProductDaoTester();
-        productDaoTester.testFind(11, "D010");
+        //productDaoTester.testFind(11, "D010");
         //log.info("Product updated: " + productDaoTester.testUpdateProduct("C002A"));
-        //log.info("Product added: " + productDaoTester.testAddProduct(productDaoTester.createTestProduct("C002A")));
+        log.info("Product added: " + productDaoTester.testAddProduct(productDaoTester.createTestProduct("C002A")));
         //log.info("Product deleted: " + productDaoTester.testDeleteProduct("C002A"));
     }
 

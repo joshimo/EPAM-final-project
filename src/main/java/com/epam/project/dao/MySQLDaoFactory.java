@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.Queue;
+import java.util.function.Function;
 
 public class MySQLDaoFactory extends DaoFactory {
 
@@ -27,8 +29,9 @@ public class MySQLDaoFactory extends DaoFactory {
     private static BasicDataSource basicDataSource;
 
     private static final Logger log = Logger.getLogger(MySQLDaoFactory.class);
+    private Connection connection;
 
-    MySQLDaoFactory() throws IncorrectPropertyException {
+    MySQLDaoFactory() throws IncorrectPropertyException, DataBaseConnectionException {
         Properties dbProperties = new Properties();
         try {
             dbProperties.load(new FileReader("src/main/java/dbConfig.properties"));
@@ -63,9 +66,10 @@ public class MySQLDaoFactory extends DaoFactory {
         basicDataSource.setMinIdle(minIdle);
         basicDataSource.setMaxIdle(maxIdle);
         basicDataSource.setMaxOpenPreparedStatements(maxOpenPStatements);
+        connection = getConnection();
     }
 
-    public static Connection getConnection() throws DataBaseConnectionException {
+    private static Connection getConnection() throws DataBaseConnectionException {
         try {
             return basicDataSource.getConnection();
         } catch (SQLException sqle) {
@@ -74,29 +78,73 @@ public class MySQLDaoFactory extends DaoFactory {
         }
     }
 
+    /** Transaction methods */
+
+    public void beginTransaction() throws DataBaseConnectionException {
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException sqle) {
+            log.error(sqle);
+            throw new DataBaseConnectionException();
+        }
+    }
+
+    public void commitTransaction() throws DataBaseConnectionException {
+        try {
+            connection.commit();
+            connection.setAutoCommit(true);
+        } catch (SQLException sqle) {
+            log.error(sqle);
+            throw new DataBaseConnectionException();
+        }
+    }
+
+    public void rollbackTransaction() throws DataBaseConnectionException {
+        try {
+            connection.rollback();
+            connection.setAutoCommit(true);
+        } catch (SQLException sqle) {
+            log.error(sqle);
+            throw new DataBaseConnectionException();
+        }
+    }
+
+    /** Connection closing methods */
+
+    @Deprecated
     public static void closeConnection(Connection connection) throws DataBaseConnectionException {
         try {
             connection.close();
         } catch (SQLException sqle) {
             log.error(sqle);
-            throw new DataBaseConnectionException("Unable to close database connection");
         } catch (NullPointerException npe) {
-            /** Nothing to close if null */
+            log.error(npe);
+        }
+    }
+
+    @Override
+    public void closeConnection() throws DataBaseConnectionException {
+        try {
+            connection.close();
+        } catch (SQLException sqle) {
+            log.error(sqle);
+        } catch (NullPointerException npe) {
+            log.error(npe);
         }
     }
 
     @Override
     public IUserDao getUserDao() {
-        return new UserDaoImpl();
+        return new UserDaoImpl(connection);
     }
 
     @Override
     public IProductDao getProductDao() {
-        return new ProductDaoImpl();
+        return new ProductDaoImpl(connection);
     }
 
     @Override
     public IInvoiceDao getInvoiceDao() {
-        return new InvoiceDaoImpl();
+        return new InvoiceDaoImpl(connection);
     }
 }

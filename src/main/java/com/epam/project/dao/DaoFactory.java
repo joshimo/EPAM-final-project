@@ -1,5 +1,6 @@
 package com.epam.project.dao;
 
+import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataBaseNotSupportedException;
 import com.epam.project.exceptions.IncorrectPropertyException;
 import org.apache.log4j.Logger;
@@ -12,7 +13,18 @@ public abstract class DaoFactory {
 
     private static final Logger log = Logger.getLogger(DaoFactory.class);
 
-    public static DaoFactory getDaoFactory(DataBaseSelector dataBase) throws DataBaseNotSupportedException, IncorrectPropertyException {
+    /** Connection closing method */
+    public abstract void closeConnection() throws DataBaseConnectionException;
+
+    /** Transaction methods */
+    public abstract void beginTransaction() throws DataBaseConnectionException;
+    public abstract void commitTransaction() throws DataBaseConnectionException;
+    public abstract void rollbackTransaction() throws DataBaseConnectionException;
+
+    public static DaoFactory getDaoFactory(DataBaseSelector dataBase) throws
+            DataBaseNotSupportedException,
+            IncorrectPropertyException,
+            DataBaseConnectionException {
         switch (dataBase) {
             case MY_SQL:
                 return new MySQLDaoFactory();

@@ -18,7 +18,7 @@ public class UserDaoTester {
 
     private static final Logger log = Logger.getLogger(ProductDaoTester.class);
 
-    public UserDaoTester() throws DataBaseNotSupportedException, IncorrectPropertyException {
+    public UserDaoTester() throws DataBaseNotSupportedException, IncorrectPropertyException, DataBaseConnectionException {
         DaoFactory daoFactory = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL);
         userDao = daoFactory.getUserDao();
     }
