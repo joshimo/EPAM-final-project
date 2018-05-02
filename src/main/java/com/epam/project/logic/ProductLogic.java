@@ -48,31 +48,31 @@ public class ProductLogic {
         return productDao.findProductByCode(code);
     }
 
-    public boolean addProduct(Product product) throws IncorrectPropertyException, DataBaseConnectionException  {
+    public static boolean addProduct(Product product) throws IncorrectPropertyException, DataBaseConnectionException  {
         if (validateProductData(product))
             return productDao.addProductToDB(product);
         return false;
     }
 
-    public boolean updateProduct(Product product) throws IncorrectPropertyException, DataBaseConnectionException  {
+    public static boolean updateProduct(Product product) throws IncorrectPropertyException, DataBaseConnectionException  {
         if (validateProductData(product))
             return productDao.updateProductInDB(product);
         return false;
     }
 
     //ToDo: Unsafe operation. This realisation shall be replaced by transaction
-    public boolean updateProducts(List<Product> products) throws IncorrectPropertyException, DataBaseConnectionException   {
+    public static boolean updateProducts(List<Product> products) throws IncorrectPropertyException, DataBaseConnectionException   {
         for (Product product : products)
             if (!productDao.updateProductInDB(product))
                 return false;
         return true;
     }
 
-    public boolean deleteProduct(Product product) throws IncorrectPropertyException, DataBaseConnectionException  {
+    public static boolean deleteProduct(Product product) throws IncorrectPropertyException, DataBaseConnectionException  {
         return productDao.deleteProductFromDB(product.getCode());
     }
 
-    public boolean deleteProduct(String code) throws IncorrectPropertyException, DataBaseConnectionException  {
+    public static boolean deleteProduct(String code) throws IncorrectPropertyException, DataBaseConnectionException  {
         return productDao.deleteProductFromDB(code);
     }
 }

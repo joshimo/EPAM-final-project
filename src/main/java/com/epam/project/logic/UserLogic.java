@@ -5,6 +5,7 @@ import com.epam.project.dao.DataBaseSelector;
 import com.epam.project.dao.IUserDao;
 import com.epam.project.domain.User;
 import com.epam.project.exceptions.*;
+import org.apache.log4j.Logger;
 
 public class UserLogic {
 
@@ -12,11 +13,19 @@ public class UserLogic {
     private static final String SUPER_ADMIN_PASSWORD = "golota";
     private static IUserDao userDao;
 
-    UserLogic() throws DataBaseNotSupportedException, IncorrectPropertyException {
-        userDao = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL).getUserDao();
+    private static final Logger log = Logger.getLogger(UserLogic.class);
+
+    static {
+        try {
+            userDao = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL).getUserDao();
+        } catch (IncorrectPropertyException ipe) {
+            log.error(ipe);
+        } catch (DataBaseNotSupportedException dbnse) {
+            log.error(dbnse);
+        }
     }
 
-    static User findUser(String name, String password) throws IncorrectPropertyException, DataBaseConnectionException, UnknownUserException {
+    public static User findUser(String name, String password) throws IncorrectPropertyException, DataBaseConnectionException, UnknownUserException {
         try {
             User user = userDao.findUserByName(name);
             if (user.getPassword().equals(password))

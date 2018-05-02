@@ -1,8 +1,8 @@
 package com.epam.project.obsoleted;
 
-import com.epam.project.entities.Order;
-import com.epam.project.entities.OrderStatus;
-import com.epam.project.entities.Product;
+import com.epam.project.domain.Order;
+import com.epam.project.domain.OrderStatus;
+import com.epam.project.domain.Product;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;
@@ -89,7 +89,7 @@ public class OrderDaoImplementation /*implements IOrderDao*/ {
             ResultSet resultSet = preparedStatement.executeQuery();
             Integer orderId = 0;
             Order order = new Order();
-            // ToDo: unstable code, needs to be checked
+
             while (resultSet.next()) {
                 Product product = productDao.findProductByCode(resultSet.getString("product_code"));
                 if (resultSet.getInt("order_id") == orderId) {
@@ -123,7 +123,7 @@ public class OrderDaoImplementation /*implements IOrderDao*/ {
             ResultSet resultSet = preparedStatement.executeQuery();
             Integer orderId = 0;
             Order order = new Order();
-            // ToDo: unstable code, needs to be checked
+
             while (resultSet.next()) {
                 Product product = productDao.findProductByCode(resultSet.getString("product_code"));
                 if (resultSet.getInt("order_id") == orderId) {
@@ -155,7 +155,7 @@ public class OrderDaoImplementation /*implements IOrderDao*/ {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_selectById);
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            // ToDo: unstable code, needs to be checked
+
             while (resultSet.next()) {
                 Product product = productDao.findProductByCode(resultSet.getString("product_code"));
                 mapperFromDB.map(resultSet, order);

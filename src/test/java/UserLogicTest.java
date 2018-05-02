@@ -2,10 +2,8 @@ import com.epam.project.dao.DaoFactory;
 import com.epam.project.dao.DataBaseSelector;
 import com.epam.project.dao.IUserDao;
 import com.epam.project.domain.User;
-import com.epam.project.exceptions.DataBaseConnectionException;
-import com.epam.project.exceptions.DataBaseNotSupportedException;
-import com.epam.project.exceptions.DataNotFoundException;
-import com.epam.project.exceptions.IncorrectPropertyException;
+import com.epam.project.domain.UserRole;
+import com.epam.project.exceptions.*;
 import com.epam.project.logic.UserLogic;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -13,9 +11,9 @@ import static org.junit.Assert.*;
 
 public class UserLogicTest {
 
-    static User correctUser;
-    static User uncorrectUser;
-    static IUserDao userDao;
+    private static User correctUser;
+    private static User uncorrectUser;
+    private final static String TEST_USER_NAME = "Somebody";
 
     @BeforeClass
     public static void init() throws
@@ -23,9 +21,13 @@ public class UserLogicTest {
             IncorrectPropertyException,
             DataBaseConnectionException,
             DataNotFoundException {
-        userDao = DaoFactory.getDaoFactory(DataBaseSelector.MY_SQL).getUserDao();
-        correctUser = userDao.findUserByName("Yarik");
-        uncorrectUser = userDao.findUserByName("Yarik");
+    }
+
+    private User createTestUser() {
+        User user = new User("Somebody", "Else");
+        user.setUserRole(UserRole.USER);
+        user.setNotes("Created by " + this.getClass().getSimpleName());
+        return user;
     }
 
     /** User Validator tests */
@@ -64,4 +66,15 @@ public class UserLogicTest {
         uncorrectUser.setUserRole(null);
         assertFalse(UserLogic.validateUserData(uncorrectUser));
     }
+
+    /** Product CRUD operations tests */
+    @Test
+    public void testFindUser() throws DataBaseNotSupportedException,
+            IncorrectPropertyException,
+            DataBaseConnectionException,
+            UnknownUserException {
+        User user = UserLogic.findUser("Yaroslav", "yaroslav");
+        assertTrue(user.getName().equals("Yaroslav"));
+    }
+
 }

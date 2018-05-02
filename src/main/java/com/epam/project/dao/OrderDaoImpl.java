@@ -24,8 +24,8 @@ public class OrderDaoImpl extends GenericAbstractDao<Order> implements IOrderDao
             "JOIN order_status ON orders.status_id=order_status.status_id WHERE user_name=?;";
     private static String SQL_selectById = "SELECT * FROM orders " +
             "JOIN order_status ON orders.status_id=order_status.status_id WHERE order_id=?;";
-    private static String SQL_addNew = "INSERT INTO project.orders (order_code, user_name, status_id, order_notes)" +
-            " VALUES (?,?,?,?);";
+    private static String SQL_addNew = "INSERT INTO project.orders (order_code, user_name, status_id, order_notes) " +
+            "VALUES (?,?,?,?);";
     private static String SQL_update = "UPDATE project.orders SET order_code=?, user_name=?, status_id=?, order_notes=? " +
             "WHERE order_id=?;";
     private static String SQL_deleteById = "DELETE FROM project.orders WHERE order_id=?;";
@@ -53,13 +53,15 @@ public class OrderDaoImpl extends GenericAbstractDao<Order> implements IOrderDao
     }
 
     @Override
-    public List<Order> findAllOrders() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+    public List<Order> findAllOrders()
+            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         List<Order> orders = findAll(this.connection, Order.class, SQL_selectAll);
         return orders;
     }
 
     @Override
-    public List<Order> findAllOrdersByUser(String userName) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+    public List<Order> findAllOrdersByUser(String userName)
+            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         List<Order> orders = findAll(this.connection, Order.class, SQL_selectAll);
         List<Order> results = new LinkedList<>();
         for (Order order : orders)
@@ -69,23 +71,27 @@ public class OrderDaoImpl extends GenericAbstractDao<Order> implements IOrderDao
     }
 
     @Override
-    public Order findOrderById(Integer id) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+    public Order findOrderById(Integer id)
+            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
        Order order = findBy(this.connection, Order.class, SQL_selectById, id);
         return order;
     }
 
     @Override
-    public boolean addOrderToDB(Order order) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+    public boolean addOrderToDB(Order order)
+            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         return addToDB(this.connection, order, SQL_addNew);
     }
 
     @Override
-    public boolean updateOrderInDB(Order order) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+    public boolean updateOrderInDB(Order order)
+            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         return updateInDB(connection, order, SQL_update, 5, order.getOrderId());
     }
 
     @Override
-    public boolean deleteOrderFromDB(Order order) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
+    public boolean deleteOrderFromDB(Order order)
+            throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
         return deleteFromDB(connection, SQL_deleteById, order.getOrderId());
     }
 }
