@@ -7,14 +7,19 @@ import org.apache.log4j.Logger;
 
 public abstract class DaoFactory {
 
+    /** DAO Factory methods */
     public abstract IUserDao getUserDao();
     public abstract IProductDao getProductDao();
     public abstract IInvoiceDao getInvoiceDao();
+    public abstract IPaymentDao getPaymentDao();
 
     private static final Logger log = Logger.getLogger(DaoFactory.class);
 
-    /** Connection closing method */
-    public abstract void closeConnection() throws DataBaseConnectionException;
+    /** Connection open and closing methods */
+    abstract void closeConnection() throws DataBaseConnectionException;
+    public abstract void open() throws DataBaseConnectionException;
+    public abstract void close();
+
 
     /** Transaction methods */
     public abstract void beginTransaction() throws DataBaseConnectionException;

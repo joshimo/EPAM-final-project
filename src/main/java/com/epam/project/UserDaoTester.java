@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import java.sql.Timestamp;
 import java.util.List;
 
+@Deprecated
 public class UserDaoTester {
 
     private static IUserDao userDao;

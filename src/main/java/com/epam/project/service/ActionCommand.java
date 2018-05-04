@@ -1,4 +1,4 @@
-package com.epam.project.logic;
+package com.epam.project.service;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface IInvoiceDao {
 
+    List<Invoice> findNewInvoices() throws IncorrectPropertyException, DataBaseConnectionException,
+            DataNotFoundException;
+
     List<Invoice> findAllInvoices() throws IncorrectPropertyException, DataBaseConnectionException,
             DataNotFoundException;
 

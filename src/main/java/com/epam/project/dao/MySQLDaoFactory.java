@@ -66,7 +66,6 @@ public class MySQLDaoFactory extends DaoFactory {
         basicDataSource.setMinIdle(minIdle);
         basicDataSource.setMaxIdle(maxIdle);
         basicDataSource.setMaxOpenPreparedStatements(maxOpenPStatements);
-        connection = getConnection();
     }
 
     private static Connection getConnection() throws DataBaseConnectionException {
@@ -82,6 +81,7 @@ public class MySQLDaoFactory extends DaoFactory {
 
     public void beginTransaction() throws DataBaseConnectionException {
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
         } catch (SQLException sqle) {
             log.error(sqle);
@@ -92,7 +92,7 @@ public class MySQLDaoFactory extends DaoFactory {
     public void commitTransaction() throws DataBaseConnectionException {
         try {
             connection.commit();
-            connection.setAutoCommit(true);
+            connection.close();
         } catch (SQLException sqle) {
             log.error(sqle);
             throw new DataBaseConnectionException();
@@ -102,14 +102,28 @@ public class MySQLDaoFactory extends DaoFactory {
     public void rollbackTransaction() throws DataBaseConnectionException {
         try {
             connection.rollback();
-            connection.setAutoCommit(true);
+            connection.close();
         } catch (SQLException sqle) {
             log.error(sqle);
             throw new DataBaseConnectionException();
         }
     }
 
-    /** Connection closing methods */
+    /** Connection open and closing methods */
+
+    @Override
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException sqle) {
+            log.error(sqle);
+        }
+    }
+
+    @Override
+    public void open() throws DataBaseConnectionException {
+        connection = getConnection();
+    }
 
     @Deprecated
     public static void closeConnection(Connection connection) throws DataBaseConnectionException {
@@ -123,7 +137,7 @@ public class MySQLDaoFactory extends DaoFactory {
     }
 
     @Override
-    public void closeConnection() throws DataBaseConnectionException {
+    void closeConnection() throws DataBaseConnectionException {
         try {
             connection.close();
         } catch (SQLException sqle) {
@@ -146,5 +160,10 @@ public class MySQLDaoFactory extends DaoFactory {
     @Override
     public IInvoiceDao getInvoiceDao() {
         return new InvoiceDaoImpl(connection);
+    }
+
+    @Override
+    public IPaymentDao getPaymentDao() {
+        return new PaymentDaoImpl(connection);
     }
 }

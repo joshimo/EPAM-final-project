@@ -27,7 +27,7 @@ public class InvoiceDaoTester {
     public static void main(String... args) throws Exception {
         InvoiceDaoTester invoiceDaoTester = new InvoiceDaoTester();
         invoiceDaoTester.testFind(2L, "Yaroslav");
-        log.info("Invoice added: " + invoiceDaoTester.testAddInvoice());
+        //log.info("Invoice added: " + invoiceDaoTester.testAddInvoice());
         //log.info("Invoice updated: " + invoiceDaoTester.testUpdateInvoice(1524747335490L));
         //log.info("Invoice deleted: " + invoiceDaoTester.testDeleteInvoice(1524747335490L));
     }
