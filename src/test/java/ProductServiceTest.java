@@ -29,7 +29,7 @@ public class ProductServiceTest {
     @AfterClass
     public static void close() throws ProductServiceException {
         try {
-            ProductService.deleteProduct(PRODUCT_CODE);
+            //ProductService.deleteProduct(PRODUCT_CODE);
         } catch (Exception e) {}
         log.info("Finishing tests");
         correctProduct = null;
@@ -102,7 +102,7 @@ public class ProductServiceTest {
 
     @Test
     @Ordinal(order = 7)
-    public void testDeleteProduct() throws ProductServiceException {
+    public void testDeleteProduct() {
         Product testProduct = createTestProduct();
         boolean result = ProductService.deleteProduct(testProduct);
         assertTrue(result);

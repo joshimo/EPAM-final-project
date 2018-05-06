@@ -6,6 +6,7 @@ public class User {
     private Integer id;
     private String name;
     private String password;
+    private String email;
     private UserRole userRole;
     private String notes;
 
@@ -25,6 +26,10 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
@@ -53,6 +58,10 @@ public class User {
         this.password = password;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
@@ -67,6 +76,7 @@ public class User {
         return  "\nUser ID = " + id +
                 "\nName: " + name +
                 "\nPassword: " + password +
+                "\ne-mail: " + email +
                 "\nRole: " + userRole +
                 "\nNotes: " + notes +
                 "\n---------------------------------------------------------------------------------------------------";

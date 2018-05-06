@@ -21,18 +21,18 @@ import static org.junit.Assert.*;
 public class InvoiceServiceTest {
 
     private static final Logger log = Logger.getLogger(InvoiceServiceTest.class);
-    final static String USER_NAME = "Client";
-    final static Long ORDER_NUM = 1000L;
+    private final static String USER_NAME = "Client";
+    private final static Long ORDER_NUM = 1000L;
     private static Invoice testInvoice;
     private static Invoice badInvoice;
 
     @BeforeClass
-    public static void init() throws UnknownUserException  {
+    public static void init() {
         log.info("Starting tests");
     }
 
     @AfterClass
-    public static void close() throws UnknownUserException  {
+    public static void close() {
         log.info("Closing tests");
         System.gc();
     }
@@ -42,8 +42,8 @@ public class InvoiceServiceTest {
         Long orderCode = 1000L;
         String userName = "Yaroslav";
         String note = "Created by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis());
-        String productCode1 = "C001";
-        String productCode2 = "C002";
+        String productCode1 = "D001";
+        String productCode2 = "D002";
         Double quantity1 = 1.0;
         Double quantity2 = 1.0;
         Double value1 = 1.0;
@@ -93,8 +93,8 @@ public class InvoiceServiceTest {
         Long orderCode = 1001L;
         String userName = "Yaroslav";
         String note = "Created by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis());
-        String productCode1 = "C001";
-        String productCode2 = "C002";
+        String productCode1 = "D001";
+        String productCode2 = "D002";
         Double quantity1 = 1.0;
         Double quantity2 = 1.0;
         Double value1 = 1.0;
@@ -172,6 +172,7 @@ public class InvoiceServiceTest {
     @Test
     public void addInvoiceTest1() {
         testInvoice = createTestInvoice();
+        log.info(testInvoice);
         assertTrue(InvoiceService.addInvoice(testInvoice));
     }
 
@@ -184,8 +185,10 @@ public class InvoiceServiceTest {
     @Test
     public void updateInvoiceTest() {
         Invoice invoice = InvoiceService.findInvoiceByOrderNumber(ORDER_NUM);
-        for (Map.Entry<String, Payment> paymentEntry : invoice.getPayments().entrySet())
+        for (Map.Entry<String, Payment> paymentEntry : invoice.getPayments().entrySet()) {
+            paymentEntry.getValue().setQuantity(paymentEntry.getValue().getQuantity() + 4d);
             paymentEntry.getValue().setPaymentNotes("Updated by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
+        }
         invoice.setOrderNotes("Updated by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
         assertTrue(InvoiceService.updateInvoice(invoice));
     }
@@ -193,6 +196,26 @@ public class InvoiceServiceTest {
     @Test
     public void deleteInvoiceTest() {
         Invoice invoice = InvoiceService.findInvoiceByOrderNumber(ORDER_NUM);
-        assertTrue(InvoiceService.deleteInvoice(invoice));
+        boolean result = InvoiceService.deleteInvoice(ORDER_NUM);
+        if (invoice.getStatus() == OrderStatus.CREATED)
+            assertTrue(result);
+        else
+            assertFalse(result);
+    }
+
+    @Test
+    public void removeProductFromInvoiceTest() {
+        Invoice invoice = InvoiceService.findInvoiceByOrderNumber(ORDER_NUM);
+        boolean result = InvoiceService.removeProductFromInvoice(ORDER_NUM, "D001");
+        if (invoice.getStatus() == OrderStatus.CREATED)
+            assertTrue(result);
+        else
+            assertFalse(result);
+    }
+
+    @Test
+    public void closeInvoiceTest() {
+        //Invoice invoice = InvoiceService.findInvoiceByOrderNumber(ORDER_NUM);
+        assertTrue(InvoiceService.closeInvoice(ORDER_NUM));
     }
 }

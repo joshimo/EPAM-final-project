@@ -23,6 +23,7 @@ CREATE TABLE project.stock (
   product_description_ru VARCHAR(255),
   product_cost DOUBLE NOT NULL DEFAULT 0,
   product_quantity DOUBLE NOT NULL DEFAULT 0,
+  reserved_quantity DOUBLE NOT NULL DEFAULT 0,
   product_uom_en VARCHAR(32) NOT NULL,
   product_uom_ru VARCHAR(32) NOT NULL,
   product_notes_en VARCHAR(255),
@@ -33,6 +34,7 @@ CREATE TABLE project.users (
   user_id SMALLINT NOT NULL AUTO_INCREMENT KEY,
   user_name VARCHAR(128) UNIQUE,
   user_password VARCHAR(128) UNIQUE,
+  user_email VARCHAR(48),
   role_id SMALLINT NOT NULL DEFAULT 1,
   user_notes VARCHAR(255),
   FOREIGN KEY (role_id) REFERENCES project.user_roles (role_id)
@@ -48,7 +50,7 @@ CREATE TABLE project.orders (
   FOREIGN KEY (user_name) REFERENCES project.users (user_name)
     ON UPDATE CASCADE
     ON DELETE SET NULL,
-  FOREIGN KEY (status_id) REFERENCES project.order_status (status_id)
+  FOREIGN KEY (status_id) REFERENCES project.order_status(status_id)
 ) ENGINE InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE project.payments (

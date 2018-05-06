@@ -13,8 +13,6 @@ import java.util.*;
 
 public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvoiceDao {
 
-    private static IProductDao productDao;
-    private static IPaymentDao paymentDao;
     private Connection connection;
     private static String SQL_selectAll = "SELECT * FROM orders " +
             "JOIN order_status ON orders.status_id=order_status.status_id;";
@@ -50,143 +48,44 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
         super.setMapperToDB(mapperToDB);
         super.setMapperFromDB(mapperFromDB);
         this.connection = connection;
-        //productDao = new ProductDaoImpl(connection);
     }
 
     @Override
-    public List<Invoice> findAllInvoices() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        //productDao = new ProductDaoImpl(connection);
-        //paymentDao = new PaymentDaoImpl(connection);
+    public List<Invoice> findAllInvoices() throws DataNotFoundException {
         List<Invoice> invoices = findAll(connection, Invoice.class, SQL_selectAll);
-        /*for (Invoice invoice : invoices) {
-            List<Payment> payments = paymentDao.findAllPaymentsByOrderCode(invoice.getOrderCode());
-            for (Payment payment : payments) {
-                String productCode = payment.getProductCode();
-                Product product = productDao.findProductByCode(productCode);
-                invoice.addPayment(productCode, payment);
-                invoice.addProduct(productCode, product);
-            }
-        }*/
-        //MySQLDaoFactory.closeConnection(connection);
         return invoices;
     }
 
     @Override
-    public List<Invoice> findNewInvoices() throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        //productDao = new ProductDaoImpl(connection);
-        //paymentDao = new PaymentDaoImpl(connection);
+    public List<Invoice> findNewInvoices() throws DataNotFoundException {
         List<Invoice> invoices = findAsListBy(connection, Invoice.class, SQL_selectAllNew, 1);
-        /*for (Invoice invoice : invoices) {
-            List<Payment> payments = paymentDao.findAllPaymentsByOrderCode(invoice.getOrderCode());
-            for (Payment payment : payments) {
-                String productCode = payment.getProductCode();
-                Product product = productDao.findProductByCode(productCode);
-                invoice.addPayment(productCode, payment);
-                invoice.addProduct(productCode, product);
-            }
-        }*/
         return invoices;
     }
 
     @Override
-    public List<Invoice> findAllInvoicesByUser(String userName) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        //Connection connection = MySQLDaoFactory.getConnection();
-        //productDao = new ProductDaoImpl(connection);
-        //paymentDao = new PaymentDaoImpl(connection);
+    public List<Invoice> findAllInvoicesByUser(String userName) throws DataNotFoundException {
         List<Invoice> invoices = findAsListBy(connection, Invoice.class, SQL_selectAllByUserName, userName);
-        /*for (Invoice invoice : invoices) {
-            List<Payment> payments = paymentDao.findAllPaymentsByOrderCode(invoice.getOrderCode());
-            for (Payment payment : payments) {
-                String productCode = payment.getProductCode();
-                Product product = productDao.findProductByCode(productCode);
-                invoice.addPayment(productCode, payment);
-                invoice.addProduct(productCode, product);
-            }
-        }*/
-        //MySQLDaoFactory.closeConnection(connection);
         return invoices;
     }
 
     @Override
-    public Invoice findInvoiceByOrderNumber(Long orderCode) throws IncorrectPropertyException, DataBaseConnectionException, DataNotFoundException {
-        //Connection connection = MySQLDaoFactory.getConnection();
-        productDao = new ProductDaoImpl(connection);
-        paymentDao = new PaymentDaoImpl(connection);
+    public Invoice findInvoiceByOrderNumber(Long orderCode) throws DataNotFoundException {
         Invoice invoice = findBy(connection, Invoice.class, SQL_selectByCode, orderCode);
-        List<Payment> payments = paymentDao.findAllPaymentsByOrderCode(invoice.getOrderCode());
-        for (Payment payment : payments) {
-            String productCode = payment.getProductCode();
-            Product product = productDao.findProductByCode(productCode);
-            invoice.addPayment(productCode, payment);
-            invoice.addProduct(productCode, product);
-        }
-        //MySQLDaoFactory.closeConnection(connection);
         return invoice;
     }
 
     @Override
-    public boolean addInvoiceToDB(Invoice invoice) throws DataBaseConnectionException {
-        //Set<String> productCodes = invoice.getPayments().keySet();
-        //Connection connection = MySQLDaoFactory.getConnection();
-        /*try {
-            connection.setAutoCommit(false);
-            paymentDao = new PaymentDaoImpl(connection);
-            if (!addToDB(connection, invoice, SQL_addNew))
-                connection.rollback();
-            for (String productCode : productCodes)
-                if (!paymentDao.addPaymentToDB(invoice.getPayments().get(productCode)))
-                    connection.rollback();
-            connection.commit();
-            connection.setAutoCommit(true);
-            //MySQLDaoFactory.closeConnection(connection);
-            return true;
-        } catch (SQLException sqle) {
-            return false;
-        }*/
+    public boolean addInvoiceToDB(Invoice invoice) {
         return addToDB(connection, invoice, SQL_addNew);
     }
 
     @Override
-    public boolean updateInvoiceInDB(Invoice invoice) throws DataBaseConnectionException {
-        //Set<String> productCodes = invoice.getPayments().keySet();
-        //Connection connection = MySQLDaoFactory.getConnection();
-        /*try {
-            connection.setAutoCommit(false);
-            paymentDao = new PaymentDaoImpl(connection);
-            for (String productCode : productCodes)
-                if (!paymentDao.updatePaymentInDB(invoice.getPayments().get(productCode)))
-                    connection.rollback();
-            if (!updateInDB(connection, invoice, SQL_update, 5, invoice.getOrderCode()))
-                connection.rollback();
-            connection.commit();
-            connection.setAutoCommit(true);
-            //MySQLDaoFactory.closeConnection(connection);
-            return true;
-        } catch (SQLException sqle) {
-            return false;
-        }*/
+    public boolean updateInvoiceInDB(Invoice invoice) {
         return updateInDB(connection, invoice, SQL_update, 5, invoice.getOrderCode());
     }
 
     @Override
-    public boolean deleteInvoiceFromDB(Invoice invoice) throws DataBaseConnectionException {
-        /*Set<String> productCodes = invoice.getPayments().keySet();
-        //Connection connection = MySQLDaoFactory.getConnection();
-        try {
-            connection.setAutoCommit(false);
-            paymentDao = new PaymentDaoImpl(connection);
-            for (String productCode : productCodes)
-                if (!paymentDao.deletePaymentFromDB(invoice.getPayments().get(productCode)))
-                    connection.rollback();
-            if (!deleteFromDB(connection, SQL_deleteByCode, invoice.getOrderCode()))
-                connection.rollback();
-            connection.commit();
-            connection.setAutoCommit(true);
-            //MySQLDaoFactory.closeConnection(connection);
-            return true;
-        } catch (SQLException sqle) {
-            return false;
-        }*/
+    public boolean deleteInvoiceFromDB(Invoice invoice) {
         return deleteFromDB(connection, SQL_deleteByCode, invoice.getOrderCode());
     }
 }

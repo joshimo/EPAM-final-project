@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 public class InvoiceDaoTester {
 
     private static IInvoiceDao invoiceDao;

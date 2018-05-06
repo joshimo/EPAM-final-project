@@ -12,6 +12,7 @@ public class Product {
     private String descriptionRu;
     private Double cost;
     private Double quantity;
+    private Double reservedQuantity = 0d;
     private String uomEn;
     private String uomRu;
     private String notesEn;
@@ -55,6 +56,10 @@ public class Product {
 
     public Double getQuantity() {
         return quantity;
+    }
+
+    public Double getReservedQuantity() {
+        return reservedQuantity;
     }
 
     public String getUomEn() {
@@ -109,6 +114,10 @@ public class Product {
 
     public void setQuantity(Double quantity) {
         this.quantity = quantity;
+    }
+
+    public void setReservedQuantity(Double reservedQuantity) {
+        this.reservedQuantity = reservedQuantity;
     }
 
     public void setUomEn(String uomEn) {
@@ -215,6 +224,7 @@ public class Product {
                 "\ndescriptionRu: " + descriptionRu +
                 "\ncost: " + cost +
                 "\nquantity: " + quantity +
+                "\nreservedQuantity: " + reservedQuantity +
                 "\nuomEn: " + uomEn +
                 "\nuomRu: " + uomRu +
                 "\nnotesEn: " + notesEn +
