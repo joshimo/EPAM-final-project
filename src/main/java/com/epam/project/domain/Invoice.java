@@ -92,12 +92,22 @@ public class Invoice {
 
     /** Add methods for storing payments and products to hashMap */
 
+    @Deprecated
     public void addProduct(String productCode, Product product) {
         products.put(productCode, product);
     }
 
+    public void addProduct(Product product) {
+        products.put(product.getCode(), product);
+    }
+
+    @Deprecated
     public void addPayment(String productCode, Payment payment) {
         payments.put(productCode, payment);
+    }
+
+    public void addPayment(Payment payment) {
+        payments.put(payment.getProductCode(), payment);
     }
 
     public void removePaymentAndProduct(String productCode) {

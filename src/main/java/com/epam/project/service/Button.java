@@ -1,4 +1,4 @@
 package com.epam.project.service;
 
-public @interface Outer {
+public @interface Button {
 }

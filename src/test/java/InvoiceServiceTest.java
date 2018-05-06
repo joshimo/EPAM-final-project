@@ -1,9 +1,4 @@
-import com.epam.project.dao.DaoFactory;
-import com.epam.project.dao.DataBaseSelector;
-import com.epam.project.domain.Invoice;
-import com.epam.project.domain.OrderStatus;
-import com.epam.project.domain.Payment;
-import com.epam.project.domain.Product;
+import com.epam.project.domain.*;
 import com.epam.project.exceptions.*;
 import com.epam.project.service.InvoiceService;
 import com.epam.project.service.ProductService;
@@ -21,14 +16,16 @@ import static org.junit.Assert.*;
 public class InvoiceServiceTest {
 
     private static final Logger log = Logger.getLogger(InvoiceServiceTest.class);
-    private final static String USER_NAME = "Client";
+    private final static String USER_NAME = "Guest";
     private final static Long ORDER_NUM = 1000L;
     private static Invoice testInvoice;
     private static Invoice badInvoice;
+    private static InvoiceService invoiceService;
 
     @BeforeClass
     public static void init() {
         log.info("Starting tests");
+        invoiceService = new InvoiceService();
     }
 
     @AfterClass
@@ -37,106 +34,24 @@ public class InvoiceServiceTest {
         System.gc();
     }
 
-    private Invoice createTestInvoice() {
-
-        Long orderCode = 1000L;
-        String userName = "Yaroslav";
-        String note = "Created by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis());
-        String productCode1 = "D001";
-        String productCode2 = "D002";
-        Double quantity1 = 1.0;
-        Double quantity2 = 1.0;
-        Double value1 = 1.0;
-        Double value2 = 1.0;
-
-        Invoice invoice = new Invoice();
-        invoice.setOrderCode(orderCode);
-        invoice.setUserName(userName);
-        invoice.setStatus(OrderStatus.CREATED);
-        invoice.setOrderNotes(note);
-
-        Payment p1 = new Payment();
-        p1.setOrderCode(orderCode);
-        p1.setProductCode(productCode1);
-        p1.setQuantity(quantity1);
-        p1.setPaymentValue(value1);
-        p1.setStatusId(OrderStatus.CREATED);
-        p1.setPaymentNotes(note);
-
-        Payment p2 = new Payment();
-        p2.setOrderCode(orderCode);
-        p2.setProductCode(productCode2);
-        p2.setQuantity(quantity2);
-        p2.setPaymentValue(value2);
-        p2.setStatusId(OrderStatus.CREATED);
-        p2.setPaymentNotes(note);
-
-        Product pr1;
-        Product pr2;
-
-        try {
-            pr1 = ProductService.findProductByCode(productCode1);
-            pr2 = ProductService.findProductByCode(productCode2);
-            invoice.addProduct(productCode1, pr1);
-            invoice.addProduct(productCode2, pr2);
-            invoice.addPayment(productCode1, p1);
-            invoice.addPayment(productCode2, p2);
-        } catch (ProductServiceException ex) {
-            log.error(ex);
-        }
+    private Invoice createBadInvoice() throws InvoiceServiceException {
+        Invoice invoice = createTestInvoice(createTestCart());
 
         return invoice;
     }
 
-    private Invoice createBadInvoice() {
+    private UserCart createTestCart() {
+        UserCart cart = new UserCart(USER_NAME);
+        cart.setOrderNotes("Created by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
+        cart.addProduct("D001", 10.0);
+        cart.addProduct("D002", 10.0);
+        cart.addProduct("D009", 50.0);
+        cart.addProduct("D010", 50.0);
+        return cart;
+    }
 
-        Long orderCode = 1001L;
-        String userName = "Yaroslav";
-        String note = "Created by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis());
-        String productCode1 = "D001";
-        String productCode2 = "D002";
-        Double quantity1 = 1.0;
-        Double quantity2 = 1.0;
-        Double value1 = 1.0;
-        Double value2 = 1.0;
-
-        Invoice invoice = new Invoice();
-        invoice.setOrderCode(orderCode);
-        invoice.setUserName(userName);
-        invoice.setStatus(OrderStatus.CREATED);
-        invoice.setOrderNotes(note);
-
-        Payment p1 = new Payment();
-        p1.setOrderCode(orderCode);
-        p1.setProductCode(productCode1);
-        p1.setQuantity(quantity1);
-        p1.setPaymentValue(value1);
-        p1.setStatusId(OrderStatus.CREATED);
-        p1.setPaymentNotes(note);
-
-        Payment p2 = new Payment();
-        p2.setOrderCode(orderCode + 1);
-        p2.setProductCode(productCode2);
-        p2.setQuantity(quantity2);
-        p2.setPaymentValue(value2);
-        p2.setStatusId(OrderStatus.CREATED);
-        p2.setPaymentNotes(note);
-
-        Product pr1;
-        Product pr2;
-
-        try {
-            pr1 = ProductService.findProductByCode(productCode1);
-            pr2 = ProductService.findProductByCode(productCode2);
-            invoice.addProduct(productCode1, pr1);
-            invoice.addProduct(productCode2, pr2);
-            invoice.addPayment(productCode1, p1);
-            invoice.addPayment(productCode2, p2);
-        } catch (ProductServiceException ex) {
-            log.error(ex);
-        }
-
-        return invoice;
+    private Invoice createTestInvoice(UserCart cart) throws InvoiceServiceException {
+        return invoiceService.createInvoiceFromUserCart(cart, ORDER_NUM);
     }
 
 
@@ -144,59 +59,59 @@ public class InvoiceServiceTest {
 
     @Test
     public void findAllInvoicesTest() {
-        List<Invoice> invoices = InvoiceService.findAllInvoices();
+        List<Invoice> invoices = invoiceService.findAllInvoices();
         log.info(invoices);
         assertTrue(invoices.size() > 0);
     }
 
     @Test
     public void findNewInvoicesTest() {
-        List<Invoice> newInvoices = InvoiceService.findNewInvoices();
+        List<Invoice> newInvoices = invoiceService.findNewInvoices();
         assertTrue(newInvoices.size() > 0);
     }
 
     @Test
     public void findInvoicesByUserTest() {
-        List<Invoice> invoicesByUser = InvoiceService.findInvoicesByUser(USER_NAME);
+        List<Invoice> invoicesByUser = invoiceService.findInvoicesByUser(USER_NAME);
         log.info(invoicesByUser);
         assertTrue(invoicesByUser.size() > 0);
     }
 
     @Test
     public void findInvoicesByOrderNumberTest() {
-        Invoice invoice = InvoiceService.findInvoiceByOrderNumber(ORDER_NUM);
+        Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
         log.info(invoice);
         assertTrue(invoice.getOrderCode() == ORDER_NUM);
     }
 
     @Test
-    public void addInvoiceTest1() {
-        testInvoice = createTestInvoice();
-        log.info(testInvoice);
-        assertTrue(InvoiceService.addInvoice(testInvoice));
+    public void addInvoiceTest1() throws InvoiceServiceException {
+        UserCart cart = createTestCart();
+        testInvoice = createTestInvoice(cart);
+        assertTrue(invoiceService.addInvoice(testInvoice));
     }
 
     @Test
-    public void addInvoiceTest2() {
+    public void addInvoiceTest2() throws InvoiceServiceException {
         badInvoice = createBadInvoice();
-        assertFalse(InvoiceService.addInvoice(badInvoice));
+        assertFalse(invoiceService.addInvoice(badInvoice));
     }
 
     @Test
     public void updateInvoiceTest() {
-        Invoice invoice = InvoiceService.findInvoiceByOrderNumber(ORDER_NUM);
+        Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
         for (Map.Entry<String, Payment> paymentEntry : invoice.getPayments().entrySet()) {
-            paymentEntry.getValue().setQuantity(paymentEntry.getValue().getQuantity() + 4d);
+            paymentEntry.getValue().setQuantity(paymentEntry.getValue().getQuantity() + 10d);
             paymentEntry.getValue().setPaymentNotes("Updated by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
         }
         invoice.setOrderNotes("Updated by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
-        assertTrue(InvoiceService.updateInvoice(invoice));
+        assertTrue(invoiceService.updateInvoice(invoice));
     }
 
     @Test
     public void deleteInvoiceTest() {
-        Invoice invoice = InvoiceService.findInvoiceByOrderNumber(ORDER_NUM);
-        boolean result = InvoiceService.deleteInvoice(ORDER_NUM);
+        Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
+        boolean result = invoiceService.deleteInvoice(ORDER_NUM);
         if (invoice.getStatus() == OrderStatus.CREATED)
             assertTrue(result);
         else
@@ -205,8 +120,8 @@ public class InvoiceServiceTest {
 
     @Test
     public void removeProductFromInvoiceTest() {
-        Invoice invoice = InvoiceService.findInvoiceByOrderNumber(ORDER_NUM);
-        boolean result = InvoiceService.removeProductFromInvoice(ORDER_NUM, "D001");
+        Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
+        boolean result = invoiceService.removeProductFromInvoice(ORDER_NUM, "D001");
         if (invoice.getStatus() == OrderStatus.CREATED)
             assertTrue(result);
         else
@@ -215,7 +130,21 @@ public class InvoiceServiceTest {
 
     @Test
     public void closeInvoiceTest() {
-        //Invoice invoice = InvoiceService.findInvoiceByOrderNumber(ORDER_NUM);
-        assertTrue(InvoiceService.closeInvoice(ORDER_NUM));
+        Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
+        boolean result = invoiceService.closeInvoice(ORDER_NUM);
+        if (invoice.getStatus() == OrderStatus.CREATED)
+            assertTrue(result);
+        else
+            assertFalse(result);
+    }
+
+    @Test
+    public void cancelInvoiceTest() {
+        Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
+        boolean result = invoiceService.cancelInvoice(ORDER_NUM);
+        if (invoice.getStatus() == OrderStatus.CREATED)
+            assertTrue(result);
+        else
+            assertFalse(result);
     }
 }
