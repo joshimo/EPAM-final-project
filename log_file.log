@@ -806,3 +806,852 @@ uomRu: шт
 notesEn: Created by test script
 notesRu: Сгенерировано тестовым скриптом
 ---------------------------------------------------------------------------------------------------
+28-04-2018 20:04:37 ERROR GenericAbstractDao.updateInDB, line 207 -> java.sql.SQLException: No value specified for parameter 13
+28-04-2018 20:04:37 ERROR GenericAbstractDao.addToDB, line 163 -> com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'TEST001' for key 'product_code'
+28-04-2018 20:07:31 ERROR GenericAbstractDao.updateInDB, line 207 -> java.sql.SQLException: No value specified for parameter 13
+28-04-2018 20:07:31 ERROR GenericAbstractDao.addToDB, line 163 -> com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'TEST001' for key 'product_code'
+28-04-2018 20:11:17 ERROR GenericAbstractDao.updateInDB, line 207 -> java.sql.SQLException: No value specified for parameter 13
+28-04-2018 20:11:17 ERROR GenericAbstractDao.addToDB, line 163 -> com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'TEST001' for key 'product_code'
+28-04-2018 20:11:35 ERROR GenericAbstractDao.updateInDB, line 207 -> java.sql.SQLException: No value specified for parameter 13
+28-04-2018 20:31:04 ERROR GenericAbstractDao.updateInDB, line 207 -> java.sql.SQLException: No value specified for parameter 13
+28-04-2018 20:31:04 ERROR GenericAbstractDao.addToDB, line 163 -> com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'TEST001' for key 'product_code'
+28-04-2018 20:31:49 ERROR GenericAbstractDao.updateInDB, line 207 -> java.sql.SQLException: No value specified for parameter 13
+28-04-2018 20:31:49 ERROR GenericAbstractDao.addToDB, line 163 -> com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'TEST001' for key 'product_code'
+28-04-2018 21:16:34 INFO ProductLogicTest.init, line 29 -> Starting tests
+28-04-2018 21:16:35 INFO ProductLogicTest.close, line 42 -> Finishing tests
+28-04-2018 21:17:32 INFO ProductLogicTest.init, line 29 -> Starting tests
+28-04-2018 21:17:34 INFO ProductLogicTest.close, line 42 -> Finishing tests
+04-05-2018 22:46:20 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+04-05-2018 22:46:26 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+04-05-2018 22:47:14 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+04-05-2018 22:47:16 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+04-05-2018 22:47:49 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+04-05-2018 22:47:50 ERROR GenericAbstractDao.addToDB, line 163 -> com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '1000' for key 'order_code'
+04-05-2018 22:47:50 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+04-05-2018 22:48:01 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+04-05-2018 22:48:01 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+04-05-2018 22:48:18 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+04-05-2018 22:48:19 ERROR GenericAbstractDao.addToDB, line 163 -> com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '1000' for key 'order_code'
+04-05-2018 22:48:19 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+04-05-2018 22:49:30 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+04-05-2018 22:49:32 ERROR GenericAbstractDao.deleteFromDB, line 248 -> com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`project`.`payments`, CONSTRAINT `payments_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `orders` (`status_id`))
+04-05-2018 22:49:32 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+04-05-2018 22:56:26 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+04-05-2018 22:56:27 ERROR GenericAbstractDao.deleteFromDB, line 248 -> com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`project`.`payments`, CONSTRAINT `payments_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `orders` (`status_id`))
+04-05-2018 22:56:27 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+04-05-2018 22:58:13 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+04-05-2018 22:58:14 ERROR GenericAbstractDao.deleteFromDB, line 248 -> java.sql.SQLException: Connection is closed.
+04-05-2018 22:58:14 ERROR MySQLDaoFactory.rollbackTransaction, line 107 -> java.sql.SQLException: Connection is closed.
+04-05-2018 22:58:14 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+04-05-2018 22:58:30 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+04-05-2018 22:58:32 ERROR GenericAbstractDao.deleteFromDB, line 248 -> com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails (`project`.`payments`, CONSTRAINT `payments_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `orders` (`status_id`))
+04-05-2018 22:58:32 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+04-05-2018 23:05:34 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+04-05-2018 23:05:35 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+04-05-2018 23:05:59 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+04-05-2018 23:06:00 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+04-05-2018 23:06:54 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+04-05-2018 23:06:55 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+04-05-2018 23:07:09 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+04-05-2018 23:07:10 ERROR InvoiceService.findInvoiceByOrderNumber, line 105 -> com.epam.project.exceptions.DataNotFoundException: Data not found in DB by specified key
+04-05-2018 23:07:10 ERROR GenericAbstractDao.deleteFromDB, line 248 -> java.sql.SQLException: No value specified for parameter 1
+04-05-2018 23:07:10 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 10:07:51 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 10:07:53 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 10:09:09 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 10:09:10 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 10:12:46 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 10:12:46 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 10:13:30 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 10:13:31 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 10:13:40 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 10:13:41 INFO InvoiceServiceTest.removeProductFromInvoiceTest, line 203 -> 
+Order Id =     10
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    2018-05-05 10:13:30.0
+Order notes:   Created by InvoiceServiceTest at 2018-05-05 10:13:30.078
+    Invoice:
+************************************************************************************************
+1   C002    Royal Canin Kitten 3 - 12                         1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+05-05-2018 10:13:41 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 10:15:01 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 10:15:01 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 10:18:08 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 10:18:09 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 10:28:45 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 10:28:46 INFO InvoiceServiceTest.removeProductFromInvoiceTest, line 203 -> 
+Order Id =     10
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    2018-05-05 10:13:30.0
+Order notes:   Created by InvoiceServiceTest at 2018-05-05 10:13:30.078
+    Invoice:
+************************************************************************************************
+1   C002    Royal Canin Kitten 3 - 12                         1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+05-05-2018 10:28:46 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 11:14:10 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 11:14:12 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 11:14:33 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 11:14:34 ERROR GenericAbstractDao.updateInDB, line 207 -> java.sql.SQLException: Connection is closed.
+05-05-2018 11:14:34 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 11:17:08 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 11:17:09 ERROR GenericAbstractDao.updateInDB, line 207 -> java.sql.SQLException: Connection is closed.
+05-05-2018 11:17:09 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 11:18:14 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 11:18:14 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 11:20:22 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 11:20:23 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 11:24:13 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 11:24:15 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 11:24:50 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 11:24:51 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 11:25:01 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 11:25:02 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 11:32:15 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 11:32:16 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 11:32:48 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 11:32:49 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 11:32:55 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 11:32:56 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 21:30:43 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 21:36:41 INFO ProductServiceTest.init, line 24 -> Starting tests
+05-05-2018 21:36:43 INFO ProductServiceTest.close, line 34 -> Finishing tests
+05-05-2018 21:36:52 INFO ProductServiceTest.init, line 24 -> Starting tests
+05-05-2018 21:36:53 INFO ProductServiceTest.close, line 34 -> Finishing tests
+05-05-2018 21:37:20 INFO ProductServiceTest.init, line 24 -> Starting tests
+05-05-2018 21:37:21 INFO ProductServiceTest.testAddProduct, line 84 -> 
+Product ID = null
+Product code = TEST001
+isAvailable: true
+nameEn: Royal Canin Kitten 30 - 120
+nameRu: Royal Canin Kitten 30 - 120
+descriptionEn: Royal Canin dry feed for kittens 30 - 120 month
+descriptionRu: Корм Роял Канин для котят в возрасте 30 - 120 месяцeв
+cost: 247.5
+quantity: 50.0
+reservedQuantity: 0.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by ProductServiceTest
+notesRu: Сгенерировано классом ProductServiceTest
+---------------------------------------------------------------------------------------------------
+05-05-2018 21:37:21 INFO ProductServiceTest.close, line 34 -> Finishing tests
+05-05-2018 21:37:55 INFO ProductServiceTest.init, line 24 -> Starting tests
+05-05-2018 21:37:56 INFO ProductServiceTest.testAddProduct, line 84 -> 
+Product ID = null
+Product code = TEST001
+isAvailable: true
+nameEn: Royal Canin Kitten 30 - 120
+nameRu: Royal Canin Kitten 30 - 120
+descriptionEn: Royal Canin dry feed for kittens 30 - 120 month
+descriptionRu: Корм Роял Канин для котят в возрасте 30 - 120 месяцeв
+cost: 247.5
+quantity: 50.0
+reservedQuantity: 0.0
+uomEn: kg
+uomRu: кг
+notesEn: Created by ProductServiceTest
+notesRu: Сгенерировано классом ProductServiceTest
+---------------------------------------------------------------------------------------------------
+05-05-2018 21:37:56 INFO ProductServiceTest.close, line 34 -> Finishing tests
+05-05-2018 21:38:19 INFO ProductServiceTest.init, line 24 -> Starting tests
+05-05-2018 21:38:20 ERROR GenericAbstractDao.updateInDB, line 207 -> java.sql.SQLException: No value specified for parameter 14
+05-05-2018 21:38:20 INFO ProductServiceTest.close, line 34 -> Finishing tests
+05-05-2018 21:45:23 INFO ProductServiceTest.init, line 24 -> Starting tests
+05-05-2018 21:45:24 INFO ProductServiceTest.close, line 34 -> Finishing tests
+05-05-2018 21:46:05 INFO ProductServiceTest.init, line 24 -> Starting tests
+05-05-2018 21:46:06 INFO ProductServiceTest.close, line 34 -> Finishing tests
+05-05-2018 22:17:08 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 22:17:09 ERROR ProductService.findProductByCode, line 64 -> com.epam.project.exceptions.DataNotFoundException: Data not found in DB by specified key
+05-05-2018 22:17:09 ERROR InvoiceServiceTest.createTestInvoice, line 85 -> com.epam.project.exceptions.ProductServiceException
+05-05-2018 22:17:09 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 22:18:05 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 22:18:06 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 22:21:12 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 22:21:13 INFO InvoiceServiceTest.addInvoiceTest1, line 175 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-05 22:21:12.281
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+05-05-2018 22:21:13 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 22:22:51 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 22:22:52 INFO InvoiceServiceTest.addInvoiceTest1, line 175 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-05 22:22:51.505
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+05-05-2018 22:22:52 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 22:24:26 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 22:24:27 INFO InvoiceServiceTest.addInvoiceTest1, line 175 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-05 22:24:26.645
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+05-05-2018 22:24:27 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 22:27:54 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 22:27:55 INFO InvoiceServiceTest.addInvoiceTest1, line 175 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-05 22:27:54.549
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+05-05-2018 22:27:55 ERROR GenericAbstractDao.addToDB, line 163 -> com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '1000' for key 'order_code'
+05-05-2018 22:27:55 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 22:34:09 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 22:34:10 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 22:34:26 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 22:34:26 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 23:12:50 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 23:12:51 INFO InvoiceServiceTest.addInvoiceTest1, line 175 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-05 23:12:50.88
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+05-05-2018 23:12:51 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 23:13:25 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 23:13:26 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 23:16:23 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 23:16:23 INFO InvoiceServiceTest.removeProductFromInvoiceTest, line 204 -> 
+Order Id =     9
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    2018-05-05 23:12:51.0
+Order notes:   Created by InvoiceServiceTest at 2018-05-05 23:12:50.88
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+05-05-2018 23:16:23 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+05-05-2018 23:18:34 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+05-05-2018 23:18:35 INFO InvoiceServiceTest.removeProductFromInvoiceTest, line 204 -> 
+Order Id =     9
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    2018-05-05 23:12:51.0
+Order notes:   Created by InvoiceServiceTest at 2018-05-05 23:12:50.88
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+05-05-2018 23:18:35 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 09:12:52 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 09:12:53 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 09:21:33 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 09:21:33 INFO InvoiceServiceTest.addInvoiceTest1, line 175 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 09:21:33.361
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 09:21:33 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 09:21:54 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 09:21:55 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 09:29:31 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 09:29:31 INFO InvoiceServiceTest.addInvoiceTest1, line 175 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 09:29:31.029
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 09:29:31 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 09:29:47 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 09:29:48 INFO InvoiceServiceTest.removeProductFromInvoiceTest, line 203 -> 
+Order Id =     11
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    2018-05-06 09:29:31.0
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 09:29:31.029
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 09:29:48 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 09:30:27 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 09:30:28 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 09:43:20 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 09:43:21 INFO InvoiceServiceTest.addInvoiceTest1, line 175 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 09:43:20.413
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 09:43:21 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 09:43:54 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 09:43:55 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 09:44:23 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 09:44:24 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 09:48:40 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 09:48:41 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 09:50:32 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 09:50:33 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 09:57:15 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 09:57:16 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 09:57:24 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 09:57:25 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 10:03:37 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 10:03:38 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 10:05:02 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 10:05:02 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 10:07:06 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 10:07:07 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 10:08:18 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 10:08:19 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 10:10:38 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 10:10:39 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 10:55:19 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 10:55:20 INFO InvoiceServiceTest.addInvoiceTest1, line 175 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 10:55:19.772
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 10:55:21 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 10:55:35 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 10:55:36 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 10:56:18 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 10:56:19 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 10:56:30 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 10:56:31 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 10:57:39 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 10:57:40 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 10:57:46 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 10:57:47 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 10:58:10 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 10:58:11 INFO InvoiceServiceTest.findInvoicesByOrderNumberTest, line 168 -> 
+Order Id =     18
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    2018-05-06 10:57:47.0
+Order notes:   Updated by InvoiceServiceTest at 2018-05-06 10:57:47.398
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                        21,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                       21,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 10:58:11 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 11:02:43 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 11:02:44 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 11:06:32 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 11:06:33 INFO InvoiceServiceTest.addInvoiceTest1, line 175 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 11:06:32.288
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 11:06:33 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 11:07:32 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 11:07:33 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 11:08:09 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 11:08:10 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 11:08:34 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 11:08:35 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 11:08:40 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 11:08:41 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 11:08:59 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 11:09:00 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 11:09:04 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 11:09:05 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 11:09:11 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 11:09:12 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 11:09:32 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 11:09:33 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 11:11:09 INFO InvoiceServiceTest.init, line 31 -> Starting tests
+06-05-2018 11:11:10 INFO InvoiceServiceTest.close, line 36 -> Closing tests
+06-05-2018 11:36:12 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 11:36:13 INFO InvoiceServiceTest.findAllInvoicesTest, line 150 -> [
+Order Id =     1
+Order code:    1
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    2018-05-05 21:34:01.0
+Order notes:   Created by test script
+    Invoice:
+************************************************************************************************
+1   D009    Royal Canin Energy                               20,00pcs   Cost: 0,01
+2   D008    Royal Canin Maxi Adult                            7,00kg    Cost: 0,01
+3   D006    Royal Canin Medium Adult                          5,00kg    Cost: 0,01
+************************************************************************************************
+------------------------------------------------------------------------------------------------, 
+Order Id =     2
+Order code:    2
+User name:     Guest
+Order status:  CREATED
+Order date:    2018-05-05 21:34:01.0
+Order notes:   Created by test script
+    Invoice:
+************************************************************************************************
+1   D003    Royal Canin Mini Junior                           3,00kg    Cost: 0,02
+2   D010    Royal Canin Educ                                 10,00pcs   Cost: 0,02
+************************************************************************************************
+------------------------------------------------------------------------------------------------, 
+Order Id =     3
+Order code:    3
+User name:     Guest
+Order status:  CREATED
+Order date:    2018-05-05 21:34:01.0
+Order notes:   Created by test script
+    Invoice:
+************************************************************************************************
+1   D010    Royal Canin Educ                                 50,00pcs   Cost: 0,03
+2   D009    Royal Canin Energy                               50,00pcs   Cost: 0,03
+3   D008    Royal Canin Maxi Adult                           20,00kg    Cost: 0,03
+************************************************************************************************
+------------------------------------------------------------------------------------------------]
+06-05-2018 11:36:13 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 11:36:25 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 11:36:26 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 11:36:37 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 11:36:38 INFO InvoiceServiceTest.findInvoicesByUserTest, line 163 -> []
+06-05-2018 11:36:38 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 11:37:07 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 11:37:07 INFO InvoiceServiceTest.findInvoicesByUserTest, line 163 -> [
+Order Id =     2
+Order code:    2
+User name:     Guest
+Order status:  CREATED
+Order date:    2018-05-05 21:34:01.0
+Order notes:   Created by test script
+    Invoice:
+************************************************************************************************
+1   D003    Royal Canin Mini Junior                           3,00kg    Cost: 0,02
+2   D010    Royal Canin Educ                                 10,00pcs   Cost: 0,02
+************************************************************************************************
+------------------------------------------------------------------------------------------------, 
+Order Id =     3
+Order code:    3
+User name:     Guest
+Order status:  CREATED
+Order date:    2018-05-05 21:34:01.0
+Order notes:   Created by test script
+    Invoice:
+************************************************************************************************
+1   D010    Royal Canin Educ                                 50,00pcs   Cost: 0,03
+2   D009    Royal Canin Energy                               50,00pcs   Cost: 0,03
+3   D008    Royal Canin Maxi Adult                           20,00kg    Cost: 0,03
+************************************************************************************************
+------------------------------------------------------------------------------------------------]
+06-05-2018 11:37:07 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 11:37:30 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 11:37:31 INFO InvoiceServiceTest.addInvoiceTest1, line 177 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 11:37:30.325
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 11:37:31 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 11:37:54 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 11:37:55 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 11:38:34 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 11:38:35 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 11:38:49 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 11:38:50 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 11:39:49 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 11:39:50 INFO InvoiceServiceTest.addInvoiceTest1, line 177 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 11:39:49.436
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 11:39:50 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 11:40:10 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 11:40:11 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 11:40:29 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 11:40:30 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 21:54:22 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 21:54:23 INFO InvoiceServiceTest.addInvoiceTest1, line 177 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 21:54:23.021
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         1,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        1,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 21:54:23 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 21:54:41 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 21:54:42 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 21:55:41 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 21:55:41 INFO InvoiceServiceTest.addInvoiceTest1, line 177 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 21:55:41.192
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         5,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        5,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 21:55:41 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 21:55:53 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 21:55:54 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 21:56:35 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 21:56:36 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 21:57:03 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 21:57:04 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 21:57:29 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 21:57:30 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:04:49 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:04:50 INFO InvoiceServiceTest.addInvoiceTest1, line 177 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 22:04:49.839
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                         5,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                        5,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 22:04:50 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:05:18 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:05:19 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:06:26 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:06:27 INFO InvoiceServiceTest.addInvoiceTest1, line 177 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 22:06:26.414
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                        60,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                       60,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 22:06:27 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:07:00 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:07:01 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:07:29 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:07:30 ERROR InvoiceService.findInvoiceByOrderNumber, line 107 -> com.epam.project.exceptions.DataNotFoundException: Data not found in DB by specified key
+06-05-2018 22:07:30 ERROR InvoiceService.findInvoiceByOrderNumber, line 107 -> com.epam.project.exceptions.DataNotFoundException: Data not found in DB by specified key
+06-05-2018 22:07:30 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:07:50 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:07:51 INFO InvoiceServiceTest.addInvoiceTest1, line 177 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 22:07:50.411
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                        60,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                       60,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 22:07:51 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:09:54 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:09:55 INFO InvoiceServiceTest.addInvoiceTest1, line 177 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 22:09:54.461
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                        60,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                       60,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 22:09:55 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:10:44 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:10:45 INFO InvoiceServiceTest.addInvoiceTest1, line 177 -> 
+Order Id =     null
+Order code:    1000
+User name:     Yaroslav
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 22:10:45.012
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                        10,00kg    Cost: 1,00
+2   D001    Royal Canin X-Small Junior                       10,00kg    Cost: 1,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 22:10:45 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:10:58 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:10:59 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:11:05 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:11:06 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:11:13 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:11:14 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:11:19 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:11:20 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:11:26 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:11:27 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:12:04 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:12:05 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:13:03 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:13:04 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:15:33 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:15:34 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:20:25 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:20:26 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:20:47 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:20:48 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:21:07 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:21:08 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 22:22:20 INFO InvoiceServiceTest.init, line 32 -> Starting tests
+06-05-2018 22:22:21 INFO InvoiceServiceTest.close, line 38 -> Closing tests
+06-05-2018 23:13:04 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:13:05 INFO InvoiceServiceTest.addInvoiceTest1, line 188 -> java.lang.NullPointerException
+06-05-2018 23:13:05 INFO InvoiceServiceTest.close, line 35 -> Closing tests
+06-05-2018 23:15:30 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:15:31 INFO InvoiceServiceTest.addInvoiceTest1, line 188 -> java.lang.NullPointerException
+06-05-2018 23:15:31 INFO InvoiceServiceTest.close, line 35 -> Closing tests
+06-05-2018 23:16:49 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:18:43 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:20:33 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:20:33 INFO InvoiceServiceTest.addInvoiceTest1, line 188 -> UserCart{userName='Guest', orderNotes='Created by InvoiceServiceTest at 2018-05-06 23:20:33.554', products={D002=10.0, D001=10.0, D010=50.0, D009=50.0}}
+06-05-2018 23:20:34 INFO InvoiceServiceTest.addInvoiceTest1, line 190 -> java.lang.NullPointerException
+06-05-2018 23:20:34 INFO InvoiceServiceTest.close, line 35 -> Closing tests
+06-05-2018 23:23:08 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:23:08 INFO InvoiceServiceTest.addInvoiceTest1, line 188 -> UserCart{userName='Guest', orderNotes='Created by InvoiceServiceTest at 2018-05-06 23:23:08.822', products={D002=10.0, D001=10.0, D010=50.0, D009=50.0}}
+06-05-2018 23:23:09 INFO InvoiceServiceTest.addInvoiceTest1, line 190 -> 
+Order Id =     null
+Order code:    1525638188826
+User name:     Guest
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 23:23:08.822
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                        10,00kg    Cost: 2580,00
+2   D001    Royal Canin X-Small Junior                       10,00kg    Cost: 2820,00
+3   D010    Royal Canin Educ                                 50,00pcs   Cost: 1085,00
+4   D009    Royal Canin Energy                               50,00pcs   Cost: 1085,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 23:23:09 INFO InvoiceServiceTest.close, line 35 -> Closing tests
+06-05-2018 23:25:37 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:25:37 INFO InvoiceServiceTest.addInvoiceTest1, line 188 -> UserCart{userName='Guest', orderNotes='Created by InvoiceServiceTest at 2018-05-06 23:25:37.369', products={D002=10.0, D001=10.0, D010=50.0, D009=50.0}}
+06-05-2018 23:25:38 INFO InvoiceServiceTest.addInvoiceTest1, line 190 -> 
+Order Id =     null
+Order code:    1525638337373
+User name:     Guest
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 23:25:37.369
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                        10,00kg    Cost: 2580,00
+2   D001    Royal Canin X-Small Junior                       10,00kg    Cost: 2820,00
+3   D010    Royal Canin Educ                                 50,00pcs   Cost: 1085,00
+4   D009    Royal Canin Energy                               50,00pcs   Cost: 1085,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 23:25:38 INFO InvoiceServiceTest.close, line 35 -> Closing tests
+06-05-2018 23:25:46 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:25:46 INFO InvoiceServiceTest.addInvoiceTest1, line 188 -> UserCart{userName='Guest', orderNotes='Created by InvoiceServiceTest at 2018-05-06 23:25:46.235', products={D002=10.0, D001=10.0, D010=50.0, D009=50.0}}
+06-05-2018 23:25:47 INFO InvoiceServiceTest.addInvoiceTest1, line 190 -> 
+Order Id =     null
+Order code:    1525638346240
+User name:     Guest
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 23:25:46.235
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                        10,00kg    Cost: 2580,00
+2   D001    Royal Canin X-Small Junior                       10,00kg    Cost: 2820,00
+3   D010    Royal Canin Educ                                 50,00pcs   Cost: 1085,00
+4   D009    Royal Canin Energy                               50,00pcs   Cost: 1085,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 23:25:47 INFO InvoiceServiceTest.close, line 35 -> Closing tests
+06-05-2018 23:25:52 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:25:53 INFO InvoiceServiceTest.addInvoiceTest1, line 188 -> UserCart{userName='Guest', orderNotes='Created by InvoiceServiceTest at 2018-05-06 23:25:53.164', products={D002=10.0, D001=10.0, D010=50.0, D009=50.0}}
+06-05-2018 23:25:53 INFO InvoiceServiceTest.addInvoiceTest1, line 190 -> 
+Order Id =     null
+Order code:    1525638353167
+User name:     Guest
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 23:25:53.164
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                        10,00kg    Cost: 2580,00
+2   D001    Royal Canin X-Small Junior                       10,00kg    Cost: 2820,00
+3   D010    Royal Canin Educ                                 50,00pcs   Cost: 1085,00
+4   D009    Royal Canin Energy                               50,00pcs   Cost: 1085,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 23:25:53 INFO InvoiceServiceTest.close, line 35 -> Closing tests
+06-05-2018 23:26:03 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:26:04 INFO InvoiceServiceTest.addInvoiceTest1, line 188 -> UserCart{userName='Guest', orderNotes='Created by InvoiceServiceTest at 2018-05-06 23:26:04.063', products={D002=10.0, D001=10.0, D010=50.0, D009=50.0}}
+06-05-2018 23:26:04 INFO InvoiceServiceTest.addInvoiceTest1, line 190 -> 
+Order Id =     null
+Order code:    1525638364067
+User name:     Guest
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 23:26:04.063
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                        10,00kg    Cost: 2580,00
+2   D001    Royal Canin X-Small Junior                       10,00kg    Cost: 2820,00
+3   D010    Royal Canin Educ                                 50,00pcs   Cost: 1085,00
+4   D009    Royal Canin Energy                               50,00pcs   Cost: 1085,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 23:26:04 INFO InvoiceServiceTest.close, line 35 -> Closing tests
+06-05-2018 23:26:27 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:26:27 INFO InvoiceServiceTest.addInvoiceTest1, line 188 -> UserCart{userName='Guest', orderNotes='Created by InvoiceServiceTest at 2018-05-06 23:26:27.333', products={D002=10.0, D001=10.0, D010=50.0, D009=50.0}}
+06-05-2018 23:26:28 INFO InvoiceServiceTest.addInvoiceTest1, line 190 -> 
+Order Id =     null
+Order code:    1525638387337
+User name:     Guest
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 23:26:27.333
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                        10,00kg    Cost: 2580,00
+2   D001    Royal Canin X-Small Junior                       10,00kg    Cost: 2820,00
+3   D010    Royal Canin Educ                                 50,00pcs   Cost: 1085,00
+4   D009    Royal Canin Energy                               50,00pcs   Cost: 1085,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 23:26:28 INFO InvoiceServiceTest.close, line 35 -> Closing tests
+06-05-2018 23:26:39 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:26:39 INFO InvoiceServiceTest.addInvoiceTest1, line 188 -> UserCart{userName='Guest', orderNotes='Created by InvoiceServiceTest at 2018-05-06 23:26:39.625', products={D002=10.0, D001=10.0, D010=50.0, D009=50.0}}
+06-05-2018 23:26:40 INFO InvoiceServiceTest.addInvoiceTest1, line 190 -> 
+Order Id =     null
+Order code:    1525638399629
+User name:     Guest
+Order status:  CREATED
+Order date:    null
+Order notes:   Created by InvoiceServiceTest at 2018-05-06 23:26:39.625
+    Invoice:
+************************************************************************************************
+1   D002    Royal Canin X-Small Adult                        10,00kg    Cost: 2580,00
+2   D001    Royal Canin X-Small Junior                       10,00kg    Cost: 2820,00
+3   D010    Royal Canin Educ                                 50,00pcs   Cost: 1085,00
+4   D009    Royal Canin Energy                               50,00pcs   Cost: 1085,00
+************************************************************************************************
+------------------------------------------------------------------------------------------------
+06-05-2018 23:26:40 INFO InvoiceServiceTest.close, line 35 -> Closing tests
+06-05-2018 23:35:35 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:35:36 INFO InvoiceServiceTest.close, line 35 -> Closing tests
+06-05-2018 23:36:45 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:36:46 ERROR GenericAbstractDao.findBy, line 94 -> java.sql.SQLException: No value specified for parameter 1
+06-05-2018 23:36:46 ERROR InvoiceService.findInvoiceByOrderNumber, line 104 -> com.epam.project.exceptions.DataNotFoundException: Data not found in DB by specified key
+06-05-2018 23:36:46 ERROR GenericAbstractDao.findBy, line 94 -> java.sql.SQLException: No value specified for parameter 1
+06-05-2018 23:36:46 ERROR InvoiceService.findInvoiceByOrderNumber, line 104 -> com.epam.project.exceptions.DataNotFoundException: Data not found in DB by specified key
+06-05-2018 23:36:46 INFO InvoiceServiceTest.close, line 35 -> Closing tests
+06-05-2018 23:43:14 INFO InvoiceServiceTest.init, line 29 -> Starting tests
+06-05-2018 23:43:15 INFO InvoiceServiceTest.close, line 35 -> Closing tests
