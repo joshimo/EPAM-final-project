@@ -166,4 +166,9 @@ public class MySQLDaoFactory extends DaoFactory {
     public IPaymentDao getPaymentDao() {
         return new PaymentDaoImpl(connection);
     }
+
+    @Override
+    public ITransactionDao getTransactionDao() {
+        return new TransactionDaoImpl(connection);
+    }
 }

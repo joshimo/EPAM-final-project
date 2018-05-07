@@ -1,7 +1,7 @@
 package com.epam.project.dao;
 
 import com.epam.project.domain.Order;
-import com.epam.project.domain.OrderStatus;
+import com.epam.project.domain.InvoiceStatus;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;
@@ -41,7 +41,7 @@ public class OrderDaoImpl extends GenericAbstractDao<Order> implements IOrderDao
         order.setOrderId(resultSet.getInt("order_id"));
         order.setOrderCode(resultSet.getLong("order_code"));
         order.setUserName(resultSet.getString("user_name"));
-        order.setStatus(OrderStatus.valueOf(resultSet.getString("status_description")));
+        order.setStatus(InvoiceStatus.valueOf(resultSet.getString("status_description")));
         order.setDate(resultSet.getTimestamp("order_date"));
         order.setOrderNotes(resultSet.getString("order_notes"));
     };

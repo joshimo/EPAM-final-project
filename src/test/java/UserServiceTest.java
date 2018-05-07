@@ -43,8 +43,9 @@ public class UserServiceTest {
 
     private static User createTestUser() {
         User user = new User(TEST_USER_NAME, TEST_USER_PASSWORD);
+        user.setEmail(TEST_USER_NAME + "@gmail.com");
         user.setUserRole(UserRole.USER);
-        user.setNotes("Created by " + UserService.class.getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
+        user.setNotes("Created by " + UserServiceTest.class.getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
         return user;
     }
 
@@ -89,6 +90,7 @@ public class UserServiceTest {
     @Test
     public void testFindUser1() throws UnknownUserException {
         User user = UserService.findUser(CORRECT_USER_NAME, CORRECT_USER_PASSWORD);
+        log.info(user);
         assertTrue(user.getName().equals("Yaroslav"));
     }
 
@@ -105,13 +107,14 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testUpdateUser() throws InterruptedException, UnknownUserException {
+    public void testUpdateUser() throws UnknownUserException {
         User user = UserService.findUser(TEST_USER_NAME, TEST_USER_PASSWORD);
         user.setName("test");
         user.setPassword("test");
         user.setUserRole(UserRole.ADMIN);
         user.setNotes("Updated by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
         boolean result  = UserService.updateUser(user);
+        log.info(UserService.findUser("Test", "test"));
         User updatedUser = UserService.findUser("test", "test");
         if (result) {
             user.setName(testUser.getName());

@@ -9,7 +9,7 @@ public class Order {
     private Integer orderId;
     private Long orderCode;
     private String userName;
-    private OrderStatus status;
+    private InvoiceStatus status;
     private Timestamp date;
     private String orderNotes;
 
@@ -29,7 +29,7 @@ public class Order {
         return userName;
     }
 
-    public OrderStatus getStatus() {
+    public InvoiceStatus getStatus() {
         return status;
     }
 
@@ -54,7 +54,7 @@ public class Order {
         this.userName = userName;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(InvoiceStatus status) {
         this.status = status;
     }
 

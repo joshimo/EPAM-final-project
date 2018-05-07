@@ -15,6 +15,8 @@ public class InvoiceService {
     private static IInvoiceDao invoiceDao;
     private static IPaymentDao paymentDao;
     private static IProductDao productDao;
+    private static ITransactionDao transactionDao;
+    private static TransactionService transactionService;
 
     static {
         try {
@@ -22,6 +24,8 @@ public class InvoiceService {
             invoiceDao = daoFactory.getInvoiceDao();
             paymentDao = daoFactory.getPaymentDao();
             productDao = daoFactory.getProductDao();
+            transactionDao = daoFactory.getTransactionDao();
+            transactionService = new TransactionService();
         } catch (IncorrectPropertyException | DataBaseConnectionException | DataBaseNotSupportedException ex) {
             log.error(ex);
         }
@@ -146,7 +150,7 @@ public class InvoiceService {
     public boolean updateInvoice(Invoice invoice) {
         if (!validateInvoice(invoice))
             return false;
-        Invoice oldInvoice = findInvoiceByOrderNumber(invoice.getOrderCode());
+        Invoice oldInvoice = findInvoiceByOrderNumber(invoice.getInvoiceCode());
         if (!deleteInvoice(oldInvoice))
             return false;
         if (!addInvoice(invoice)) {
@@ -159,10 +163,7 @@ public class InvoiceService {
     @Button
     public boolean deleteInvoice(Long orderCode) {
         Invoice invoice = findInvoiceByOrderNumber(orderCode);
-        //ToDO: simplify if
-        if ((invoice == null) || (invoice.getStatus() != OrderStatus.CREATED))
-            return false;
-        return deleteInvoice(invoice);
+        return !((invoice == null) || (invoice.getStatus() != InvoiceStatus.CREATED)) && deleteInvoice(invoice);
     }
 
     private boolean deleteInvoice(Invoice invoice) {
@@ -196,10 +197,7 @@ public class InvoiceService {
     @Button
     public boolean cancelInvoice(Long orderCode) {
         Invoice invoice = findInvoiceByOrderNumber(orderCode);
-        //ToDO: simplify if
-        if ((invoice == null) || (invoice.getStatus() != OrderStatus.CREATED))
-            return false;
-        return cancelInvoice(invoice);
+        return !((invoice == null) || (invoice.getStatus() != InvoiceStatus.CREATED)) && cancelInvoice(invoice);
     }
 
     private boolean cancelInvoice(Invoice invoice) {
@@ -214,13 +212,13 @@ public class InvoiceService {
                 Payment payment = paymentDao.findPaymentById(invoice.getPayments().get(productCode).getPaymentId());
                 product.setReservedQuantity(product.getReservedQuantity() - payment.getQuantity());
                 product.setQuantity(product.getQuantity() + payment.getQuantity());
-                payment.setStatusId(OrderStatus.CANCELLED);
+                payment.setStatusId(InvoiceStatus.CANCELLED);
                 if ((!productDao.updateProductInDB(product)) || (!paymentDao.updatePaymentInDB(payment))) {
                     daoFactory.rollbackTransaction();
                     return false;
                 }
             }
-            invoice.setStatus(OrderStatus.CANCELLED);
+            invoice.setStatus(InvoiceStatus.CANCELLED);
             if (!invoiceDao.updateInvoiceInDB(invoice)) {
                 daoFactory.rollbackTransaction();
                 return false;
@@ -237,10 +235,8 @@ public class InvoiceService {
     @Button
     public boolean removeProductFromInvoice(Long orderCode, String productCode) {
         Invoice invoice = findInvoiceByOrderNumber(orderCode);
-        //ToDO: simplify if
-        if ((invoice == null) || (invoice.getStatus() != OrderStatus.CREATED))
-            return false;
-        return removeProductFromInvoice(invoice, productCode);
+        return !((invoice == null) || (invoice.getStatus() != InvoiceStatus.CREATED))
+                && removeProductFromInvoice(invoice, productCode);
     }
 
     private boolean removeProductFromInvoice(Invoice invoice, String productCode) {
@@ -249,24 +245,52 @@ public class InvoiceService {
             Payment payment = invoice.getPayments().get(productCode);
             invoice.getPayments().remove(productCode);
             invoice.getProducts().remove(productCode);
-            //ToDO: simplify if
-            if (!removePayment(payment))
-                return false;
-            return true;
+            return removePayment(payment);
         }
         return false;
     }
 
     @Button
-    public boolean closeInvoice (Long orderCode) {
-        Invoice invoice = findInvoiceByOrderNumber(orderCode);
-        //ToDO: simplify if
-        if ((invoice == null) || (invoice.getStatus() != OrderStatus.CREATED))
-            return false;
-        return closeInvoice(invoice);
+    public boolean payByInvoice(Long invoiceCode) {
+        Invoice invoice = findInvoiceByOrderNumber(invoiceCode);
+        return !((invoice == null) || (invoice.getPaid()) || (invoice.getStatus() != InvoiceStatus.CREATED))
+                && payByInvoice(invoice);
     }
 
-    private boolean closeInvoice (Invoice invoice) {
+    private boolean payByInvoice(Invoice invoice) {
+        Set<String> products = invoice.getProducts().keySet();
+        try {
+            daoFactory.beginTransaction();
+            paymentDao = daoFactory.getPaymentDao();
+            invoiceDao = daoFactory.getInvoiceDao();
+            transactionDao = daoFactory.getTransactionDao();
+            for (String productCode : products) {
+                Payment payment = invoice.getPayments().get(productCode);
+                Transaction transaction = transactionService.createTransactionFromPayment(payment, invoice.getUserName());
+                if (!transactionDao.addTransactionToDB(transaction)) {
+                    daoFactory.rollbackTransaction();
+                    return false;
+                }
+            }
+            invoice.setPaid(true);
+            if (!invoiceDao.updateInvoiceInDB(invoice)) {
+                daoFactory.rollbackTransaction();
+                return false;
+            }
+            daoFactory.commitTransaction();
+        } catch (DataBaseConnectionException | IncorrectPropertyException ex) {
+            log.error(ex);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean closeInvoice(Long invoiceCode) {
+        Invoice invoice = findInvoiceByOrderNumber(invoiceCode);
+        return !((invoice == null) || (invoice.getStatus() != InvoiceStatus.CREATED)) && closeInvoice(invoice);
+    }
+
+    private boolean closeInvoice(Invoice invoice) {
         Set<String> productCodes = invoice.getPayments().keySet();
         try {
             daoFactory.beginTransaction();
@@ -277,13 +301,13 @@ public class InvoiceService {
                 Product product = productDao.findProductByCode(productCode);
                 Payment payment = paymentDao.findPaymentById(invoice.getPayments().get(productCode).getPaymentId());
                 product.setReservedQuantity(product.getReservedQuantity() - payment.getQuantity());
-                payment.setStatusId(OrderStatus.FINISHED);
+                payment.setStatusId(InvoiceStatus.FINISHED);
                 if ((!productDao.updateProductInDB(product)) || (!paymentDao.updatePaymentInDB(payment))) {
                     daoFactory.rollbackTransaction();
                     return false;
                 }
             }
-            invoice.setStatus(OrderStatus.FINISHED);
+            invoice.setStatus(InvoiceStatus.FINISHED);
             if (!invoiceDao.updateInvoiceInDB(invoice)) {
                 daoFactory.rollbackTransaction();
                 return false;
@@ -307,10 +331,11 @@ public class InvoiceService {
 
     public Invoice createInvoiceFromUserCart(UserCart userCart, Long orderCode) throws InvoiceServiceException {
         Invoice invoice = new Invoice();
-        invoice.setOrderCode(orderCode);
+        invoice.setInvoiceCode(orderCode);
         invoice.setUserName(userCart.getUserName());
-        invoice.setStatus(OrderStatus.CREATED);
-        invoice.setOrderNotes(userCart.getOrderNotes());
+        invoice.setPaid(false);
+        invoice.setStatus(InvoiceStatus.CREATED);
+        invoice.setInvoiceNotes(userCart.getOrderNotes());
         for (Map.Entry<String, Double> unit : userCart.getProducts().entrySet()) {
             Product product;
             try {
@@ -323,8 +348,8 @@ public class InvoiceService {
             payment.setOrderCode(orderCode);
             payment.setProductCode(unit.getKey());
             payment.setQuantity(unit.getValue());
-            payment.setPaymentValue(payment.getQuantity() * product.getCost());
-            payment.setStatusId(OrderStatus.CREATED);
+            //payment.setPaymentValue(payment.getQuantity() * product.getCost());
+            payment.setStatusId(InvoiceStatus.CREATED);
             payment.setPaymentNotes(userCart.getOrderNotes());
             invoice.addPayment(payment);
         }
@@ -332,13 +357,13 @@ public class InvoiceService {
     }
 
     private boolean validateInvoice(Invoice invoice) {
-        if ((invoice.getOrderCode() == null)
+        if ((invoice.getInvoiceCode() == null)
             || (invoice.getPayments().size() == 0)
             || (invoice.getProducts().size() == 0)
             || (invoice.getPayments().size() != invoice.getProducts().size()))
             return false;
-        Long orderCode = invoice.getOrderCode();
-        OrderStatus status = invoice.getStatus();
+        Long orderCode = invoice.getInvoiceCode();
+        InvoiceStatus status = invoice.getStatus();
         for (Map.Entry<String, Payment> paymentEntry : invoice.getPayments().entrySet())
             if (!paymentEntry.getValue().getOrderCode().equals(orderCode)
                     || (paymentEntry.getValue().getStatusId() != status))
@@ -370,14 +395,14 @@ public class InvoiceService {
     private synchronized boolean addPaymentsToInvoice(Invoice invoice, IPaymentDao paymentDao, IProductDao productDao) {
         List<Payment> payments;
         try {
-            payments = paymentDao.findAllPaymentsByOrderCode(invoice.getOrderCode());
+            payments = paymentDao.findAllPaymentsByOrderCode(invoice.getInvoiceCode());
             if (payments == null)
                 return false;
             for (Payment payment : payments) {
                 String productCode = payment.getProductCode();
                 Product product = productDao.findProductByCode(productCode);
-                invoice.addPayment(payment);
                 invoice.addProduct(product);
+                invoice.addPayment(payment);
             }
         } catch (IncorrectPropertyException | DataBaseConnectionException | DataNotFoundException ex) {
             return false;

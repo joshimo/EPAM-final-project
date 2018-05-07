@@ -1,6 +1,6 @@
 package com.epam.project.dao;
 
-import com.epam.project.domain.OrderStatus;
+import com.epam.project.domain.InvoiceStatus;
 import com.epam.project.domain.Payment;
 import com.epam.project.exceptions.DataNotFoundException;
 
@@ -13,14 +13,14 @@ public class PaymentDaoImpl extends GenericAbstractDao<Payment> implements IPaym
 
     private Connection connection;
     private static String SQL_selectAll = "SELECT * FROM payments " +
-            "JOIN order_status ON payments.status_id=order_status.status_id;";
+            "JOIN invoice_status ON payments.status_id=invoice_status.status_id;";
     private static String SQL_selectByOrderCode = "SELECT * FROM payments " +
-            "JOIN order_status ON payments.status_id=order_status.status_id WHERE order_code=?;";
+            "JOIN invoice_status ON payments.status_id=invoice_status.status_id WHERE invoice_code=?;";
     private static String SQL_selectById = "SELECT * FROM payments " +
-            "JOIN order_status ON payments.status_id=order_status.status_id WHERE payment_id=?;";
-    private static String SQL_addNewPayment = "INSERT INTO project.payments (order_code, product_code, quantity," +
+            "JOIN invoice_status ON payments.status_id=invoice_status.status_id WHERE payment_id=?;";
+    private static String SQL_addNewPayment = "INSERT INTO project.payments (invoice_code, product_code, quantity," +
             "payment_value, status_id, payment_notes) VALUES (?,?,?,?,?,?);";
-    private static String SQL_updatePayment = "UPDATE project.payments SET order_code=?, product_code=?, quantity=?," +
+    private static String SQL_updatePayment = "UPDATE project.payments SET invoice_code=?, product_code=?, quantity=?," +
             "payment_value=?, status_id=?, payment_notes=? WHERE payment_id=?;";
     private static String SQL_deletePaymentById = "DELETE FROM project.payments WHERE payment_id=?;";
 
@@ -29,17 +29,17 @@ public class PaymentDaoImpl extends GenericAbstractDao<Payment> implements IPaym
         preparedStatement.setString(2, payment.getProductCode());
         preparedStatement.setDouble(3, payment.getQuantity());
         preparedStatement.setDouble(4, payment.getPaymentValue());
-        preparedStatement.setInt(5, payment.getStatusId().ordinal() + 1);
+        preparedStatement.setInt(5, payment.getStatusId().ordinal());
         preparedStatement.setString(6, payment.getPaymentNotes());
     };
 
     private Mapper<ResultSet, Payment> mapperFromDB = (ResultSet resultSet, Payment payment) -> {
         payment.setPaymentId(resultSet.getInt("payment_id"));
-        payment.setOrderCode(resultSet.getLong("order_code"));
+        payment.setOrderCode(resultSet.getLong("invoice_code"));
         payment.setProductCode(resultSet.getString("product_code"));
         payment.setQuantity(resultSet.getDouble("quantity"));
         payment.setPaymentValue(resultSet.getDouble("payment_value"));
-        payment.setStatusId(OrderStatus.valueOf(resultSet.getString("status_description")));
+        payment.setStatusId(InvoiceStatus.valueOf(resultSet.getString("status_description")));
         payment.setPaymentNotes(resultSet.getString("payment_notes"));
     };
 

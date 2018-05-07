@@ -13,19 +13,19 @@ import java.util.List;
 public class ProductDaoImpl extends GenericAbstractDao<Product> implements IProductDao {
 
     private Connection connection;
-    private static String SQL_selectAll = "SELECT * FROM stock;";
-    private static String SQL_selectById = "SELECT * FROM stock WHERE product_id=?;";
-    private static String SQL_selectByCode = "SELECT * FROM stock WHERE product_code=?;";
-    private static String SQL_addNewProduct = "INSERT INTO project.stock (product_code, is_available, " +
+    private static String SQL_selectAll = "SELECT * FROM products;";
+    private static String SQL_selectById = "SELECT * FROM products WHERE product_id=?;";
+    private static String SQL_selectByCode = "SELECT * FROM products WHERE product_code=?;";
+    private static String SQL_addNewProduct = "INSERT INTO project.products (product_code, is_available, " +
             "product_name_en, product_name_ru, product_description_en, product_description_ru, " +
             "product_cost, product_quantity, reserved_quantity, product_uom_en, product_uom_ru, product_notes_en, product_notes_ru" +
             ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
-    private static String SQL_updateProduct = "UPDATE project.stock SET product_code=?, is_available=?, " +
+    private static String SQL_updateProduct = "UPDATE project.products SET product_code=?, is_available=?, " +
             "product_name_en=?, product_name_ru=?, product_description_en=?, product_description_ru=?, " +
             "product_cost=?, product_quantity=?, reserved_quantity=?, product_uom_en=?, product_uom_ru=?, " +
             "product_notes_en=?, product_notes_ru=? WHERE product_id=?;";
-    private static String SQL_deleteProductById = "DELETE FROM project.stock WHERE product_id=?;";
-    private static String SQL_deleteProductByCode = "DELETE FROM project.stock WHERE product_code=?;";
+    private static String SQL_deleteProductById = "DELETE FROM project.products WHERE product_id=?;";
+    private static String SQL_deleteProductByCode = "DELETE FROM project.products WHERE product_code=?;";
 
     /** Private methods for serving methods implementing DAO interface */
 

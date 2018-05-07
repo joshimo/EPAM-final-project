@@ -30,7 +30,7 @@ public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao{
         preparedStatement.setString(1, user.getName());
         preparedStatement.setString(2, user.getPassword());
         preparedStatement.setString(3, user.getEmail());
-        preparedStatement.setInt(4, user.getUserRole().ordinal() + 1);
+        preparedStatement.setInt(4, user.getUserRole().ordinal());
         preparedStatement.setString(5, user.getNotes());
     };
 

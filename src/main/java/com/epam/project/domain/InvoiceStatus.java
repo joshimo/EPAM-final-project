@@ -1,6 +1,6 @@
 package com.epam.project.domain;
 
-public enum OrderStatus {
+public enum InvoiceStatus {
     CREATED,
     FINISHED,
     CANCELLED

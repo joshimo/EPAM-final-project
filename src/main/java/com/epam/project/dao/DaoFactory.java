@@ -12,6 +12,7 @@ public abstract class DaoFactory {
     public abstract IProductDao getProductDao();
     public abstract IInvoiceDao getInvoiceDao();
     public abstract IPaymentDao getPaymentDao();
+    public abstract ITransactionDao getTransactionDao();
 
     private static final Logger log = Logger.getLogger(DaoFactory.class);
 
@@ -19,7 +20,6 @@ public abstract class DaoFactory {
     abstract void closeConnection() throws DataBaseConnectionException;
     public abstract void open() throws DataBaseConnectionException;
     public abstract void close();
-
 
     /** Transaction methods */
     public abstract void beginTransaction() throws DataBaseConnectionException;

@@ -1,7 +1,6 @@
 import com.epam.project.domain.*;
 import com.epam.project.exceptions.*;
 import com.epam.project.service.InvoiceService;
-import com.epam.project.service.ProductService;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -42,7 +41,7 @@ public class InvoiceServiceTest {
 
     private UserCart createTestCart() {
         UserCart cart = new UserCart(USER_NAME);
-        cart.setOrderNotes("Created by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
+        cart.setOrderNotes("Created by " + getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
         cart.addProduct("D001", 10.0);
         cart.addProduct("D002", 10.0);
         cart.addProduct("D009", 50.0);
@@ -54,9 +53,7 @@ public class InvoiceServiceTest {
         return invoiceService.createInvoiceFromUserCart(cart, ORDER_NUM);
     }
 
-
     /** tests */
-
     @Test
     public void findAllInvoicesTest() {
         List<Invoice> invoices = invoiceService.findAllInvoices();
@@ -67,6 +64,7 @@ public class InvoiceServiceTest {
     @Test
     public void findNewInvoicesTest() {
         List<Invoice> newInvoices = invoiceService.findNewInvoices();
+        log.info(newInvoices);
         assertTrue(newInvoices.size() > 0);
     }
 
@@ -81,7 +79,7 @@ public class InvoiceServiceTest {
     public void findInvoicesByOrderNumberTest() {
         Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
         log.info(invoice);
-        assertTrue(invoice.getOrderCode() == ORDER_NUM);
+        assertTrue(invoice.getInvoiceCode().equals(ORDER_NUM));
     }
 
     @Test
@@ -100,11 +98,12 @@ public class InvoiceServiceTest {
     @Test
     public void updateInvoiceTest() {
         Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
+        String notes = "Updated by " + getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis());
         for (Map.Entry<String, Payment> paymentEntry : invoice.getPayments().entrySet()) {
             paymentEntry.getValue().setQuantity(paymentEntry.getValue().getQuantity() + 10d);
-            paymentEntry.getValue().setPaymentNotes("Updated by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
+            paymentEntry.getValue().setPaymentNotes(notes);
         }
-        invoice.setOrderNotes("Updated by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
+        invoice.setInvoiceNotes(notes);
         assertTrue(invoiceService.updateInvoice(invoice));
     }
 
@@ -112,7 +111,7 @@ public class InvoiceServiceTest {
     public void deleteInvoiceTest() {
         Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
         boolean result = invoiceService.deleteInvoice(ORDER_NUM);
-        if (invoice.getStatus() == OrderStatus.CREATED)
+        if (invoice.getStatus() == InvoiceStatus.CREATED)
             assertTrue(result);
         else
             assertFalse(result);
@@ -122,7 +121,7 @@ public class InvoiceServiceTest {
     public void removeProductFromInvoiceTest() {
         Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
         boolean result = invoiceService.removeProductFromInvoice(ORDER_NUM, "D001");
-        if (invoice.getStatus() == OrderStatus.CREATED)
+        if (invoice.getStatus() == InvoiceStatus.CREATED)
             assertTrue(result);
         else
             assertFalse(result);
@@ -132,7 +131,7 @@ public class InvoiceServiceTest {
     public void closeInvoiceTest() {
         Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
         boolean result = invoiceService.closeInvoice(ORDER_NUM);
-        if (invoice.getStatus() == OrderStatus.CREATED)
+        if (invoice.getStatus() == InvoiceStatus.CREATED)
             assertTrue(result);
         else
             assertFalse(result);
@@ -142,7 +141,17 @@ public class InvoiceServiceTest {
     public void cancelInvoiceTest() {
         Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
         boolean result = invoiceService.cancelInvoice(ORDER_NUM);
-        if (invoice.getStatus() == OrderStatus.CREATED)
+        if (invoice.getStatus() == InvoiceStatus.CREATED)
+            assertTrue(result);
+        else
+            assertFalse(result);
+    }
+
+    @Test
+    public void payByInvoiceTest() {
+        Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
+        boolean result = invoiceService.payByInvoice(ORDER_NUM);
+        if ((invoice.getStatus() == InvoiceStatus.CREATED) && (!invoice.getPaid()))
             assertTrue(result);
         else
             assertFalse(result);

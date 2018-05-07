@@ -4,14 +4,16 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
+/** Mapped to invoices table */
 public class Invoice {
 
-    private Integer orderId;
-    private Long orderCode;
+    private Integer invoiceId;
+    private Long invoiceCode;
     private String userName;
-    private OrderStatus status;
+    private Boolean isPaid;
+    private InvoiceStatus status;
     private Timestamp date;
-    private String orderNotes;
+    private String invoiceNotes;
     private Map<String, Payment> payments;
     private Map<String, Product> products;
 
@@ -20,22 +22,25 @@ public class Invoice {
         products = new HashMap<>();
     }
 
-
     /** Getters */
 
-    public Integer getOrderId() {
-        return orderId;
+    public Integer getInvoiceId() {
+        return invoiceId;
     }
 
-    public Long getOrderCode() {
-        return orderCode;
+    public Long getInvoiceCode() {
+        return invoiceCode;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public OrderStatus getStatus() {
+    public Boolean getPaid() {
+        return isPaid;
+    }
+
+    public InvoiceStatus getStatus() {
         return status;
     }
 
@@ -43,8 +48,8 @@ public class Invoice {
         return date;
     }
 
-    public String getOrderNotes() {
-        return orderNotes;
+    public String getInvoiceNotes() {
+        return invoiceNotes;
     }
 
     public Map<String, Payment> getPayments() {
@@ -57,19 +62,23 @@ public class Invoice {
 
     /** Setters */
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
+    public void setInvoiceId(Integer invoiceId) {
+        this.invoiceId = invoiceId;
     }
 
-    public void setOrderCode(Long orderCode) {
-        this.orderCode = orderCode;
+    public void setInvoiceCode(Long invoiceCode) {
+        this.invoiceCode = invoiceCode;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setPaid(Boolean paid) {
+        isPaid = paid;
+    }
+
+    public void setStatus(InvoiceStatus status) {
         this.status = status;
     }
 
@@ -77,8 +86,8 @@ public class Invoice {
         this.date = date;
     }
 
-    public void setOrderNotes(String orderNotes) {
-        this.orderNotes = orderNotes;
+    public void setInvoiceNotes(String invoiceNotes) {
+        this.invoiceNotes = invoiceNotes;
     }
 
 
@@ -107,6 +116,8 @@ public class Invoice {
     }
 
     public void addPayment(Payment payment) {
+        Product product = products.get(payment.getProductCode());
+        payment.setPaymentValue(payment.getQuantity() * product.getCost());
         payments.put(payment.getProductCode(), payment);
     }
 
@@ -118,12 +129,13 @@ public class Invoice {
     @Override
     public String toString() {
         int num = 0;
-        StringBuilder sb = new StringBuilder(String.format("%n%-15s", "Order Id =")).append(orderId);
-        sb.append(String.format("%n%-15s", "Order code:")).append(orderCode);
+        StringBuilder sb = new StringBuilder(String.format("%n%-15s", "Order Id =")).append(invoiceId);
+        sb.append(String.format("%n%-15s", "Order code:")).append(invoiceCode);
         sb.append(String.format("%n%-15s", "User name:")).append(userName);
+        sb.append(String.format("%n%-15s", "Is payd:")).append(isPaid);
         sb.append(String.format("%n%-15s", "Order status:")).append(status);
         sb.append(String.format("%n%-15s", "Order date:")).append(date);
-        sb.append(String.format("%n%-15s", "Order notes:")).append(orderNotes);
+        sb.append(String.format("%n%-15s", "Order notes:")).append(invoiceNotes);
         sb.append(String.format("%n%12s", "Invoice:"));
         sb.append("\n************************************************************************************************");
         for (Map.Entry<String, Product> entry : products.entrySet()) {

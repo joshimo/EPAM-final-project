@@ -8,12 +8,12 @@ CREATE TABLE project.user_roles (
   role_description VARCHAR(32) UNIQUE
 ) ENGINE InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE project.order_status (
+CREATE TABLE project.invoice_status (
   status_id SMALLINT NOT NULL KEY,
   status_description VARCHAR(32) UNIQUE
 ) ENGINE InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE project.stock (
+CREATE TABLE project.products (
   product_id SMALLINT NOT NULL AUTO_INCREMENT KEY,
   product_code VARCHAR(12) NOT NULL UNIQUE,
   is_available BIT(1) NOT NULL DEFAULT FALSE,
@@ -40,32 +40,45 @@ CREATE TABLE project.users (
   FOREIGN KEY (role_id) REFERENCES project.user_roles (role_id)
 ) ENGINE InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE project.orders (
-  order_id SMALLINT NOT NULL AUTO_INCREMENT KEY,
-  order_code BIGINT UNIQUE NOT NULL,
+CREATE TABLE project.invoices (
+  invoice_id SMALLINT NOT NULL AUTO_INCREMENT KEY,
+  invoice_code BIGINT UNIQUE NOT NULL,
   user_name VARCHAR(128),
+  is_paid BIT(1) NOT NULL DEFAULT FALSE,
   status_id SMALLINT NOT NULL,
-  order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  order_notes VARCHAR(255),
+  invoice_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  invoice_notes VARCHAR(255),
   FOREIGN KEY (user_name) REFERENCES project.users (user_name)
     ON UPDATE CASCADE
     ON DELETE SET NULL,
-  FOREIGN KEY (status_id) REFERENCES project.order_status(status_id)
+  FOREIGN KEY (status_id) REFERENCES project.invoice_status(status_id)
 ) ENGINE InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE project.payments (
   payment_id SMALLINT NOT NULL AUTO_INCREMENT KEY,
-  order_code BIGINT NOT NULL,
+  invoice_code BIGINT NOT NULL,
   product_code VARCHAR(12) NOT NULL,
   quantity DOUBLE NOT NULL DEFAULT 0,
   payment_value DOUBLE NOT NULL DEFAULT 0,
   status_id SMALLINT NOT NULL,
   payment_notes VARCHAR(255),
-  FOREIGN KEY (product_code) REFERENCES project.stock(product_code)
+  FOREIGN KEY (product_code) REFERENCES project.products(product_code)
     ON UPDATE CASCADE
     ON DELETE RESTRICT,
-  FOREIGN KEY (order_code) REFERENCES project.orders(order_code)
+  FOREIGN KEY (invoice_code) REFERENCES project.invoices(invoice_code)
     ON UPDATE CASCADE
     ON DELETE RESTRICT,
-  FOREIGN KEY (status_id) REFERENCES project.order_status(status_id)
+  FOREIGN KEY (status_id) REFERENCES project.invoice_status(status_id)
+) ENGINE InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE project.transactions (
+  transaction_id SMALLINT NOT NULL AUTO_INCREMENT KEY,
+  payment_id BIGINT NOT NULL,
+  invoice_code BIGINT NOT NULL,
+  user_name VARCHAR(128),
+  payment_value DOUBLE NOT NULL DEFAULT 0,
+  transaction_notes VARCHAR(255),
+  FOREIGN KEY (user_name) REFERENCES project.users (user_name)
+    ON UPDATE CASCADE
+    ON DELETE SET NULL
 ) ENGINE InnoDB DEFAULT CHARSET=utf8;

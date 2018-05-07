@@ -7,7 +7,7 @@ public class Payment {
     private String productCode;
     private Double quantity;
     private Double paymentValue;
-    private OrderStatus statusId;
+    private InvoiceStatus statusId;
     private String paymentNotes;
 
     public Payment() {
@@ -33,7 +33,7 @@ public class Payment {
         return paymentValue;
     }
 
-    public OrderStatus getStatusId() {
+    public InvoiceStatus getStatusId() {
         return statusId;
     }
 
@@ -61,7 +61,7 @@ public class Payment {
         this.paymentValue = paymentValue;
     }
 
-    public void setStatusId(OrderStatus statusId) {
+    public void setStatusId(InvoiceStatus statusId) {
         this.statusId = statusId;
     }
 
