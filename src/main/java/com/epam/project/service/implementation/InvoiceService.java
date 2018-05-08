@@ -1,13 +1,15 @@
-package com.epam.project.service;
+package com.epam.project.service.implementation;
 
 import com.epam.project.dao.*;
 import com.epam.project.domain.*;
 import com.epam.project.exceptions.*;
+import com.epam.project.service.Button;
+import com.epam.project.service.IInvoiceServ;
 import org.apache.log4j.Logger;
 
 import java.util.*;
 
-public class InvoiceService {
+public class InvoiceService implements IInvoiceServ {
 
     private static final Logger log = Logger.getLogger(ProductService.class);
     private static final DataBaseSelector source = DataBaseSelector.MY_SQL;
@@ -17,6 +19,7 @@ public class InvoiceService {
     private static IProductDao productDao;
     private static ITransactionDao transactionDao;
     private static TransactionService transactionService;
+    private static ProductService productService;
 
     static {
         try {
@@ -26,6 +29,7 @@ public class InvoiceService {
             productDao = daoFactory.getProductDao();
             transactionDao = daoFactory.getTransactionDao();
             transactionService = new TransactionService();
+            productService = new ProductService();
         } catch (IncorrectPropertyException | DataBaseConnectionException | DataBaseNotSupportedException ex) {
             log.error(ex);
         }
@@ -163,7 +167,8 @@ public class InvoiceService {
     @Button
     public boolean deleteInvoice(Long orderCode) {
         Invoice invoice = findInvoiceByOrderNumber(orderCode);
-        return !((invoice == null) || (invoice.getStatus() != InvoiceStatus.CREATED)) && deleteInvoice(invoice);
+        return !((invoice == null) || (invoice.getStatus() != InvoiceStatus.CREATED) || (invoice.getPaid()))
+                && deleteInvoice(invoice);
     }
 
     private boolean deleteInvoice(Invoice invoice) {
@@ -207,13 +212,17 @@ public class InvoiceService {
             productDao = daoFactory.getProductDao();
             paymentDao = daoFactory.getPaymentDao();
             invoiceDao = daoFactory.getInvoiceDao();
+            transactionDao = daoFactory.getTransactionDao();
             for (String productCode : productCodes) {
                 Product product = productDao.findProductByCode(productCode);
                 Payment payment = paymentDao.findPaymentById(invoice.getPayments().get(productCode).getPaymentId());
                 product.setReservedQuantity(product.getReservedQuantity() - payment.getQuantity());
                 product.setQuantity(product.getQuantity() + payment.getQuantity());
                 payment.setStatusId(InvoiceStatus.CANCELLED);
-                if ((!productDao.updateProductInDB(product)) || (!paymentDao.updatePaymentInDB(payment))) {
+                Transaction refund = transactionService.createTransactionFromPayment(payment, invoice.getUserName(), TransactionType.REFUND);
+                if ((!productDao.updateProductInDB(product))
+                        || (!paymentDao.updatePaymentInDB(payment))
+                        || (!transactionDao.addTransactionToDB(refund))) {
                     daoFactory.rollbackTransaction();
                     return false;
                 }
@@ -232,6 +241,7 @@ public class InvoiceService {
     }
 
     /** Special methods */
+
     @Button
     public boolean removeProductFromInvoice(Long orderCode, String productCode) {
         Invoice invoice = findInvoiceByOrderNumber(orderCode);
@@ -266,7 +276,7 @@ public class InvoiceService {
             transactionDao = daoFactory.getTransactionDao();
             for (String productCode : products) {
                 Payment payment = invoice.getPayments().get(productCode);
-                Transaction transaction = transactionService.createTransactionFromPayment(payment, invoice.getUserName());
+                Transaction transaction = transactionService.createTransactionFromPayment(payment, invoice.getUserName(), TransactionType.PAYMENT);
                 if (!transactionDao.addTransactionToDB(transaction)) {
                     daoFactory.rollbackTransaction();
                     return false;
@@ -339,7 +349,7 @@ public class InvoiceService {
         for (Map.Entry<String, Double> unit : userCart.getProducts().entrySet()) {
             Product product;
             try {
-                product = ProductService.findProductByCode(unit.getKey());
+                product = productService.findProductByCode(unit.getKey());
             } catch (ProductServiceException ex) {
                 throw new InvoiceServiceException("Product " + unit.getKey() + " not found in DB");
             }

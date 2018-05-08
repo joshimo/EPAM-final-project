@@ -39,7 +39,12 @@ public class UserCart {
     }
 
     public void addProduct(String productCode, Double quantity) {
-        products.put(productCode, quantity);
+        if (products.containsKey(productCode)) {
+            Double newQuantity = products.get(productCode) + quantity;
+            products.replace(productCode, newQuantity);
+        }
+        else
+            products.put(productCode, quantity);
     }
 
     public void removeProduct(String productCode) {

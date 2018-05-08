@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.epam.training</groupId>
-    <artifactId>Final Project</artifactId>
+    <artifactId>FinalProject</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 

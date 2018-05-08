@@ -1,5 +1,8 @@
-package com.epam.project.dao;
+package com.epam.project.dao.implementation;
 
+import com.epam.project.dao.GenericAbstractDao;
+import com.epam.project.dao.IUserDao;
+import com.epam.project.dao.Mapper;
 import com.epam.project.domain.User;
 import com.epam.project.domain.UserRole;
 import com.epam.project.exceptions.DataBaseConnectionException;
@@ -10,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
-public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao{
+public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao {
     private Connection connection;
     private static String SQL_selectAll = "SELECT * FROM users JOIN user_roles ON users.role_id=user_roles.role_id " +
             "ORDER BY user_id;";

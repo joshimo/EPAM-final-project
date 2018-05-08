@@ -1,5 +1,6 @@
 package com.epam.project.dao;
 
+import com.epam.project.dao.implementation.*;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.IncorrectPropertyException;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -10,8 +11,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.Queue;
-import java.util.function.Function;
 
 public class MySQLDaoFactory extends DaoFactory {
 

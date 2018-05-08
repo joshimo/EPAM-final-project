@@ -76,7 +76,9 @@ CREATE TABLE project.transactions (
   payment_id BIGINT NOT NULL,
   invoice_code BIGINT NOT NULL,
   user_name VARCHAR(128),
+  transaction_type VARCHAR(16) NOT NULL,
   payment_value DOUBLE NOT NULL DEFAULT 0,
+  transaction_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   transaction_notes VARCHAR(255),
   FOREIGN KEY (user_name) REFERENCES project.users (user_name)
     ON UPDATE CASCADE

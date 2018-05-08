@@ -1,6 +1,10 @@
-package com.epam.project.dao;
+package com.epam.project.dao.implementation;
 
+import com.epam.project.dao.GenericAbstractDao;
+import com.epam.project.dao.ITransactionDao;
+import com.epam.project.dao.Mapper;
 import com.epam.project.domain.Transaction;
+import com.epam.project.domain.TransactionType;
 import com.epam.project.exceptions.DataNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,18 +17,20 @@ public class TransactionDaoImpl extends GenericAbstractDao<Transaction> implemen
     private static String SQL_selectAll = "SELECT * FROM transactions";
     private static String SQL_selectByInvoice = "SELECT * FROM transactions WHERE invoice_code=?;";
     private static String SQL_selectByUserName = "SELECT * FROM transactions WHERE user_name=?;";
+    private static String SQL_selectByType = "SELECT * FROM transactions WHERE transaction_type=?;";
     private static String SQL_selectById = "SELECT * FROM transactions WHERE transaction_id=?;";
     private static String SQL_addNew = "INSERT INTO project.transactions " +
-            "(payment_id, invoice_code, user_name, payment_value, transaction_notes) " +
-            "VALUES (?, ?, ?, ?, ?);";
+            "(payment_id, invoice_code, user_name, transaction_type, payment_value, transaction_notes) " +
+            "VALUES (?, ?, ?, ?, ?, ?);";
 
 
     private Mapper<Transaction, PreparedStatement> mapperToDB = (Transaction transaction, PreparedStatement preparedStatement) -> {
         preparedStatement.setInt(1, transaction.getPaymentId());
         preparedStatement.setLong(2, transaction.getInvoiceCode());
         preparedStatement.setString(3, transaction.getUserName());
-        preparedStatement.setDouble(4, transaction.getPaymentValue());
-        preparedStatement.setString(5, transaction.getNotes());
+        preparedStatement.setString(4, transaction.getTransactionType().name());
+        preparedStatement.setDouble(5, transaction.getPaymentValue());
+        preparedStatement.setString(6, transaction.getNotes());
     };
 
     private Mapper<ResultSet, Transaction> mapperFromDB = (ResultSet resultSet, Transaction transaction) -> {
@@ -32,7 +38,9 @@ public class TransactionDaoImpl extends GenericAbstractDao<Transaction> implemen
         transaction.setPaymentId(resultSet.getInt("payment_id"));
         transaction.setInvoiceCode(resultSet.getLong("invoice_code"));
         transaction.setUserName(resultSet.getString("user_name"));
+        transaction.setTransactionType(TransactionType.valueOf(resultSet.getString("transaction_type")));
         transaction.setPaymentValue(resultSet.getDouble("payment_value"));
+        transaction.setTime(resultSet.getTimestamp("transaction_time"));
         transaction.setNotes(resultSet.getString("transaction_notes"));
     };
 
@@ -55,6 +63,11 @@ public class TransactionDaoImpl extends GenericAbstractDao<Transaction> implemen
     @Override
     public List<Transaction> findAllTransactionsByUser(String userName) throws DataNotFoundException {
         return findAsListBy(this.connection, Transaction.class, SQL_selectByUserName, userName);
+    }
+
+    @Override
+    public List<Transaction> findAllTransactionsByType(TransactionType type) throws DataNotFoundException {
+        return findAsListBy(this.connection, Transaction.class, SQL_selectByType, type.toString());
     }
 
     @Override

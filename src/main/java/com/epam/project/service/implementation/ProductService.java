@@ -1,16 +1,18 @@
-package com.epam.project.service;
+package com.epam.project.service.implementation;
 
 import com.epam.project.dao.DaoFactory;
 import com.epam.project.dao.DataBaseSelector;
 import com.epam.project.dao.IProductDao;
 import com.epam.project.domain.Product;
 import com.epam.project.exceptions.*;
+import com.epam.project.service.Button;
+import com.epam.project.service.IProductServ;
 import org.apache.log4j.Logger;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class ProductService {
+public class ProductService implements IProductServ {
 
     private static final Logger log = Logger.getLogger(ProductService.class);
     private static final DataBaseSelector source = DataBaseSelector.MY_SQL;
@@ -29,7 +31,7 @@ public class ProductService {
 
     /** User validation method to check user before storing in DB */
 
-    public static boolean validateProductData(Product product) {
+    public boolean validateProductData(Product product) {
         return !(product.getCode() == null || product.getCode().isEmpty()
                 || product.getNameEn() == null || product.getNameEn().isEmpty()
                 || product.getNameRu() == null || product.getNameRu().isEmpty()
@@ -39,7 +41,8 @@ public class ProductService {
 
     /** Data access and storing methods */
 
-    public static List<Product> findAllProducts() throws ProductServiceException {
+    @Button
+    public List<Product> findAllProducts() throws ProductServiceException {
         List<Product> products = new LinkedList<>();
         try {
             daoFactory.open();
@@ -53,7 +56,7 @@ public class ProductService {
         return products;
     }
 
-    public static Product findProductByCode(String code) throws ProductServiceException {
+    public Product findProductByCode(String code) throws ProductServiceException {
         Product product = new Product();
         try {
             daoFactory.open();
@@ -67,7 +70,8 @@ public class ProductService {
         return product;
     }
 
-    public static boolean addProduct(Product product) {
+    @Button
+    public boolean addProduct(Product product) {
         boolean result;
         try {
             daoFactory.beginTransaction();
@@ -81,7 +85,8 @@ public class ProductService {
         return result;
     }
 
-    public static boolean updateProduct(Product product) {
+    @Button
+    public boolean updateProduct(Product product) {
         boolean result;
         try {
             daoFactory.beginTransaction();
@@ -95,7 +100,7 @@ public class ProductService {
         return result;
     }
 
-    public static boolean updateProducts(List<Product> products) {
+    public boolean updateProducts(List<Product> products) {
         try {
             daoFactory.beginTransaction();
             productDao = daoFactory.getProductDao();
@@ -112,7 +117,7 @@ public class ProductService {
         }
     }
 
-    public static boolean deleteProduct(Product product) {
+    public boolean deleteProduct(Product product) {
         boolean result;
         try {
             daoFactory.beginTransaction();
@@ -126,7 +131,8 @@ public class ProductService {
         return result;
     }
 
-    public static boolean deleteProduct(String code) {
+    @Button
+    public boolean deleteProduct(String code) {
         boolean result;
         try {
             daoFactory.beginTransaction();

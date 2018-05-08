@@ -1,13 +1,15 @@
-package com.epam.project.service;
+package com.epam.project.service.implementation;
 
 import com.epam.project.dao.DaoFactory;
 import com.epam.project.dao.DataBaseSelector;
 import com.epam.project.dao.IUserDao;
 import com.epam.project.domain.User;
 import com.epam.project.exceptions.*;
+import com.epam.project.service.Button;
+import com.epam.project.service.IUserServ;
 import org.apache.log4j.Logger;
 
-public class UserService {
+public class UserService implements IUserServ {
 
     private static final String SUPER_ADMIN_NAME = "Yaroslav";
     private static final String SUPER_ADMIN_PASSWORD = "golota";
@@ -25,7 +27,8 @@ public class UserService {
         }
     }
 
-    public static User findUser(String name, String password) throws UnknownUserException{
+    @Button
+    public User findUser(String name, String password) throws UnknownUserException{
         User user = new User();
         try {
             daoFactory.open();
@@ -43,7 +46,7 @@ public class UserService {
 
     /** User validation method to check user before storing in DB */
 
-    public static boolean validateUserData(User user) {
+    public boolean validateUserData(User user) {
         return !(user.getName() == null
                 || user.getName().isEmpty()
                 || user.getPassword() == null
@@ -51,13 +54,14 @@ public class UserService {
                 || user.getUserRole() == null);
     }
 
-    public static boolean checkIfSuperAdmin(String name, String password) {
+    public boolean checkIfSuperAdmin(String name, String password) {
         return name.equals(SUPER_ADMIN_NAME) && password.equals(SUPER_ADMIN_PASSWORD);
     }
 
     /** Data access and storing methods */
 
-    public static boolean addUser(User user) {
+    @Button
+    public boolean addUser(User user) {
         boolean result;
         try {
             daoFactory.open();
@@ -71,7 +75,8 @@ public class UserService {
         return result;
     }
 
-    public static boolean updateUser(User user) {
+    @Button
+    public boolean updateUser(User user) {
         boolean result;
         try {
             daoFactory.open();
@@ -85,7 +90,8 @@ public class UserService {
         return result;
     }
 
-    public static boolean deleteUser(User user) {
+    @Button
+    public boolean deleteUser(User user) {
         boolean result;
         try {
             daoFactory.open();

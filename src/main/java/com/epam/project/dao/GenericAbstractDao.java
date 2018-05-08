@@ -17,7 +17,7 @@ public abstract class GenericAbstractDao<T> {
 
     private static final Logger log = Logger.getLogger(GenericAbstractDao.class);
 
-    GenericAbstractDao() {
+    protected GenericAbstractDao() {
     }
 
     protected void setMapperToDB(Mapper<T, PreparedStatement> mapperToDB) {
@@ -28,7 +28,7 @@ public abstract class GenericAbstractDao<T> {
         this.mapperFromDB = mapperFromDB;
     }
 
-    List<T> findAll(Connection connection, Class t, String SQL_getAll) throws DataNotFoundException {
+    protected List<T> findAll(Connection connection, Class t, String SQL_getAll) throws DataNotFoundException {
         List<T> items = new LinkedList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_getAll);

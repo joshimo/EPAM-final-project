@@ -1,5 +1,8 @@
-package com.epam.project.dao;
+package com.epam.project.dao.implementation;
 
+import com.epam.project.dao.GenericAbstractDao;
+import com.epam.project.dao.IProductDao;
+import com.epam.project.dao.Mapper;
 import com.epam.project.domain.Product;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataNotFoundException;
