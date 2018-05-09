@@ -1,0 +1,109 @@
+body {
+    background: goldenrod;
+}
+h1 {
+    text-align: center;
+    color: rgb(65,40,0);
+}
+h3 {
+    padding-left: 5%;
+    color: rgb(120,80,0);
+}
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    border-radius: 10px;
+    border-spacing: 0;
+    box-shadow: 0 0 15px rgba(50,50,50,0.5);
+    width: 98%;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+th {
+    text-align: center;
+    background: #BCEBDD;
+    color: white;
+    text-shadow: 0 1px 1px #2D2020;
+    padding: 10px 20px;
+}
+th, td {
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: white;
+}
+td, .main_div {
+    padding: 10px 20px;
+    background: #F8E391;
+}
+.input {
+    height: 25px;
+    border-radius: 3px;
+}
+.index_div {
+    text-align: center;
+    margin: 10%;
+    border-width: 2px;
+    border-color: #7554ff;
+    border-radius: 10px;
+}
+.main_div {
+    margin-left: 5%;
+    margin-right: 5%;
+    box-shadow: 0 0 12px rgba(0,0,0,0.5);
+    border-radius: 10px;
+}
+.inner_div {
+    border: solid;
+    padding: 10px;
+    border-width: 1px;
+    border-color: orange;
+    border-radius: 5px;
+    background: #f8d88b;
+    box-shadow: 0 0 5px rgba(255,160,00,0.7);
+}
+.button_div {
+    text-align: center;
+}
+.tdc {
+    text-align: center;
+}
+.tdl {
+    text-align: left;
+}
+tr:hover, a:hover {
+    text-shadow: 0 1px 1px #2D2020;
+}
+a:hover {
+    color: orangered;
+}
+.bigbutton:hover {
+    color: orangered;
+    box-shadow: 0 0 10px rgba(220,120,0,0.6);
+}
+.giantbutton:hover {
+    color: orangered;
+    box-shadow: 0 0 20px rgba(50,0,0,0.6);
+}
+.bigbutton {
+    height: 36px;
+    width: 240px;
+    margin: 20px;
+    border-radius: 5px;
+}
+.giantbutton {
+    height: 50px;
+    width: 480px;
+    margin: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    text-shadow: 0 1px 1px #2D2020;
+    text-align: center;
+}
+.hidden {
+    display: none;
+}
+footer {
+    text-align:center;
+    font-style:italic;
+    font-weight:bold;
+}

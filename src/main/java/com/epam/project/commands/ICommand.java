@@ -1,8 +1,8 @@
-package com.epam.project.service;
+package com.epam.project.commands;
 
 import javax.servlet.http.HttpServletRequest;
 
-public interface ActionCommand {
+public interface ICommand {
 
     String execute(HttpServletRequest request);
 
