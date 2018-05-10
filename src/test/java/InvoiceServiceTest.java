@@ -1,14 +1,13 @@
 import com.epam.project.domain.*;
 import com.epam.project.exceptions.*;
-import com.epam.project.service.InvoiceService;
+import com.epam.project.service.IInvoiceServ;
+import com.epam.project.service.ServiceFactory;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -19,12 +18,12 @@ public class InvoiceServiceTest {
     private final static Long ORDER_NUM = 1000L;
     private static Invoice testInvoice;
     private static Invoice badInvoice;
-    private static InvoiceService invoiceService;
+    private static IInvoiceServ invoiceService = ServiceFactory.getInvoiceService();
 
     @BeforeClass
     public static void init() {
         log.info("Starting tests");
-        invoiceService = new InvoiceService();
+        invoiceService = ServiceFactory.getInvoiceService();
     }
 
     @AfterClass
@@ -43,6 +42,11 @@ public class InvoiceServiceTest {
         UserCart cart = new UserCart(USER_NAME);
         cart.setOrderNotes("Created by " + getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis()));
         cart.addProduct("D001", 10.0);
+        cart.addProduct("D001", 10.0);
+        cart.addProduct("D001", 10.0);
+        cart.addProduct("D001", 10.0);
+        cart.addProduct("D001", 10.0);
+
         cart.addProduct("D002", 10.0);
         cart.addProduct("D009", 50.0);
         cart.addProduct("D010", 50.0);
@@ -96,14 +100,13 @@ public class InvoiceServiceTest {
     }
 
     @Test
-    public void updateInvoiceTest() {
-        Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
-        String notes = "Updated by " + getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis());
-        for (Map.Entry<String, Payment> paymentEntry : invoice.getPayments().entrySet()) {
-            paymentEntry.getValue().setQuantity(paymentEntry.getValue().getQuantity() + 10d);
-            paymentEntry.getValue().setPaymentNotes(notes);
-        }
-        invoice.setInvoiceNotes(notes);
+    public void updateInvoiceTest() throws InvoiceServiceException {
+        UserCart userCart = createTestCart();
+        userCart.addProduct("D005", 20d);
+        userCart.removeProduct("D001");
+        userCart.removeProduct("D002");
+        userCart.removeProduct("D010");
+        Invoice invoice = createTestInvoice(userCart);
         assertTrue(invoiceService.updateInvoice(invoice));
     }
 
@@ -111,7 +114,7 @@ public class InvoiceServiceTest {
     public void deleteInvoiceTest() {
         Invoice invoice = invoiceService.findInvoiceByOrderNumber(ORDER_NUM);
         boolean result = invoiceService.deleteInvoice(ORDER_NUM);
-        if (invoice.getStatus() == InvoiceStatus.CREATED)
+        if (invoice.getStatus() == InvoiceStatus.CREATED && (!invoice.getPaid()))
             assertTrue(result);
         else
             assertFalse(result);

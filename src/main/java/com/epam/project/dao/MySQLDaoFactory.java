@@ -33,7 +33,7 @@ public class MySQLDaoFactory extends DaoFactory {
     MySQLDaoFactory() throws IncorrectPropertyException, DataBaseConnectionException {
         Properties dbProperties = new Properties();
         try {
-            dbProperties.load(new FileReader("src/main/java/dbConfig.properties"));
+            dbProperties.load(new FileReader("dbConfig.properties"));
         } catch (IOException ioe) {
             log.error("Database property file not found");
             throw new IncorrectPropertyException("Database property file not found");

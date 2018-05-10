@@ -1,6 +1,7 @@
 import com.epam.project.domain.Product;
 import com.epam.project.exceptions.ProductServiceException;
-import com.epam.project.service.ProductService;
+import com.epam.project.service.IProductServ;
+import com.epam.project.service.ServiceFactory;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -13,6 +14,7 @@ import static org.junit.Assert.*;
 
 public class ProductServiceTest {
 
+    private static IProductServ productService;
     private static Product correctProduct;
     private static Product uncorrectProduct;
     private static final String PRODUCT_CODE = "TEST001";
@@ -22,8 +24,9 @@ public class ProductServiceTest {
     @BeforeClass
     public static void init() throws ProductServiceException  {
         log.info("Starting tests");
-        correctProduct = ProductService.findProductByCode("D001");
-        uncorrectProduct = ProductService.findProductByCode("D001");
+        productService = ServiceFactory.getProductService();
+        correctProduct = productService.findProductByCode("D001");
+        uncorrectProduct = productService.findProductByCode("D001");
     }
 
     @AfterClass
@@ -49,32 +52,18 @@ public class ProductServiceTest {
     }
 
     /** Product Validator tests */
-    @Test
-    @Ordinal(order = 1)
-    public void testProductValidator1() {
-        assertTrue(ProductService.validateProductData(correctProduct));
-    }
-
-    @Test
-    @Ordinal(order = 2)
-    public void testProductValidator2() {
-        uncorrectProduct.setCode("");
-        uncorrectProduct.setNameEn(null);
-        uncorrectProduct.setNameRu("");
-        assertFalse(ProductService.validateProductData(uncorrectProduct));
-    }
 
     /** Product CRUD operations tests */
     @Test
     @Ordinal(order = 3)
     public void testFindAllProducts() throws ProductServiceException {
-        assertTrue(ProductService.findAllProducts().size() > 0);
+        assertTrue(productService.findAllProducts().size() > 0);
     }
 
     @Test
     @Ordinal(order = 4)
     public void testFindProductByCode() throws ProductServiceException {
-        assertEquals(correctProduct, ProductService.findProductByCode("D001"));
+        assertEquals(correctProduct, productService.findProductByCode("D001"));
     }
 
     @Test
@@ -82,8 +71,8 @@ public class ProductServiceTest {
     public void testAddProduct() throws ProductServiceException {
         Product testProduct = createTestProduct();
         log.info(testProduct);
-        boolean result = ProductService.addProduct(testProduct);
-        Product product = ProductService.findProductByCode(PRODUCT_CODE);
+        boolean result = productService.addProduct(testProduct);
+        Product product = productService.findProductByCode(PRODUCT_CODE);
         assertTrue(result && product.equals(testProduct));
     }
 
@@ -93,10 +82,10 @@ public class ProductServiceTest {
     public void testUpdateProduct() throws ProductServiceException {
         String updEn = "Updated by " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis());
         String updRu = "Обновлено " + this.getClass().getSimpleName() + " at " + new Timestamp(System.currentTimeMillis());
-        Product product = ProductService.findProductByCode(PRODUCT_CODE);
+        Product product = productService.findProductByCode(PRODUCT_CODE);
         product.setNotesEn(updEn);
         product.setNotesRu(updRu);
-        boolean result = ProductService.updateProduct(product);
+        boolean result = productService.updateProduct(product);
         assertTrue(result);
     }
 
@@ -104,7 +93,7 @@ public class ProductServiceTest {
     @Ordinal(order = 7)
     public void testDeleteProduct() {
         Product testProduct = createTestProduct();
-        boolean result = ProductService.deleteProduct(testProduct);
+        boolean result = productService.deleteProduct(testProduct);
         assertTrue(result);
     }
 }

@@ -12,8 +12,10 @@
 
 <body>
     <h1>Главная страница</h1>
-    <div><c:out value="${sessionScope.get(\"user\").name}"/></div>
-    <div><a href="<c:url value="/project/login"/>" name="login" >login</a></div>
+    <div style="margin: 10px; text-align: right">
+        <c:out value="${sessionScope.get(\"user\").name}"/><br/>
+        <a href="<c:url value="/project/login?command=enter"/>" name="login" >login</a>
+    </div>
     <div>
         <table>
             <tr>

@@ -1,8 +1,6 @@
 import com.epam.project.domain.*;
 import com.epam.project.exceptions.*;
-import com.epam.project.service.InvoiceService;
-import com.epam.project.service.TransactionService;
-import com.epam.project.service.UserService;
+import com.epam.project.service.*;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -18,13 +16,13 @@ public class TransactionServiceTest {
     private static final Logger log = Logger.getLogger(TransactionServiceTest.class);
     private static Transaction transaction;
     private static Invoice invoice;
-    private static InvoiceService invoiceService;
-    private static TransactionService transactionService;
+    private static IInvoiceServ invoiceService;
+    private static ITransactionServ transactionService;
 
     @BeforeClass
     public static void init() throws TransactionServiceException {
-        invoiceService = new InvoiceService();
-        transactionService = new TransactionService();
+        invoiceService = ServiceFactory.getInvoiceService();
+        transactionService = ServiceFactory.getTransactionService();
         invoice = invoiceService.findInvoiceByOrderNumber(1L);
     }
 
@@ -33,18 +31,6 @@ public class TransactionServiceTest {
         invoiceService = null;
         invoice = null;
         System.gc();
-    }
-
-    @Test
-    public void addTransactionTest() {
-        Set<String> productCodes = invoice.getPayments().keySet();
-        String notes = "Created by " + UserServiceTest.class.getSimpleName() + " at " + new Timestamp(System.currentTimeMillis());
-        for (String productCode : productCodes) {
-            Payment payment = invoice.getPayments().get(productCode);
-            Transaction transaction = transactionService.createTransactionFromPayment(payment, invoice.getUserName(), notes);
-            if (!transactionService.addTransaction(transaction))
-                fail("transaction was not added");
-        }
     }
 
     @Test
