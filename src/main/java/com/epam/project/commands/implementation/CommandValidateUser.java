@@ -8,24 +8,24 @@ import com.epam.project.controller.SessionRequestContent;
 import com.epam.project.domain.User;
 import com.epam.project.domain.UserCart;
 import com.epam.project.exceptions.UnknownUserException;
-import com.epam.project.service.IUserServ;
 import com.epam.project.service.ServiceFactory;
 
-public class CommandMissing implements ICommand {
+public class CommandValidateUser implements ICommand {
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
+        String login = content.getRequestParameter("name")[0];
+        String password = content.getRequestParameter("password")[0];
         try {
-            IUserServ userServ = ServiceFactory.getUserService();
-            User guest = userServ.findUser("Guest", "guest");
-            UserCart cart = new UserCart(guest.getName());
-            result.addSessionAttribute("user", guest);
+            User user = ServiceFactory.getUserService().findUser(login, password);
+            UserCart cart = new UserCart(user.getName());
+            result.addSessionAttribute("user", user);
             result.addSessionAttribute("cart", cart);
-            result.addRequestAttribute("command", "main");
             result.setPage("/project?command=main");
-        } catch (UnknownUserException pse) {
+        }
+        catch (UnknownUserException uue) {
             result.setPage(Configuration.getInstance().getProperty("error"));
         }
         return result;

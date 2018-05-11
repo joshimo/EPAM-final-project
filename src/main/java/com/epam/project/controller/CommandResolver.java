@@ -1,9 +1,7 @@
 package com.epam.project.controller;
 
 import com.epam.project.commands.ICommand;
-import com.epam.project.commands.implementation.CommandLogin;
-import com.epam.project.commands.implementation.CommandMissing;
-import com.epam.project.commands.implementation.CommandUserEnter;
+import com.epam.project.commands.implementation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -12,11 +10,19 @@ import java.util.Map;
 public class CommandResolver {
 
     private static CommandResolver instance = null;
-    Map<String, ICommand> commands = new HashMap<String, ICommand>();
+    Map<String, ICommand> commands = new HashMap<>();
 
     public CommandResolver() {
-        commands.put("login", new CommandLogin());
-        commands.put("enter", new CommandUserEnter());
+        commands.put("login", new CommandValidateUser());
+        commands.put("enter", new CommandOpenLoginPage());
+        commands.put("main", new CommandShowMainPage());
+        commands.put("usersCart", new CommandShowUsersCart());
+        commands.put("addProductToCart", new CommandAddToCart());
+        commands.put("removeProductFromCart", new CommandRemoveFromCart());
+        commands.put("createInvoice", new CommandCreateInvoice());
+        commands.put("createInvoiceAndPay", new CommandCreateInvoiceAndPay());
+        commands.put("addNewUser", new CommandOpenRegistrationPage());
+        commands.put("registerNewUser", new CommandSaveNewUser());
     }
 
     public ICommand getCommand(HttpServletRequest request) {

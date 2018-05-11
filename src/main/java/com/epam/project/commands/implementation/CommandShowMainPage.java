@@ -15,13 +15,14 @@ import com.epam.project.service.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class CommandShowMain implements ICommand{
+public class CommandShowMainPage implements ICommand{
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
+            System.out.println("CommandShowMainPage");
             IProductServ productServ = ServiceFactory.getProductService();
             List<Product> products = productServ.findAllProducts();
             result.addRequestAttribute("products", products);

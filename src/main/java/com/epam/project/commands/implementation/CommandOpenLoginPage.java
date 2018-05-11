@@ -6,9 +6,7 @@ import com.epam.project.controller.Direction;
 import com.epam.project.controller.ExecutionResult;
 import com.epam.project.controller.SessionRequestContent;
 
-import javax.servlet.http.HttpServletRequest;
-
-public class CommandUserEnter implements ICommand {
+public class CommandOpenLoginPage implements ICommand {
 
     @Override
     public ExecutionResult execute(SessionRequestContent request) {

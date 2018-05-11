@@ -10,7 +10,7 @@
 <body>
     <h1>Авторизация</h1>
     <div class = index_div>
-        <form name="LoginForm" method="get" action="project" >
+        <form name="LoginForm" method="post" action="project" >
             <input type="hidden" name="command" value="login" />
             <h4>Имя пользователя:</h4>
             <input type="text" name="name" size="36" class="input" required/><br/>

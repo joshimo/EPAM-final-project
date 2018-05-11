@@ -15,6 +15,8 @@
     <div style="margin: 10px; text-align: right">
         <c:out value="${sessionScope.get(\"user\").name}"/><br/>
         <a href="<c:url value="/project/login?command=enter"/>" name="login" >login</a>
+        <a href="<c:url value="/project?command=usersCart"/>" name="cart" >cart</a>
+        <a href="<c:url value="/project?command=addNewUser"/>" name="newUser" >new user</a>
     </div>
     <div>
         <table>
@@ -35,7 +37,13 @@
                 <c:if test="${product.available == true}"><td class="tdc" style="color: green">В наличии</td></c:if>
                 <c:if test="${product.available == false}"><td class="tdc" style="color: darkred">Отсутствует</td></c:if>
                 <td class="tdc"><c:out value="${product.notesRu}"/></td>
-                <td><button type="submit" name="order" value="${product.code}" class="bigbutton">Добавить в корзину</button></td>
+                <td>
+                    <form name="addProductForm" method="get" action="project" >
+                        <input type="hidden" name="command" value="addProductToCart" />
+                        <input type="text" name="productQuantity" size="6" required/>
+                        <button type="submit" name="productCode" value="${product.code}" class="menu-button">Добавить в корзину</button>
+                    </form>
+                </td>
             </tr>
             </c:forEach>
         </table>
