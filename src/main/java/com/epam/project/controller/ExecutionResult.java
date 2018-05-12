@@ -11,6 +11,7 @@ public class ExecutionResult {
     private Direction direction;
     private Map<String, Object> sessionAttributes = new HashMap<>();
     private Map<String, Object> requestAttributes = new HashMap<>();
+    private Map<String, Object> requestParameters = new HashMap<>();
 
     public ExecutionResult() {
     }
@@ -22,6 +23,10 @@ public class ExecutionResult {
     public Object addSessionAttribute(String key, Object value) {
         return sessionAttributes.put(key, value);
     }
+
+    /*public Object addRequestParameter(String key, Object value) {
+        return requestParameters.put(key, value);
+    }*/
 
     public String getPage() {
         return page;

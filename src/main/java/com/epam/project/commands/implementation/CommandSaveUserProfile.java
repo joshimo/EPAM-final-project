@@ -10,13 +10,14 @@ import com.epam.project.domain.UserRole;
 import com.epam.project.service.IUserServ;
 import com.epam.project.service.ServiceFactory;
 
-public class CommandSaveNewUser implements ICommand {
+public class CommandSaveUserProfile implements ICommand {
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
         Configuration conf = Configuration.getInstance();
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
+        String userId = content.getRequestParameter("userId")[0];
         String login = content.getRequestParameter("name")[0];
         String password = content.getRequestParameter("password")[0];
         String phone = content.getRequestParameter("phone")[0];
@@ -25,23 +26,24 @@ public class CommandSaveNewUser implements ICommand {
         String notes = content.getRequestParameter("notes")[0];
         try {
             User user = new User(login, password);
+            user.setId(Integer.parseInt(userId));
             user.setPhoneNumber(phone);
             user.setEmail(email);
             user.setAddress(address);
             user.setNotes(notes);
             user.setUserRole(UserRole.USER);
             IUserServ userServ = ServiceFactory.getUserService();
-            if (userServ.addUser(user)) {
-                result.addSessionAttribute("user", userServ.findUser(login, password));
+            if (userServ.updateUser(user)) {
                 result.setPage("/project?command=main");
+                result.addSessionAttribute("user", user);
             }
             else {
-                result.addRequestAttribute("errorMessage", conf.getErrorMessage("saveNewUserErr"));
+                result.addRequestAttribute("errorMessage", conf.getErrorMessage("saveUserProfileErr"));
                 result.setPage(Configuration.getInstance().getPage("error"));
             }
         }
         catch (Exception uue) {
-            result.addRequestAttribute("errorMessage", conf.getErrorMessage("saveNewUserErr"));
+            result.addRequestAttribute("errorMessage", conf.getErrorMessage("saveUserProfileErr"));
             result.setPage(Configuration.getInstance().getPage("error"));
         }
         return result;

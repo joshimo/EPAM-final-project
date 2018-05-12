@@ -34,7 +34,9 @@ CREATE TABLE project.users (
   user_id SMALLINT NOT NULL AUTO_INCREMENT KEY,
   user_name VARCHAR(128) UNIQUE,
   user_password VARCHAR(128) UNIQUE,
-  user_email VARCHAR(48),
+  user_phone VARCHAR(32) NOT NULL DEFAULT '',
+  user_email VARCHAR(48) NOT NULL DEFAULT '',
+  user_address VARCHAR(128) NOT NULL DEFAULT '',
   role_id SMALLINT NOT NULL DEFAULT 1,
   user_notes VARCHAR(255),
   FOREIGN KEY (role_id) REFERENCES project.user_roles (role_id)

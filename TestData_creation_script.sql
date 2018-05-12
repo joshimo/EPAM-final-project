@@ -13,7 +13,7 @@ INSERT INTO project.user_roles (role_id, role_description) VALUES (4, 'ADMIN');
 INSERT INTO project.users (user_name, user_password, user_email, role_id, user_notes)
 VALUES ('Yaroslav', 'yaroslav', 'joshimo.kiev@gmal.com', 0, 'Created by test script');
 INSERT INTO project.users (user_name, user_password, user_email, role_id, user_notes)
-VALUES ('Guest', 'guest', '-', 0, 'Created by test script');
+VALUES ('Guest', '', '', 0, 'Created by test script');
 INSERT INTO project.users (user_name, user_password, user_email, role_id, user_notes)
 VALUES ('Cashier', 'cashier', 'cashier@company.com', 1, 'Created by test script');
 INSERT INTO project.users (user_name, user_password, user_email, role_id, user_notes)

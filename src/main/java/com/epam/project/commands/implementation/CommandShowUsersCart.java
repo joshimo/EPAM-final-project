@@ -5,19 +5,20 @@ import com.epam.project.config.Configuration;
 import com.epam.project.controller.Direction;
 import com.epam.project.controller.ExecutionResult;
 import com.epam.project.controller.SessionRequestContent;
-import com.epam.project.exceptions.UnknownUserException;
 
 public class CommandShowUsersCart implements ICommand {
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
+        Configuration conf = Configuration.getInstance();
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
-            result.setPage(Configuration.getInstance().getProperty("usersCart"));
+            result.setPage(conf.getPage("usersCart"));
         }
         catch (NullPointerException uue) {
-            result.setPage(Configuration.getInstance().getProperty("error"));
+            result.addRequestAttribute("errorMessage", conf.getErrorMessage("showUserCartErr"));
+            result.setPage(conf.getPage("error"));
         }
         return result;
     }

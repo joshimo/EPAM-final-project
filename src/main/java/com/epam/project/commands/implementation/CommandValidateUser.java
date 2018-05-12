@@ -14,6 +14,7 @@ public class CommandValidateUser implements ICommand {
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
+        Configuration conf = Configuration.getInstance();
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         String login = content.getRequestParameter("name")[0];
@@ -26,7 +27,8 @@ public class CommandValidateUser implements ICommand {
             result.setPage("/project?command=main");
         }
         catch (UnknownUserException uue) {
-            result.setPage(Configuration.getInstance().getProperty("error"));
+            result.addRequestAttribute("errorMessage", conf.getErrorMessage("validateUserErr"));
+            result.setPage(Configuration.getInstance().getPage("error"));
         }
         return result;
     }

@@ -6,7 +6,9 @@ public class User {
     private Integer id;
     private String name;
     private String password;
+    private String phoneNumber;
     private String email;
+    private String address;
     private UserRole userRole;
     private String notes;
 
@@ -28,12 +30,20 @@ public class User {
         return name;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public String getEmail() {
         return email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getAddress() {
+        return address;
     }
 
     public UserRole getUserRole() {
@@ -58,8 +68,16 @@ public class User {
         this.password = password;
     }
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setUserRole(UserRole userRole) {
@@ -70,13 +88,32 @@ public class User {
         this.notes = notes;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (!name.equals(user.name)) return false;
+        return password.equals(user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + password.hashCode();
+        return result;
+    }
 
     @Override
     public String toString() {
         return  "\nUser ID = " + id +
                 "\nName: " + name +
                 "\nPassword: " + password +
+                "\nPhone: " + phoneNumber +
                 "\ne-mail: " + email +
+                "\nAddress: " + address +
                 "\nRole: " + userRole +
                 "\nNotes: " + notes +
                 "\n---------------------------------------------------------------------------------------------------";

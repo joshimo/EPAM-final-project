@@ -16,8 +16,12 @@
         <input type="text" name="name" size="36" class="input" required/><br/>
         <h4>Пароль:</h4>
         <input type="password" name="password" size="36" class="input" required/><br/><br/>
+        <h4>Телефон:</h4>
+        <input type="text" name="phone" size="36" class="input" /><br/><br/>
         <h4>e-mail:</h4>
         <input type="text" name="email" size="36" class="input" /><br/><br/>
+        <h4>Адрес:</h4>
+        <input type="text" name="address" size="36" class="input" /><br/><br/>
         <h4>Примечания:</h4>
         <input type="text" name="notes" size="36" class="input" /><br/><br/>
         <input type="submit" class="bigbutton" value="Добавить пользователя"/>

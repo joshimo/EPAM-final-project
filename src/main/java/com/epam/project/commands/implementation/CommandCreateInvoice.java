@@ -10,11 +10,11 @@ import com.epam.project.domain.UserCart;
 import com.epam.project.exceptions.InvoiceServiceException;
 import com.epam.project.service.IInvoiceServ;
 import com.epam.project.service.ServiceFactory;
-import com.epam.project.service.implementation.InvoiceService;
 
 public class CommandCreateInvoice implements ICommand {
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
+        Configuration conf = Configuration.getInstance();
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
@@ -24,12 +24,15 @@ public class CommandCreateInvoice implements ICommand {
             Invoice invoice = invoiceServ.createInvoiceFromUserCart(cart, invoiceCode);
             if (invoiceServ.addInvoice(invoice))
                 result.setPage("/project?command=main");
-            else
-                result.setPage(Configuration.getInstance().getProperty("error"));
+            else {
+                result.addSessionAttribute("errorMessage", conf.getErrorMessage("invoiceCreationErr"));
+                result.setPage(conf.getPage("error"));
+            }
         }
         catch (NullPointerException | InvoiceServiceException npe) {
             npe.printStackTrace();
-            result.setPage(Configuration.getInstance().getProperty("error"));
+            result.addSessionAttribute("errorMessage", conf.getErrorMessage("invoiceCreationErr"));
+            result.setPage(conf.getPage("error"));
         }
         return result;
     }

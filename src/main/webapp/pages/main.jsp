@@ -14,19 +14,28 @@
     <h1>Главная страница</h1>
     <div style="margin: 10px; text-align: right">
         <c:out value="${sessionScope.get(\"user\").name}"/><br/>
-        <a href="<c:url value="/project/login?command=enter"/>" name="login" >login</a>
-        <a href="<c:url value="/project?command=usersCart"/>" name="cart" >cart</a>
-        <a href="<c:url value="/project?command=addNewUser"/>" name="newUser" >new user</a>
+        <c:out value="${sessionScope.get(\"user\").userRole}"/><br/>
+        <c:if test="${sessionScope.get(\"user\").name == 'Guest'}">
+            <a href="<c:url value="/project?command=addNewUser"/>" name="newUser" >Зарегистрироваться</a>
+            <a href="<c:url value="/project?command=enter"/>" name="login" >Вход</a>
+            <a href="<c:url value="/project?command=usersCart"/>" name="cart" >Корзина</a>
+        </c:if>
+        <c:if test="${sessionScope.get(\"user\").name != 'Guest'}">
+            <a href="<c:url value="/project?command=usersCart"/>" name="cart" >Корзина</a>
+            <a href="<c:url value="/project?command=showUserProfile&edit=false"/>" name="userProfile" >Профиль</a>
+            <a href="<c:url value="/project?command=logout"/>" name="logout" >Выход</a>
+        </c:if>
     </div>
     <div>
         <table>
             <tr>
                 <th style="width: 5%;">Артикул</th>
-                <th style="width: 25%;">Название</th>
-                <th style="width: 25%;">Описание</th>
+                <th style="width: 20%;">Название</th>
+                <th style="width: 20%;">Описание</th>
                 <th style="width: 5%;">Цена</th>
                 <th style="width: 5%;">Склад</th>
                 <th style="width: 10%;">Примечания</th>
+                <th style="width: 10%;"></th>
             </tr>
             <c:forEach items="${products}" var="product">
             <tr>

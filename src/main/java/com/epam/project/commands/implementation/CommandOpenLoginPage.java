@@ -11,7 +11,7 @@ public class CommandOpenLoginPage implements ICommand {
     @Override
     public ExecutionResult execute(SessionRequestContent request) {
         ExecutionResult result = new ExecutionResult();
-        result.setPage(Configuration.getInstance().getProperty("login"));
+        result.setPage(Configuration.getInstance().getPage("login"));
         result.setDirection(Direction.FORWARD);
         return result;
     }

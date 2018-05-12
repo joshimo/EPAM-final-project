@@ -10,6 +10,7 @@ import com.epam.project.domain.UserCart;
 public class CommandRemoveFromCart implements ICommand {
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
+        Configuration conf = Configuration.getInstance();
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
@@ -21,7 +22,8 @@ public class CommandRemoveFromCart implements ICommand {
         }
         catch (NullPointerException npe) {
             npe.printStackTrace();
-            result.setPage(Configuration.getInstance().getProperty("error"));
+            result.addRequestAttribute("errorMessage", conf.getErrorMessage("removefromCartErr"));
+            result.setPage(Configuration.getInstance().getPage("error"));
         }
         return result;
     }

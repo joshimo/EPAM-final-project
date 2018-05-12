@@ -13,8 +13,9 @@ public class CommandResolver {
     Map<String, ICommand> commands = new HashMap<>();
 
     public CommandResolver() {
-        commands.put("login", new CommandValidateUser());
         commands.put("enter", new CommandOpenLoginPage());
+        commands.put("login", new CommandValidateUser());
+        commands.put("logout", new CommandLogout());
         commands.put("main", new CommandShowMainPage());
         commands.put("usersCart", new CommandShowUsersCart());
         commands.put("addProductToCart", new CommandAddToCart());
@@ -23,6 +24,8 @@ public class CommandResolver {
         commands.put("createInvoiceAndPay", new CommandCreateInvoiceAndPay());
         commands.put("addNewUser", new CommandOpenRegistrationPage());
         commands.put("registerNewUser", new CommandSaveNewUser());
+        commands.put("showUserProfile", new CommandShowUserProfilePage());
+        commands.put("saveUserProfile", new CommandSaveUserProfile());
     }
 
     public ICommand getCommand(HttpServletRequest request) {

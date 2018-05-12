@@ -14,6 +14,7 @@ import com.epam.project.service.ServiceFactory;
 public class CommandCreateInvoiceAndPay implements ICommand {
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
+        Configuration conf = Configuration.getInstance();
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
@@ -23,12 +24,15 @@ public class CommandCreateInvoiceAndPay implements ICommand {
             Invoice invoice = invoiceServ.createInvoiceFromUserCart(cart, invoiceCode);
             if (invoiceServ.addInvoice(invoice) && invoiceServ.payByInvoice(invoiceCode))
                 result.setPage("/project?command=main");
-            else
-                result.setPage(Configuration.getInstance().getProperty("error"));
+            else {
+                result.addRequestAttribute("errorMessage", conf.getErrorMessage("invoiceCreationErr"));
+                result.setPage(conf.getPage("error"));
+            }
         }
         catch (NullPointerException | InvoiceServiceException npe) {
             npe.printStackTrace();
-            result.setPage(Configuration.getInstance().getProperty("error"));
+            result.addRequestAttribute("errorMessage", conf.getErrorMessage("invoiceCreationErr"));
+            result.setPage(conf.getPage("error"));
         }
         return result;
     }

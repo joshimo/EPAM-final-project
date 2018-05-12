@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -10,7 +11,7 @@
 <h1>Авторизация</h1>
 <div class = index_div>
     <form action="/auth" method="post" enctype="multipart/form-data">
-        <h2>Ошибка авторизации: неправильный логин или пароль!</h2>
+        <h2><c:out value="${errorMessage}" /></h2>
         <input type="submit" class="bigbutton" value="Назад" onclick="history.back(); return false;"/>
     </form>
 </div>
