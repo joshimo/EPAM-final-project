@@ -51,6 +51,10 @@ public class UserCart {
         products.remove(productCode);
     }
 
+    public void removeAll() {
+        products = new HashMap<>();
+    }
+
     @Override
     public String toString() {
         return "UserCart{" +

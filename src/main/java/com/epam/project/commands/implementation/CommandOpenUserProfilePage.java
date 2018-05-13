@@ -6,7 +6,7 @@ import com.epam.project.controller.Direction;
 import com.epam.project.controller.ExecutionResult;
 import com.epam.project.controller.SessionRequestContent;
 
-public class CommandShowUserProfilePage implements ICommand {
+public class CommandOpenUserProfilePage implements ICommand {
 
     @Override
     public ExecutionResult execute(SessionRequestContent request) {

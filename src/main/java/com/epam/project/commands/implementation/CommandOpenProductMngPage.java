@@ -6,7 +6,7 @@ import com.epam.project.controller.Direction;
 import com.epam.project.controller.ExecutionResult;
 import com.epam.project.controller.SessionRequestContent;
 
-public class CommandShowUsersCart implements ICommand {
+public class CommandOpenProductMngPage implements ICommand {
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
@@ -14,13 +14,12 @@ public class CommandShowUsersCart implements ICommand {
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
-            result.setPage(conf.getPage("usersCart"));
+            result.setPage(conf.getPage("manageProducts"));
         }
-        catch (NullPointerException uue) {
-            result.addRequestAttribute("errorMessage", conf.getErrorMessage("showUserCartErr"));
+        catch (Exception e) {
+            result.addRequestAttribute("errorMessage", conf.getErrorMessage("showMainPageErr"));
             result.setPage(conf.getPage("error"));
         }
         return result;
     }
-
 }

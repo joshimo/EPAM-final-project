@@ -1,6 +1,7 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set value="${sessionScope.get(\"user\")}" var="user" scope="page" />
 
 <html>
 <head>
@@ -9,21 +10,44 @@
 <style>
     <%@include file='main_style.css' %>
 </style>
-
 <body>
     <h1>Главная страница</h1>
-    <div style="margin: 10px; text-align: right">
-        <c:out value="${sessionScope.get(\"user\").name}"/><br/>
-        <c:out value="${sessionScope.get(\"user\").userRole}"/><br/>
-        <c:if test="${sessionScope.get(\"user\").name == 'Guest'}">
-            <a href="<c:url value="/project?command=addNewUser"/>" name="newUser" >Зарегистрироваться</a>
-            <a href="<c:url value="/project?command=enter"/>" name="login" >Вход</a>
-            <a href="<c:url value="/project?command=usersCart"/>" name="cart" >Корзина</a>
+    <div class="menu">
+        <p><c:out value="${user.name}, ${user.userRole}"/></p>
+        <c:if test="${user.name == 'Guest'}">
+            <form name="addProductForm" method="get" action="project" class="menuitem">
+                <input type="hidden" name="command" value="addNewUser" />
+                <button type="submit" class="menubutton">Зарегистрироваться</button>
+            </form>
+            <form name="addProductForm" method="get" action="project" class="menuitem">
+                <input type="hidden" name="command" value="enter" />
+                <button type="submit" class="menubutton">Вход</button>
+            </form>
+            <form name="addProductForm" method="get" action="project" class="menuitem">
+                <input type="hidden" name="command" value="usersCart" />
+                <button type="submit" class="menubutton">Корзина</button>
+            </form>
         </c:if>
-        <c:if test="${sessionScope.get(\"user\").name != 'Guest'}">
-            <a href="<c:url value="/project?command=usersCart"/>" name="cart" >Корзина</a>
-            <a href="<c:url value="/project?command=showUserProfile&edit=false"/>" name="userProfile" >Профиль</a>
-            <a href="<c:url value="/project?command=logout"/>" name="logout" >Выход</a>
+        <c:if test="${user.name != 'Guest'}">
+            <c:if test="${user.name != 'Guest' && user.userRole != 'USER'}">
+                <form name="addProductForm" method="get" action="project" class="menuitem">
+                    <input type="hidden" name="command" value="administration" />
+                    <button type="submit" class="menubutton">Администрирование</button>
+                </form>
+            </c:if>
+            <form name="addProductForm" method="get" action="project" class="menuitem">
+                <input type="hidden" name="command" value="usersCart" />
+                <button type="submit" class="menubutton">Корзина</button>
+            </form>
+            <form name="addProductForm" method="get" action="project" class="menuitem">
+                <input type="hidden" name="command" value="showUserProfile" />
+                <input type="hidden" name="edit" value="false" />
+                <button type="submit" class="menubutton">Профиль</button>
+            </form>
+            <form name="addProductForm" method="get" action="project" class="menuitem">
+                <input type="hidden" name="command" value="logout" />
+                <button type="submit" class="menubutton">Выход</button>
+            </form>
         </c:if>
     </div>
     <div>
@@ -35,7 +59,7 @@
                 <th style="width: 5%;">Цена</th>
                 <th style="width: 5%;">Склад</th>
                 <th style="width: 10%;">Примечания</th>
-                <th style="width: 10%;"></th>
+                <th></th>
             </tr>
             <c:forEach items="${products}" var="product">
             <tr>
@@ -46,16 +70,19 @@
                 <c:if test="${product.available == true}"><td class="tdc" style="color: green">В наличии</td></c:if>
                 <c:if test="${product.available == false}"><td class="tdc" style="color: darkred">Отсутствует</td></c:if>
                 <td class="tdc"><c:out value="${product.notesRu}"/></td>
-                <td>
+                <td class="tdc">
                     <form name="addProductForm" method="get" action="project" >
                         <input type="hidden" name="command" value="addProductToCart" />
                         <input type="text" name="productQuantity" size="6" required/>
-                        <button type="submit" name="productCode" value="${product.code}" class="menu-button">Добавить в корзину</button>
+                        <button type="submit" name="productCode" value="${product.code}" class="smallbutton">Добавить в корзину</button>
                     </form>
                 </td>
             </tr>
             </c:forEach>
         </table>
     </div>
+    <footer>
+        <p class="footer">Учебный проект Java Winter, Киев, 2018</p>
+    </footer>
 </body>
 </html>

@@ -13,23 +13,30 @@ public class CommandResolver {
     Map<String, ICommand> commands = new HashMap<>();
 
     public CommandResolver() {
+        /** Commands available for User */
         commands.put("enter", new CommandOpenLoginPage());
         commands.put("login", new CommandValidateUser());
         commands.put("logout", new CommandLogout());
-        commands.put("main", new CommandShowMainPage());
-        commands.put("usersCart", new CommandShowUsersCart());
+        commands.put("main", new CommandOpenMainPage());
+        commands.put("usersCart", new CommandOpenUsersCart());
         commands.put("addProductToCart", new CommandAddToCart());
         commands.put("removeProductFromCart", new CommandRemoveFromCart());
         commands.put("createInvoice", new CommandCreateInvoice());
         commands.put("createInvoiceAndPay", new CommandCreateInvoiceAndPay());
         commands.put("addNewUser", new CommandOpenRegistrationPage());
         commands.put("registerNewUser", new CommandSaveNewUser());
-        commands.put("showUserProfile", new CommandShowUserProfilePage());
+        commands.put("showUserProfile", new CommandOpenUserProfilePage());
         commands.put("saveUserProfile", new CommandSaveUserProfile());
+        /** Commands available for Administration */
+        commands.put("administration", new CommandOpenAdminPage());
+        commands.put("manageInvoices", new CommandOpenInvoiceMngPage());
+        commands.put("manageUsers", new CommandOpenUserMngPage());
+        commands.put("manageProducts", new CommandOpenProductMngPage());
+        commands.put("manageTransactions", new CommandOpenTransMngPage());
     }
 
     public ICommand getCommand(HttpServletRequest request) {
-        System.out.println("command = " + request.getParameter("command"));
+        //System.out.println("command = " + request.getParameter("command"));
         ICommand command = commands.get(request.getParameter("command"));
         if (command == null)
             command = new CommandMissing();

@@ -5,14 +5,13 @@ import com.epam.project.config.Configuration;
 import com.epam.project.controller.Direction;
 import com.epam.project.controller.ExecutionResult;
 import com.epam.project.controller.SessionRequestContent;
-import com.epam.project.domain.Product;
-import com.epam.project.exceptions.ProductServiceException;
-import com.epam.project.service.IProductServ;
+import com.epam.project.domain.Transaction;
+import com.epam.project.service.ITransactionServ;
 import com.epam.project.service.ServiceFactory;
 
 import java.util.List;
 
-public class CommandShowMainPage implements ICommand{
+public class CommandOpenTransMngPage implements ICommand {
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
@@ -20,15 +19,14 @@ public class CommandShowMainPage implements ICommand{
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
-            //System.out.println("CommandShowMainPage");
-            IProductServ productServ = ServiceFactory.getProductService();
-            List<Product> products = productServ.findAllProducts();
-            result.addRequestAttribute("products", products);
-            result.setPage(Configuration.getInstance().getPage("main"));
+            ITransactionServ serv = ServiceFactory.getTransactionService();
+            List<Transaction> transactions = serv.findAllTransactions();
+            result.addRequestAttribute("transactions", transactions);
+            result.setPage(conf.getPage("manageTransactions"));
         }
-        catch (ProductServiceException uue) {
+        catch (Exception e) {
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("showMainPageErr"));
-            result.setPage(Configuration.getInstance().getPage("error"));
+            result.setPage(conf.getPage("error"));
         }
         return result;
     }
