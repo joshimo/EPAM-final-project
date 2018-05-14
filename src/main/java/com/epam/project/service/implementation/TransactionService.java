@@ -90,6 +90,21 @@ public class TransactionService implements ITransactionServ {
         return transactions;
     }
 
+    @Button
+    public List<Transaction> findAllTransactionsByType(TransactionType type) throws TransactionServiceException {
+        List<Transaction> transactions = new LinkedList<>();
+        try {
+            daoFactory.open();
+            transactionDao = daoFactory.getTransactionDao();
+            transactions = transactionDao.findAllTransactionsByType(type);
+            daoFactory.close();
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+            throw new TransactionServiceException();
+        }
+        return transactions;
+    }
+
     public Transaction findTransactionById(Integer id) throws TransactionServiceException {
         Transaction transaction = new Transaction();
         try {

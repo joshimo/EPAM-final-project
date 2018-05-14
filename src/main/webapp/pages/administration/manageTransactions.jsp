@@ -13,20 +13,24 @@
 <body>
 <h1>Транзакции</h1>
 <div class="menu">
-    <form name="addProductForm" method="get" action="project" class="menuitem">
-        <!-- SHALL BE ADDED TO COMMANDS -->
-        <input type="hidden" name="command" value="showPaymentTransactions" />
+    <form name="addProductForm" method="post" action="project" class="menuitem">
+        <input type="hidden" name="command" value="manageTransactions" />
+        <input type="hidden" name="type" value="payment" />
         <button type="submit" class="menubutton">Оплаты</button>
     </form>
-    <form name="addProductForm" method="get" action="project" class="menuitem">
-        <!-- SHALL BE ADDED TO COMMANDS -->
-        <input type="hidden" name="command" value="showRefundedTransactions" />
+    <form name="addProductForm" method="post" action="project" class="menuitem">
+        <input type="hidden" name="command" value="manageTransactions" />
+        <input type="hidden" name="type" value="refund" />
         <button type="submit" class="menubutton">Возвраты</button>
     </form>
-    <form name="addProductForm" method="get" action="project" class="menuitem">
-        <!-- SHALL BE ADDED TO COMMANDS -->
-        <input type="hidden" name="command" value="showAllTransactions" />
+    <form name="addProductForm" method="post" action="project" class="menuitem">
+        <input type="hidden" name="command" value="manageTransactions" />
+        <input type="hidden" name="type" value="all" />
         <button type="submit" class="menubutton">Все</button>
+    </form>
+    <form name="addProductForm" method="post" action="project" class="menuitem">
+        <input type="hidden" name="command" value="administration" />
+        <button type="submit" class="menubutton">Назад</button>
     </form>
 </div>
 <div>

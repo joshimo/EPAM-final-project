@@ -6,9 +6,11 @@ import com.epam.project.controller.Direction;
 import com.epam.project.controller.ExecutionResult;
 import com.epam.project.controller.SessionRequestContent;
 import com.epam.project.domain.Transaction;
+import com.epam.project.domain.TransactionType;
 import com.epam.project.service.ITransactionServ;
 import com.epam.project.service.ServiceFactory;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class CommandOpenTransMngPage implements ICommand {
@@ -19,8 +21,15 @@ public class CommandOpenTransMngPage implements ICommand {
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
+            String type = (String) content.getRequestParameter("type")[0];
             ITransactionServ serv = ServiceFactory.getTransactionService();
-            List<Transaction> transactions = serv.findAllTransactions();
+            List<Transaction> transactions = new LinkedList<>();
+            if (type.equals("all"))
+                transactions = serv.findAllTransactions();
+            if (type.equals("payment"))
+                transactions = serv.findAllTransactionsByType(TransactionType.PAYMENT);
+            if (type.equals("refund"))
+                transactions = serv.findAllTransactionsByType(TransactionType.REFUND);
             result.addRequestAttribute("transactions", transactions);
             result.setPage(conf.getPage("manageTransactions"));
         }

@@ -4,10 +4,14 @@ import com.epam.project.dao.DaoFactory;
 import com.epam.project.dao.DataBaseSelector;
 import com.epam.project.dao.IUserDao;
 import com.epam.project.domain.User;
+import com.epam.project.domain.UserRole;
 import com.epam.project.exceptions.*;
 import com.epam.project.service.Button;
 import com.epam.project.service.IUserServ;
 import org.apache.log4j.Logger;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class UserService implements IUserServ {
 
@@ -39,6 +43,36 @@ public class UserService implements IUserServ {
                 throw new UnknownUserException();
             return user;
         } catch (IncorrectPropertyException | DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+            throw new UnknownUserException();
+        }
+    }
+
+    @Button
+    public List<User> findAllUsers() throws UnknownUserException {
+        List<User> users = new LinkedList<>();
+        try {
+            daoFactory.open();
+            userDao = daoFactory.getUserDao();
+            users = userDao.findAllUsersInDB();
+            daoFactory.close();
+            return users;
+        } catch (IncorrectPropertyException | DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+            throw new UnknownUserException();
+        }
+    }
+
+    @Button
+    public List<User> findUsersByRole(UserRole userRole) throws UnknownUserException {
+        List<User> users = new LinkedList<>();
+        try {
+            daoFactory.open();
+            userDao = daoFactory.getUserDao();
+            users = userDao.findUserByRole(userRole);
+            daoFactory.close();
+            return users;
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
             throw new UnknownUserException();
         }

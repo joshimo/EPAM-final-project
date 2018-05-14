@@ -21,6 +21,8 @@ public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao {
             "WHERE user_id=?;";
     private static String SQL_selectByName = "SELECT * FROM users JOIN user_roles ON users.role_id=user_roles.role_id " +
             "WHERE user_name=?;";
+    private static String SQL_selectByRole = "SELECT * FROM users JOIN user_roles ON users.role_id=user_roles.role_id " +
+            "WHERE user_roles.role_description=?;";
     private static String SQL_addNew = "INSERT INTO project.users " +
             "(user_name, user_password, user_phone, user_email, user_address, role_id, user_notes) " +
             "VALUES (?,?,?,?,?,?,?)";
@@ -61,49 +63,43 @@ public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao {
 
     @Override
     public List<User> findAllUsersInDB() throws DataNotFoundException {
-        //Connection connection = MySQLDaoFactory.getConnection();
         List<User> users = findAll(connection, User.class, SQL_selectAll);
-        //MySQLDaoFactory.closeConnection(connection);
+        return users;
+    }
+
+    @Override
+    public List<User> findUserByRole(UserRole role) throws DataNotFoundException {
+        List<User> users = findAsListBy(connection, User.class, SQL_selectByRole, role.toString());
         return users;
     }
 
     @Override
     public User findUserById(Integer id) throws DataNotFoundException {
-        //Connection connection = MySQLDaoFactory.getConnection();
         User user = findBy(connection, User.class, SQL_selectById, id);
-        //MySQLDaoFactory.closeConnection(connection);
         return user;
     }
 
     @Override
     public User findUserByName(String name) throws DataNotFoundException {
-        //Connection connection = MySQLDaoFactory.getConnection();
         User user = findBy(connection, User.class, SQL_selectByName, name);
-        //MySQLDaoFactory.closeConnection(connection);
         return user;
     }
 
     @Override
     public boolean addUserToDB(User user) {
-        //Connection connection = MySQLDaoFactory.getConnection();
         boolean result = addToDB(connection, user, SQL_addNew);
-        //MySQLDaoFactory.closeConnection(connection);
         return result;
     }
 
     @Override
     public boolean updateUserInDB(User user) {
-        //Connection connection = MySQLDaoFactory.getConnection();
         boolean result = updateInDB(connection, user, SQL_updateById, 8, user.getId());
-        //MySQLDaoFactory.closeConnection(connection);
         return result;
     }
 
     @Override
     public boolean deleteUserFromDB(User user) {
-        //Connection connection = MySQLDaoFactory.getConnection();
         boolean result = deleteFromDB(connection, SQL_deleteUser, user.getName());
-        //MySQLDaoFactory.closeConnection(connection);
         return result;
     }
 }
