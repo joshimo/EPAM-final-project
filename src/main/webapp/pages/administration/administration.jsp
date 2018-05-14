@@ -13,8 +13,9 @@
 <body>
 <h1>Администрирование</h1>
 <div class="index_div">
-    <form action="project" method="post">
+    <form action="project" method="get">
         <input type="hidden" name="command" value="manageInvoices" />
+        <input type="hidden" name="type" value="all" />
         <button type="submit" class="giantbutton">Управление заказами</button>
     </form>
     <form action="project" method="get">
@@ -22,16 +23,16 @@
         <input type="hidden" name="type" value="all" />
         <button type="submit" class="giantbutton">Управление пользователями</button>
     </form>
-    <form action="project" method="post">
+    <form action="project" method="get">
         <input type="hidden" name="command" value="manageProducts" />
         <button type="submit" class="giantbutton">Управление складом</button>
     </form>
-    <form action="project" method="post">
+    <form action="project" method="get">
         <input type="hidden" name="command" value="manageTransactions" />
         <input type="hidden" name="type" value="all" />
         <button type="submit" class="giantbutton">Транзакции</button>
     </form>
-    <form action="project" method="post">
+    <form action="project" method="get">
         <input type="hidden" name="command" value="main" />
         <button type="submit" class="giantbutton">Выход</button>
     </form>

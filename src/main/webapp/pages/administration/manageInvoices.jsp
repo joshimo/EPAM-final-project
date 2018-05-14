@@ -43,6 +43,29 @@
     </form>
 </div>
 <div>
+    <table>
+        <tr>
+            <th style="width: 15%;">Код заказа</th>
+            <th style="width: 15%;">Дата заказа</th>
+            <th style="width: 20%;">Имя пользоватля</th>
+            <th style="width: 10%;">Оплачено</th>
+            <th style="width: 10%;">Статус</th>
+            <th style="width: 30%;">Примечания</th>
+            <th></th>
+        </tr>
+        <c:forEach items="${invoices}" var="invoice">
+            <tr>
+                <td class="tdc"><c:out value="${invoice.invoiceCode}"/></td>
+                <td class="tdc"><c:out value="${invoice.date}"/></td>
+                <td class="tdc"><c:out value="${invoice.userName}"/></td>
+                <td class="tdc"></td>
+                <td class="tdc"><c:out value="${invoice.status}"/></td>
+                <td class="tdc"><c:out value="${invoice.invoiceNotes}"/></td>
+                <td>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 </div>
 <footer>
     <p class="footer">Учебный проект Java Winter, Киев, 2018</p>

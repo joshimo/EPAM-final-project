@@ -30,7 +30,7 @@ public class ControllerServlet extends HttpServlet {
 
     private void handleRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SessionRequestContent content = new SessionRequestContent(req);
-        System.out.println(content);
+        log.info(content);
         ICommand command = commandResolver.getCommand(req);
         ExecutionResult result = command.execute(content);
         result.updateRequest(req);
