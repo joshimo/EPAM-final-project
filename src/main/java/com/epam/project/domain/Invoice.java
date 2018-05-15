@@ -14,6 +14,7 @@ public class Invoice {
     private InvoiceStatus status;
     private Timestamp date;
     private String invoiceNotes;
+    private Double cost;
     private Map<String, Payment> payments;
     private Map<String, Product> products;
 
@@ -60,6 +61,10 @@ public class Invoice {
         return products;
     }
 
+    public Double getCost() {
+        return cost;
+    }
+
     /** Setters */
 
     public void setInvoiceId(Integer invoiceId) {
@@ -90,6 +95,9 @@ public class Invoice {
         this.invoiceNotes = invoiceNotes;
     }
 
+    public void setCost(Double cost) {
+        this.cost = cost;
+    }
 
     public void setPayments(Map<String, Payment> payments) {
         this.payments = payments;

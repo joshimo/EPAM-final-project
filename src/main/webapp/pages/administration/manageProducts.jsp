@@ -17,7 +17,7 @@
 
 
 <footer>
-    <p class="footer">Учебный проект Java Winter, Киев, 2018</p>
+    <p class="footer">Учебный проект по курсу Java Winter, Киев, 2018</p>
 </footer>
 </body>
 </html>

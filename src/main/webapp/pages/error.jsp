@@ -15,5 +15,8 @@
         <input type="submit" class="bigbutton" value="Назад" onclick="history.back(); return false;"/>
     </form>
 </div>
+<footer>
+    <p class="footer">Учебный проект по курсу Java Winter, Киев, 2018</p>
+</footer>
 </body>
 </html>

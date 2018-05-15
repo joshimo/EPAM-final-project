@@ -33,10 +33,13 @@ public class CommandResolver {
         commands.put("manageUsers", new CommandOpenUserMngPage());
         commands.put("manageProducts", new CommandOpenProductMngPage());
         commands.put("manageTransactions", new CommandOpenTransMngPage());
+        commands.put("showInvoiceDetails", new CommandOpenInvDetailsPage());
+        commands.put("removeProductFromInvoice", new CommandRemoveFromInvoice());
+        commands.put("closeInvoice", new CommandCloseInvoice());
+        commands.put("cancelInvoice", new CommandCancelInvoice());
     }
 
     public ICommand getCommand(HttpServletRequest request) {
-        //System.out.println("command = " + request.getParameter("command"));
         ICommand command = commands.get(request.getParameter("command"));
         if (command == null)
             command = new CommandMissing();

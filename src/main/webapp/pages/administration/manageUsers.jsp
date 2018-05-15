@@ -64,7 +64,7 @@
                 <td class="tdl"><c:out value="${user.address}"/></td>
                 <td class="tdl"><c:out value="${user.notes}"/></td>
                 <td class="tdc">
-                    <form name="addProductForm" method="post" action="project" >
+                    <form name="details" method="post" action="project" >
                         <input type="hidden" name="command" value="editUserByAdmin" />
                         <input type="hidden" name="id" value="${user.id}" />
                         <!-- SHALL BE HANDLED BY ADDING CommandEditUserByAdmin() -->

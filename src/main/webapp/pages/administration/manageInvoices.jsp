@@ -45,30 +45,42 @@
 <div>
     <table>
         <tr>
-            <th style="width: 15%;">Код заказа</th>
+            <th style="width: 10%;">Код заказа</th>
             <th style="width: 15%;">Дата заказа</th>
-            <th style="width: 20%;">Имя пользоватля</th>
+            <th style="width: 15%;">Имя пользоватля</th>
             <th style="width: 10%;">Оплачено</th>
             <th style="width: 10%;">Статус</th>
-            <th style="width: 30%;">Примечания</th>
-            <th></th>
+            <th style="width: 25%;">Примечания</th>
+            <th style="width: 15%;"></th>
         </tr>
         <c:forEach items="${invoices}" var="invoice">
             <tr>
                 <td class="tdc"><c:out value="${invoice.invoiceCode}"/></td>
                 <td class="tdc"><c:out value="${invoice.date}"/></td>
                 <td class="tdc"><c:out value="${invoice.userName}"/></td>
-                <td class="tdc"></td>
+                <td class="tdc">
+                    <form>
+                        <c:if test="${invoice.paid}"><input type="checkbox" checked disabled/></c:if>
+                        <c:if test="${!invoice.paid}"><input type="checkbox" unchecked disabled/></c:if>
+                    </form>
+                </td>
                 <td class="tdc"><c:out value="${invoice.status}"/></td>
-                <td class="tdc"><c:out value="${invoice.invoiceNotes}"/></td>
-                <td>
+                <td class="tdl"><c:out value="${invoice.invoiceNotes}"/></td>
+                <td class="tdc">
+                    <form>
+                        <form name="details" method="post" action="project" >
+                            <input type="hidden" name="command" value="showInvoiceDetails" />
+                            <input type="hidden" name="code" value="${invoice.invoiceCode}" />
+                            <button type="submit" class="smallbutton">Подробно</button>
+                        </form>
+                    </form>
                 </td>
             </tr>
         </c:forEach>
     </table>
 </div>
 <footer>
-    <p class="footer">Учебный проект Java Winter, Киев, 2018</p>
+    <p class="footer">Учебный проект по курсу Java Winter, Киев, 2018</p>
 </footer>
 </body>
 </html>
