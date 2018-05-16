@@ -42,7 +42,7 @@ public class UserService implements IUserServ {
             if (!user.getPassword().equals(password))
                 throw new UnknownUserException();
             return user;
-        } catch (IncorrectPropertyException | DataBaseConnectionException | DataNotFoundException ex) {
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
             throw new UnknownUserException();
         }
@@ -57,7 +57,7 @@ public class UserService implements IUserServ {
             users = userDao.findAllUsersInDB();
             daoFactory.close();
             return users;
-        } catch (IncorrectPropertyException | DataBaseConnectionException | DataNotFoundException ex) {
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
             throw new UnknownUserException();
         }
@@ -102,7 +102,7 @@ public class UserService implements IUserServ {
             userDao = daoFactory.getUserDao();
             result = validateUserData(user) && userDao.addUserToDB(user);
             daoFactory.close();
-        } catch (IncorrectPropertyException | DataBaseConnectionException ex) {
+        } catch (DataBaseConnectionException ex) {
             log.error(ex);
             return false;
         }
@@ -117,7 +117,7 @@ public class UserService implements IUserServ {
             userDao = daoFactory.getUserDao();
             result = validateUserData(user) && userDao.updateUserInDB(user);
             daoFactory.close();
-        } catch (IncorrectPropertyException | DataBaseConnectionException ex) {
+        } catch (DataBaseConnectionException ex) {
             log.error(ex);
             return false;
         }
@@ -132,7 +132,7 @@ public class UserService implements IUserServ {
             userDao = daoFactory.getUserDao();
             result = validateUserData(user) && userDao.deleteUserFromDB(user);
             daoFactory.close();
-        } catch (IncorrectPropertyException | DataBaseConnectionException ex) {
+        } catch (DataBaseConnectionException ex) {
             log.error(ex);
             return false;
         }

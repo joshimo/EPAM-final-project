@@ -49,7 +49,7 @@ public class ProductService implements IProductServ {
             productDao = daoFactory.getProductDao();
             products = productDao.findAllProductsInDB();
             daoFactory.close();
-        } catch (IncorrectPropertyException | DataBaseConnectionException | DataNotFoundException ex) {
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
             throw new ProductServiceException();
         }
@@ -63,7 +63,7 @@ public class ProductService implements IProductServ {
             productDao = daoFactory.getProductDao();
             product = productDao.findProductByCode(code);
             daoFactory.close();
-        } catch (IncorrectPropertyException | DataBaseConnectionException | DataNotFoundException ex) {
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
             throw new ProductServiceException();
         }
@@ -78,7 +78,7 @@ public class ProductService implements IProductServ {
             productDao = daoFactory.getProductDao();
             result = validateProductData(product) && productDao.addProductToDB(product);
             daoFactory.commitTransaction();
-        } catch (IncorrectPropertyException | DataBaseConnectionException ex) {
+        } catch (DataBaseConnectionException ex) {
             log.error(ex);
             return false;
         }
@@ -93,7 +93,7 @@ public class ProductService implements IProductServ {
             productDao = daoFactory.getProductDao();
             result = validateProductData(product) && productDao.updateProductInDB(product);
             daoFactory.commitTransaction();
-        } catch (IncorrectPropertyException | DataBaseConnectionException ex) {
+        } catch (DataBaseConnectionException ex) {
             log.error(ex);
             return false;
         }
@@ -111,7 +111,7 @@ public class ProductService implements IProductServ {
                 }
             daoFactory.commitTransaction();
             return true;
-        } catch (IncorrectPropertyException | DataBaseConnectionException ex) {
+        } catch (DataBaseConnectionException ex) {
             log.error(ex);
             return false;
         }
@@ -124,7 +124,7 @@ public class ProductService implements IProductServ {
             productDao = daoFactory.getProductDao();
             result = productDao.deleteProductFromDB(product.getCode());
             daoFactory.commitTransaction();
-        } catch (IncorrectPropertyException | DataBaseConnectionException ex) {
+        } catch (DataBaseConnectionException ex) {
             log.error(ex);
             return false;
         }
@@ -139,7 +139,7 @@ public class ProductService implements IProductServ {
             productDao = daoFactory.getProductDao();
             result = productDao.deleteProductFromDB(code);
             daoFactory.commitTransaction();
-        } catch (IncorrectPropertyException | DataBaseConnectionException ex) {
+        } catch (DataBaseConnectionException ex) {
             log.error(ex);
             return false;
         }

@@ -50,7 +50,7 @@ public class InvoiceService implements IInvoiceServ {
                     daoFactory.rollbackTransaction();
             }
             daoFactory.commitTransaction();
-        } catch (IncorrectPropertyException | DataBaseConnectionException | DataNotFoundException ex) {
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
         }
         return invoices;
@@ -130,7 +130,7 @@ public class InvoiceService implements IInvoiceServ {
                     daoFactory.rollbackTransaction();
             }
             daoFactory.commitTransaction();
-        } catch (IncorrectPropertyException | DataBaseConnectionException | DataNotFoundException ex) {
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
         }
         return invoices;
@@ -148,7 +148,7 @@ public class InvoiceService implements IInvoiceServ {
             if (!addPaymentsToInvoice(invoice, paymentDao, productDao))
                 daoFactory.rollbackTransaction();
             daoFactory.commitTransaction();
-        } catch (IncorrectPropertyException | DataBaseConnectionException | DataNotFoundException ex) {
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
         }
         return invoice;
@@ -184,7 +184,7 @@ public class InvoiceService implements IInvoiceServ {
                 }
             }
             daoFactory.commitTransaction();
-        } catch (IncorrectPropertyException | DataNotFoundException | DataBaseConnectionException ex) {
+        } catch (DataNotFoundException | DataBaseConnectionException ex) {
             return false;
         }
         return true;
@@ -233,7 +233,7 @@ public class InvoiceService implements IInvoiceServ {
                 return false;
             }
             daoFactory.commitTransaction();
-        } catch (IncorrectPropertyException | DataBaseConnectionException | DataNotFoundException ex) {
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
             return false;
         }
         return true;
@@ -277,7 +277,7 @@ public class InvoiceService implements IInvoiceServ {
                 return false;
             }
             daoFactory.commitTransaction();
-        } catch (DataBaseConnectionException | IncorrectPropertyException | DataNotFoundException ex) {
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
             return false;
         }
@@ -332,7 +332,7 @@ public class InvoiceService implements IInvoiceServ {
                 return false;
             }
             daoFactory.commitTransaction();
-        } catch (DataBaseConnectionException | IncorrectPropertyException ex) {
+        } catch (DataBaseConnectionException ex) {
             log.error(ex);
             return false;
         }
@@ -367,7 +367,7 @@ public class InvoiceService implements IInvoiceServ {
                 return false;
             }
             daoFactory.commitTransaction();
-        } catch (DataBaseConnectionException | IncorrectPropertyException | DataNotFoundException ex) {
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
             return false;
         }
@@ -441,7 +441,7 @@ public class InvoiceService implements IInvoiceServ {
             }
             daoFactory.commitTransaction();
             return true;
-        } catch (DataBaseConnectionException | IncorrectPropertyException | DataNotFoundException ex) {
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
             return false;
         }
     }
@@ -458,7 +458,7 @@ public class InvoiceService implements IInvoiceServ {
                 invoice.addProduct(product);
                 invoice.addPayment(payment);
             }
-        } catch (IncorrectPropertyException | DataBaseConnectionException | DataNotFoundException ex) {
+        } catch (DataNotFoundException ex) {
             return false;
         }
         return true;
