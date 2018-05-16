@@ -12,7 +12,11 @@
 </style>
 <body>
 <h1>Управление пользователями</h1>
-<div class="menu">
+<div class="widemenu">
+    <form name="addProductForm" method="post" action="project" class="menuitem">
+        <input type="hidden" name="command" value="administration" />
+        <button type="submit" class="menubutton">Назад</button>
+    </form>
     <form name="addProductForm" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageUsers" />
         <input type="hidden" name="type" value="all" />
@@ -45,7 +49,7 @@
     </form>
 </div>
 <div>
-    <table>
+    <table class="widetable">
         <tr>
             <th style="width: 15%;">Имя пользователя</th>
             <th style="width: 10%;">Тип учетной записи</th>

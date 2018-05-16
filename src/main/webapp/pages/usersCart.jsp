@@ -9,23 +9,28 @@
     <%@include file='main_style.css' %>
 </style>
 <body>
-<div style="margin: 10px; text-align: right">
-    <c:out value="${sessionScope.get(\"user\").name}" /><br/>
-    <c:out value="${sessionScope.get(\"user\").email}" /><br/>
+<h1>Корзина</h1>
+<div class="narrowmenu">
+    <p><c:out value="${sessionScope.get(\"user\").name}" /></p>
+    <form name="remove" method="get" action="project" class="menuitem">
+        <input type="hidden" name="command" value="main" />
+        <button type="submit" class="menubutton">Назад</button>
+    </form>
 </div>
-<div style="width: 50%; align: center;">
-    <table>
+<div>
+    <table class="narrowtable">
         <tr>
-            <th style="width: 10%;">Артикул</th>
-            <th style="width: 10%;">Количество</th>
-            <th style="width: 10%;">Цена</th>
+            <th style="width: 20%;">Артикул</th>
+            <th style="width: 20%;">Количество</th>
+            <th style="width: 20%;">Цена</th>
+            <th style="width: 40%;"></th>
         </tr>
         <c:forEach items="${sessionScope.get(\"cart\").products}" var="product">
         <tr>
-            <td>${product.key}</td>
-            <td>${product.value}</td>
-            <td></td>
-            <td>
+            <td class="tdc">${product.key}</td>
+            <td class="tdc">${product.value}</td>
+            <td class="tdc"></td>
+            <td class="tdc">
                 <form name="remove" method="get" action="project" >
                     <input type="hidden" name="command" value="removeProductFromCart" />
                     <button type="submit" name="productCode" value="${product.key}" class="menu-button">Удалить</button>
@@ -34,11 +39,8 @@
         </tr>
         </c:forEach>
     </table>
+</div>
     <div class="button_div">
-        <form name="remove" method="get" action="project" >
-            <input type="hidden" name="command" value="main" />
-            <button type="submit" class="bigbutton">Вернуться в магазин</button>
-        </form>
         <form name="remove" method="get" action="project" >
             <input type="hidden" name="command" value="createInvoice" />
             <button type="submit" class="bigbutton">Оформить заказ</button>
@@ -48,7 +50,6 @@
             <button type="submit" class="bigbutton">Оплатить заказ</button>
         </form>
     </div>
-</div>
 <footer>
     <p class="footer">Учебный проект по курсу Java Winter, Киев, 2018</p>
 </footer>

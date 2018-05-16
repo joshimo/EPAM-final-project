@@ -219,10 +219,14 @@ public class InvoiceService implements IInvoiceServ {
                 product.setReservedQuantity(product.getReservedQuantity() - payment.getQuantity());
                 product.setQuantity(product.getQuantity() + payment.getQuantity());
                 payment.setStatusId(InvoiceStatus.CANCELLED);
-                Transaction refund = transactionService.createTransactionFromPayment(payment, invoice.getUserName(), TransactionType.REFUND);
-                if ((!productDao.updateProductInDB(product))
-                        || (!paymentDao.updatePaymentInDB(payment))
-                        || (!transactionDao.addTransactionToDB(refund))) {
+                if (invoice.getPaid()) {
+                    Transaction refund = transactionService.createTransactionFromPayment(payment, invoice.getUserName(), TransactionType.REFUND);
+                    if (!transactionDao.addTransactionToDB(refund)) {
+                        daoFactory.rollbackTransaction();
+                        return false;
+                    }
+                }
+                if ((!productDao.updateProductInDB(product)) || (!paymentDao.updatePaymentInDB(payment))) {
                     daoFactory.rollbackTransaction();
                     return false;
                 }

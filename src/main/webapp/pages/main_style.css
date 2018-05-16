@@ -9,12 +9,19 @@ h3 {
     padding-left: 5%;
     color: rgb(120,80,0);
 }
-table {
+.widetable, .narrowtable {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
     font-size: 14px;
     border-radius: 10px;
     border-spacing: 0;
     box-shadow: 0 0 15px rgba(50,50,50,0.5);
+}
+.narrowtable {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+.widetable {
     width: 90%;
     margin-left: 5%;
     margin-right: 5%;
@@ -25,13 +32,18 @@ th {
     color: white;
     text-shadow: 0 1px 1px #2D2020;
     padding: 10px 20px;
-}
-th, td {
     border-style: solid;
     border-width: 0 1px 1px 0;
     border-color: white;
 }
-td, .main_div {
+td {
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: white;
+    padding: 10px 20px;
+    background: #F8E391;
+}
+.main_div {
     padding: 10px 20px;
     background: #F8E391;
 }
@@ -63,6 +75,8 @@ td, .main_div {
 }
 .button_div {
     text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 .tdc {
     text-align: center;
@@ -74,13 +88,23 @@ tr:hover {
     text-shadow: 0 1px 1px #2D2020;
 }
 
-.menu {
-    width: 90%;
-    margin-right: 5%;
-    margin-left: 5%;
+.widemenu, .narrowmenu {
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: right;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    height: 80px;
+}
+.widemenu {
+    width: 90%;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+.narrowmenu {
+    width: 60%;
+    margin-right: 20%;
+    margin-left: 20%;
 }
 .menuitem {
     float: right;

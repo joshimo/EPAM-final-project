@@ -9,7 +9,7 @@
 </style>
 <body>
 <h1>Заказ</h1>
-<div class="menu">
+<div class="widemenu">
     <form name="addProductForm" method="post" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageInvoices" />
         <input type="hidden" name="type" value="all" />
@@ -39,7 +39,7 @@
             <b><i><c:out value="${invoice.invoiceNotes}"/></i></b>
         </p>
         <h3>Состав заказа:</h3>
-        <table>
+        <table class="widetable">
             <tr>
                 <th class="tdc">Артикул</th>
                 <th class="tdc">Количество</th>
@@ -58,8 +58,12 @@
                             <input type="hidden" name="command" value="removeProductFromInvoice" />
                             <input type="hidden" name="invCode" value="${payment.value.orderCode}" />
                             <input type="hidden" name="productCode" value="${payment.key}" />
-                            <c:if test="${!invoice.paid}"><button type="submit" class="smallbutton">Удалить</button></c:if>
-                            <c:if test="${invoice.paid}"><button type="submit" class="smallbutton" disabled>Удалить</button></c:if>
+                            <c:if test="${!invoice.paid && invoice.status == 'CREATED'}">
+                                <button type="submit" class="smallbutton">Удалить</button>
+                            </c:if>
+                            <c:if test="${invoice.paid || invoice.status != 'CREATED'}">
+                                <button type="submit" class="smallbutton" disabled>Удалить</button>
+                            </c:if>
                         </form>
                     </td>
                 </tr>
