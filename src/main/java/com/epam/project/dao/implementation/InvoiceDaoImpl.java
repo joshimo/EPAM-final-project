@@ -14,7 +14,7 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
     private Connection connection;
     private static String SQL_selectAll = "SELECT * FROM invoices " +
             "JOIN invoice_status ON invoices.status_id=invoice_status.status_id;";
-    private static String SQL_selectAllNew = "SELECT * FROM invoices " +
+    private static String SQL_selectAllByStatus = "SELECT * FROM invoices " +
             "JOIN invoice_status ON invoices.status_id=invoice_status.status_id WHERE invoices.status_id=?;";
     private static String SQL_selectAllByUserName = "SELECT * FROM invoices " +
             "JOIN invoice_status ON invoices.status_id=invoice_status.status_id WHERE user_name=?;";
@@ -57,8 +57,20 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
     }
 
     @Override
-    public List<Invoice> findNewInvoices() throws DataNotFoundException {
-        List<Invoice> invoices = findAsListBy(connection, Invoice.class, SQL_selectAllNew, 1);
+    public List<Invoice> findAllNewInvoices() throws DataNotFoundException {
+        List<Invoice> invoices = findAsListBy(connection, Invoice.class, SQL_selectAllByStatus, 0);
+        return invoices;
+    }
+
+    @Override
+    public List<Invoice> findAllFinishedInvoices() throws DataNotFoundException {
+        List<Invoice> invoices = findAsListBy(connection, Invoice.class, SQL_selectAllByStatus, 1);
+        return invoices;
+    }
+
+    @Override
+    public List<Invoice> findAllCancelledInvoices() throws DataNotFoundException {
+        List<Invoice> invoices = findAsListBy(connection, Invoice.class, SQL_selectAllByStatus, 2);
         return invoices;
     }
 

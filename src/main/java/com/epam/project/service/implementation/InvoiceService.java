@@ -64,13 +64,53 @@ public class InvoiceService implements IInvoiceServ {
             invoiceDao = daoFactory.getInvoiceDao();
             paymentDao = daoFactory.getPaymentDao();
             productDao = daoFactory.getProductDao();
-            invoices = invoiceDao.findNewInvoices();
+            invoices = invoiceDao.findAllNewInvoices();
             for (Invoice invoice : invoices) {
                 if (!addPaymentsToInvoice(invoice, paymentDao, productDao))
                     daoFactory.rollbackTransaction();
             }
             daoFactory.commitTransaction();
-        } catch (IncorrectPropertyException | DataBaseConnectionException | DataNotFoundException ex) {
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+        }
+        return invoices;
+    }
+
+    @Button
+    public List<Invoice> findFinishedInvoices() {
+        List<Invoice> invoices = new LinkedList<>();
+        try {
+            daoFactory.beginTransaction();
+            invoiceDao = daoFactory.getInvoiceDao();
+            paymentDao = daoFactory.getPaymentDao();
+            productDao = daoFactory.getProductDao();
+            invoices = invoiceDao.findAllFinishedInvoices();
+            for (Invoice invoice : invoices) {
+                if (!addPaymentsToInvoice(invoice, paymentDao, productDao))
+                    daoFactory.rollbackTransaction();
+            }
+            daoFactory.commitTransaction();
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+        }
+        return invoices;
+    }
+
+    @Button
+    public List<Invoice> findCancelledInvoices() {
+        List<Invoice> invoices = new LinkedList<>();
+        try {
+            daoFactory.beginTransaction();
+            invoiceDao = daoFactory.getInvoiceDao();
+            paymentDao = daoFactory.getPaymentDao();
+            productDao = daoFactory.getProductDao();
+            invoices = invoiceDao.findAllCancelledInvoices();
+            for (Invoice invoice : invoices) {
+                if (!addPaymentsToInvoice(invoice, paymentDao, productDao))
+                    daoFactory.rollbackTransaction();
+            }
+            daoFactory.commitTransaction();
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
         }
         return invoices;

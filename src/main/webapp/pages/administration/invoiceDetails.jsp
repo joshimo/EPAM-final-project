@@ -73,14 +73,22 @@
         <form action="project" method="get">
             <input type="hidden" name="command" value="cancelInvoice" />
             <input type="hidden" name="invCode" value="${invoice.invoiceCode}" />
-            <c:if test="${invoice.status != 'CREATED'}"><button type="submit" class="bigbutton" disabled>Отменить заказ</button></c:if>
-            <c:if test="${invoice.status == 'CREATED'}"><button type="submit" class="bigbutton">Отменить заказ</button></c:if>
+            <c:if test="${invoice.status != 'CREATED'}">
+                <button type="submit" class="bigbutton" disabled>Отменить заказ</button>
+            </c:if>
+            <c:if test="${invoice.status == 'CREATED'}">
+                <button type="submit" class="bigbutton">Отменить заказ</button>
+            </c:if>
         </form>
         <form action="project" method="get">
             <input type="hidden" name="command" value="closeInvoice" />
             <input type="hidden" name="invCode" value="${invoice.invoiceCode}" />
-            <c:if test="${invoice.paid && invoice.status == 'CREATED'}"><button type="submit" class="bigbutton">Закрыть заказ</button></c:if>
-            <c:if test="${!(invoice.paid && invoice.status == 'CREATED')}"><button type="submit" class="bigbutton" disabled>Закрыть заказ</button></c:if>
+            <c:if test="${invoice.paid && invoice.status == 'CREATED'}">
+                <button type="submit" class="bigbutton">Закрыть заказ</button>
+            </c:if>
+            <c:if test="${!(invoice.paid && invoice.status == 'CREATED')}">
+                <button type="submit" class="bigbutton" disabled>Закрыть заказ</button>
+            </c:if>
         </form>
     </div>
 </div>

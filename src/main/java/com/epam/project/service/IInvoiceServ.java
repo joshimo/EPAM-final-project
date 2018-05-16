@@ -15,6 +15,12 @@ public interface IInvoiceServ {
     List<Invoice> findNewInvoices();
 
     @Button
+    List<Invoice> findFinishedInvoices();
+
+    @Button
+    List<Invoice> findCancelledInvoices();
+
+    @Button
     List<Invoice> findInvoicesByUser(String userName);
 
     @Button

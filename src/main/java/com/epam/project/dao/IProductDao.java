@@ -7,23 +7,59 @@ import com.epam.project.exceptions.IncorrectPropertyException;
 
 import java.util.List;
 
+/**
+ * CRUD operations interface for Product entity
+ */
 public interface IProductDao {
 
-    List<Product> findAllProductsInDB() throws IncorrectPropertyException, DataBaseConnectionException,
-            DataNotFoundException;
+    /**
+     * Finds all products in DB
+     * @return List of all products in DB
+     * @throws DataNotFoundException if connection is down, broken or unable to retrieve information for certain reasons
+     */
+    List<Product> findAllProductsInDB() throws DataNotFoundException;
 
-    Product findProductById(Integer id) throws IncorrectPropertyException, DataBaseConnectionException,
-            DataNotFoundException;
+    /**
+     * Finds product in DB by id number
+     * @param id - product id number
+     * @return product by id number
+     * @throws DataNotFoundException if connection is down, broken or unable to retrieve information for certain reasons
+     */
+    Product findProductById(Integer id) throws DataNotFoundException;
 
-    Product findProductByCode(String code) throws IncorrectPropertyException, DataBaseConnectionException,
-            DataNotFoundException;
+    /**
+     * Finds product in DB by product ordering code
+     * @param code - product ordering code
+     * @return product by product ordering code
+     * @throws DataNotFoundException if connection is down, broken or unable to retrieve information for certain reasons
+     */
+    Product findProductByCode(String code) throws DataNotFoundException;
 
-    boolean addProductToDB(Product product) throws IncorrectPropertyException, DataBaseConnectionException;
+    /**
+     * Adds new product to database
+     * @param product - product to add in DB
+     * @return true if operation success and false if fails
+     */
+    boolean addProductToDB(Product product);
 
-    boolean updateProductInDB(Product product) throws IncorrectPropertyException, DataBaseConnectionException;
+    /**
+     * Updates existent product to database
+     * @param product - product to update in DB
+     * @return true if operation success and false if fails
+     */
+    boolean updateProductInDB(Product product);
 
-    boolean deleteProductFromDB(Integer id) throws IncorrectPropertyException, DataBaseConnectionException;
+    /**
+     * Deletes existent product from database by product id number
+     * @param id - product id number
+     * @return true if operation success and false if fails
+     */
+    boolean deleteProductFromDB(Integer id);
 
-    boolean deleteProductFromDB(String code) throws IncorrectPropertyException, DataBaseConnectionException;
-
+    /**
+     * Deletes existent product from database by product ordering code
+     * @param code - product ordering code
+     * @return true if operation success and false if fails
+     */
+    boolean deleteProductFromDB(String code);
 }

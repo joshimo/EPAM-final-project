@@ -27,6 +27,12 @@ public class CommandOpenInvoiceMngPage implements ICommand {
             List<Invoice> invoices = new LinkedList<>();
             if (type.equals("all"))
                 invoices = serv.findAllInvoices();
+            if (type.equals("new"))
+                invoices = serv.findNewInvoices();
+            if (type.equals("cancelled"))
+                invoices = serv.findCancelledInvoices();
+            if (type.equals("closed"))
+                invoices = serv.findFinishedInvoices();
             result.addRequestAttribute("invoices", invoices);
             result.setPage(conf.getPage("manageInvoices"));
         }
