@@ -13,7 +13,7 @@
 </style>
 <body>
     <h1>Главная страница</h1>
-    <div class="menu">
+    <div class="widemenu">
         <p><c:out value="${user.name}, ${user.userRole}"/></p>
         <c:if test="${user.name == 'Guest'}">
             <form name="addProductForm" method="get" action="project" class="menuitem">
@@ -52,7 +52,7 @@
         </c:if>
     </div>
     <div>
-        <table>
+        <table class="widetable">
             <tr>
                 <th style="width: 5%;">Артикул</th>
                 <th style="width: 20%;">Название</th>

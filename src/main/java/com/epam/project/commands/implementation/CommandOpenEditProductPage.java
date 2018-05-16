@@ -9,24 +9,21 @@ import com.epam.project.domain.Product;
 import com.epam.project.service.IProductServ;
 import com.epam.project.service.ServiceFactory;
 
-import java.util.List;
-
-public class CommandOpenProductMngPage implements ICommand {
-
+public class CommandOpenEditProductPage implements ICommand {
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
-        Configuration conf = Configuration.getInstance();
+        Configuration config = Configuration.getInstance();
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
             IProductServ serv = ServiceFactory.getProductService();
-            List<Product> products = serv.findAllProducts();
-            result.addRequestAttribute("products", products);
-            result.setPage(conf.getPage("manageProducts"));
-        }
-        catch (Exception e) {
-            result.addRequestAttribute("errorMessage", conf.getErrorMessage("showMainPageErr"));
-            result.setPage(conf.getPage("error"));
+            String code = content.getRequestParameter("productCode")[0];
+            Product product = serv.findProductByCode(code);
+            result.addRequestAttribute("product", product);
+            result.setPage(config.getPage("editProduct"));
+        } catch (Exception e) {
+            result.addRequestAttribute("errorMessage", config.getErrorMessage("saveNewUserErr"));
+            result.setPage(config.getPage("error"));
         }
         return result;
     }

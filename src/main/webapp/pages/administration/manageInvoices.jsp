@@ -12,7 +12,7 @@
 </style>
 <body>
 <h1>Управление заказами</h1>
-<div class="menu">
+<div class="widemenu">
     <form name="addProductForm" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageInvoices" />
         <!-- SHALL BE HANDLED IN COMMAND CommandOpenInvoiceMngPage() -->
@@ -43,7 +43,7 @@
     </form>
 </div>
 <div>
-    <table>
+    <table class="widetable">
         <tr>
             <th style="width: 10%;">Код заказа</th>
             <th style="width: 15%;">Дата заказа</th>

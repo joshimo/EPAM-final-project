@@ -37,6 +37,11 @@ public class CommandResolver {
         commands.put("removeProductFromInvoice", new CommandRemoveFromInvoice());
         commands.put("closeInvoice", new CommandCloseInvoice());
         commands.put("cancelInvoice", new CommandCancelInvoice());
+        commands.put("addNewProductPage", new CommandOpenNewProductPage());
+        commands.put("saveNewProduct", new CommandSaveNewProduct());
+        commands.put("editProductPage", new CommandOpenEditProductPage());
+        commands.put("updateProduct", new CommandUpdateProduct());
+        commands.put("deleteProduct", new CommandDeleteProduct());
     }
 
     public ICommand getCommand(HttpServletRequest request) {

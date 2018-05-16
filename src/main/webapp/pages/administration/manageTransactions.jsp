@@ -12,7 +12,7 @@
 </style>
 <body>
 <h1>Транзакции</h1>
-<div class="menu">
+<div class="widemenu">
     <form name="addProductForm" method="post" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageTransactions" />
         <input type="hidden" name="type" value="payment" />
@@ -34,7 +34,7 @@
     </form>
 </div>
 <div>
-    <table>
+    <table class="widetable">
         <tr>
             <th style="width: 5%;">Код заказа</th>
             <th style="width: 5%;">Имя пользователя</th>

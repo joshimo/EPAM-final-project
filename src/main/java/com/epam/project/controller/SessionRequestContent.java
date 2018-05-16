@@ -41,6 +41,18 @@ public class SessionRequestContent {
         }
     }
 
+    public boolean checkRequestAttribute(String attrName) {
+        return reqAttributes.containsKey(attrName);
+    }
+
+    public boolean checkRequestParameter(String attrName) {
+        return reqParameters.containsKey(attrName);
+    }
+
+    public boolean checkSessionAttribute(String attrName) {
+        return sessionAttributes.containsKey(attrName);
+    }
+
     /** returns a refer to redirect */
     public String getReferer() {
         return referer;
