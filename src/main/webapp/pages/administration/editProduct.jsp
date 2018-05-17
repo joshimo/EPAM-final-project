@@ -9,6 +9,9 @@
 </style>
 <body>
 <h1>Новый продукт</h1>
+<div class="widemenu">
+    <p><c:out value="${user.name}, ${user.userRole}"/></p>
+</div>
 <div class = "inner_div">
     <form name="productForm" method="get" action="project" >
         <input type="hidden" name="command" value="updateProduct" />

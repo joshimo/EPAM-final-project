@@ -13,6 +13,7 @@
 <body>
 <h1>Транзакции</h1>
 <div class="widemenu">
+    <p><c:out value="${user.name}, ${user.userRole}"/></p>
     <form name="addProductForm" method="post" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageTransactions" />
         <input type="hidden" name="type" value="payment" />

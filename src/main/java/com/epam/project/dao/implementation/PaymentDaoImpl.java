@@ -15,6 +15,8 @@ import java.util.List;
 public class PaymentDaoImpl extends GenericAbstractDao<Payment> implements IPaymentDao {
 
     private Connection connection;
+    private static String SQL_select_base = "SELECT * FROM payments " +
+            "JOIN invoice_status ON payments.status_id=invoice_status.status_id ";
     private static String SQL_selectAll = "SELECT * FROM payments " +
             "JOIN invoice_status ON payments.status_id=invoice_status.status_id;";
     private static String SQL_selectByOrderCode = "SELECT * FROM payments " +
@@ -50,6 +52,11 @@ public class PaymentDaoImpl extends GenericAbstractDao<Payment> implements IPaym
         super.setMapperToDB(mapperToDB);
         super.setMapperFromDB(mapperFromDB);
         this.connection = connection;
+    }
+
+    @Override
+    public Integer calculatePaymentsNumber() throws DataNotFoundException {
+        return calculateRowCounts(connection, "payments");
     }
 
     @Override

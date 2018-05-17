@@ -10,12 +10,29 @@ import java.util.List;
  * CRUD operations interface for User entity
  */
 public interface IUserDao {
+
+    /**
+     * Calculates total users number available in DB
+     * @return count of users in DB
+     * @throws DataNotFoundException if connection is down, broken or unable to retrieve information for certain reasons
+     */
+    Integer calculateUsersNumber() throws DataNotFoundException;
+
     /**
      * Finds all users in DB
      * @return List of all users
      * @throws DataNotFoundException if connection is down, broken or unable to retrieve information for certain reasons
      */
     List<User> findAllUsersInDB() throws DataNotFoundException;
+
+    /**
+     * Finds users in DB from
+     * @param first first row number
+     * @param offset offset
+     * @return List users
+     * @throws DataNotFoundException if connection is down, broken or unable to retrieve information for certain reasons
+     */
+    List<User> findUsers(Integer first, Integer offset) throws DataNotFoundException;
 
     /**
      * Finds all users by user role

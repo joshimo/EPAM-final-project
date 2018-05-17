@@ -12,26 +12,64 @@
 </style>
 <body>
 <h1>Администрирование</h1>
+<div class="widemenu">
+    <p><c:out value="${user.name}, ${user.userRole}"/></p>
+</div>
 <div class="index_div">
+    <c:if test="${user.userRole == 'ADMIN' || user.userRole == 'CASHIER' || user.userRole == 'SENIOR_CASHIER'}">
     <form action="project" method="get">
         <input type="hidden" name="command" value="manageInvoices" />
         <input type="hidden" name="type" value="all" />
         <button type="submit" class="giantbutton">Управление заказами</button>
     </form>
+    </c:if>
+    <c:if test="${!(user.userRole == 'ADMIN' || user.userRole == 'CASHIER' || user.userRole == 'SENIOR_CASHIER')}">
+        <form action="project" method="get">
+            <input type="hidden" name="command" value="manageInvoices" />
+            <input type="hidden" name="type" value="all" />
+            <button type="submit" class="giantbutton" disabled>Управление заказами</button>
+        </form>
+    </c:if>
+    <c:if test="${user.userRole == 'ADMIN'}">
     <form action="project" method="get">
         <input type="hidden" name="command" value="manageUsers" />
         <input type="hidden" name="type" value="all" />
         <button type="submit" class="giantbutton">Управление пользователями</button>
     </form>
+    </c:if>
+    <c:if test="${user.userRole != 'ADMIN'}">
+        <form action="project" method="get">
+            <input type="hidden" name="command" value="manageUsers" />
+            <input type="hidden" name="type" value="all" />
+            <button type="submit" class="giantbutton" disabled>Управление пользователями</button>
+        </form>
+    </c:if>
+    <c:if test="${user.userRole == 'ADMIN' || user.userRole == 'MERCHANT'}">
     <form action="project" method="get">
         <input type="hidden" name="command" value="manageProducts" />
         <button type="submit" class="giantbutton">Управление складом</button>
     </form>
+    </c:if>
+    <c:if test="${!(user.userRole == 'ADMIN' || user.userRole == 'MERCHANT')}">
+        <form action="project" method="get">
+            <input type="hidden" name="command" value="manageProducts" />
+            <button type="submit" class="giantbutton" disabled>Управление складом</button>
+        </form>
+    </c:if>
+    <c:if test="${user.userRole == 'ADMIN' || user.userRole == 'SENIOR_CASHIER'}">
     <form action="project" method="get">
         <input type="hidden" name="command" value="manageTransactions" />
         <input type="hidden" name="type" value="all" />
         <button type="submit" class="giantbutton">Транзакции</button>
     </form>
+    </c:if>
+    <c:if test="${!(user.userRole == 'ADMIN' || user.userRole == 'SENIOR_CASHIER')}">
+        <form action="project" method="get">
+            <input type="hidden" name="command" value="manageTransactions" />
+            <input type="hidden" name="type" value="all" />
+            <button type="submit" class="giantbutton" disabled>Транзакции</button>
+        </form>
+    </c:if>
     <form action="project" method="get">
         <input type="hidden" name="command" value="main" />
         <button type="submit" class="giantbutton">Выход</button>

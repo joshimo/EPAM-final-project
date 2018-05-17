@@ -39,15 +39,12 @@ public class PaymentService {
         boolean result;
         if (validatePayment(payment))
             try {
-                //payment.setPaymentValue(payment.getQuantity() * product.getCost());
                 daoFactory.beginTransaction();
                 paymentDao = daoFactory.getPaymentDao();
-                Payment oldPayment = paymentDao.findPaymentById(payment.getPaymentId());
-
                 result = paymentDao.deletePaymentFromDB(payment) && paymentDao.addPaymentToDB(payment);
                 daoFactory.commitTransaction();
                 return result;
-            } catch (DataNotFoundException | DataBaseConnectionException ex) {
+            } catch (DataBaseConnectionException ex) {
                 log.error(ex);
                 return false;
             }

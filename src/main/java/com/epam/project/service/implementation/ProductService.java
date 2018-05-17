@@ -41,7 +41,22 @@ public class ProductService implements IProductServ {
 
     /** Data access and storing methods */
 
+    @Override
+    public Integer calculateProductsNumber() {
+        Integer result = 0;
+        try {
+            daoFactory.beginTransaction();
+            productDao = daoFactory.getProductDao();
+            result = productDao.calculateProductNumber();
+            daoFactory.commitTransaction();
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+        }
+        return result;
+    }
+
     @Button
+    @Override
     public List<Product> findAllProducts() throws ProductServiceException {
         List<Product> products = new LinkedList<>();
         try {
@@ -56,6 +71,23 @@ public class ProductService implements IProductServ {
         return products;
     }
 
+    @Button
+    @Override
+    public List<Product> findProducts(Integer from, Integer offset) throws ProductServiceException {
+        List<Product> products = new LinkedList<>();
+        try {
+            daoFactory.open();
+            productDao = daoFactory.getProductDao();
+            products = productDao.findProductsInDB(from, offset);
+            daoFactory.close();
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+            throw new ProductServiceException();
+        }
+        return products;
+    }
+
+    @Override
     public Product findProductByCode(String code) throws ProductServiceException {
         Product product = new Product();
         try {
@@ -71,6 +103,7 @@ public class ProductService implements IProductServ {
     }
 
     @Button
+    @Override
     public boolean addProduct(Product product) {
         boolean result;
         try {
@@ -86,6 +119,7 @@ public class ProductService implements IProductServ {
     }
 
     @Button
+    @Override
     public boolean updateProduct(Product product) {
         boolean result;
         try {
@@ -117,6 +151,7 @@ public class ProductService implements IProductServ {
         }
     }
 
+    @Override
     public boolean deleteProduct(Product product) {
         boolean result;
         try {
@@ -132,6 +167,7 @@ public class ProductService implements IProductServ {
     }
 
     @Button
+    @Override
     public boolean deleteProduct(String code) {
         boolean result;
         try {

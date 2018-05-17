@@ -8,7 +8,12 @@ import java.util.List;
 
 public interface IUserServ {
 
+    Integer calculateUsersNumber();
+
     List<User> findAllUsers() throws UnknownUserException;
+
+    @Button
+    List<User> findUsers(Integer from, Integer offset) throws UnknownUserException;
 
     List<User> findUsersByRole(UserRole userRole) throws UnknownUserException;
 

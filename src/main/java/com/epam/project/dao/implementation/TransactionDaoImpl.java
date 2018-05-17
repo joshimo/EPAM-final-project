@@ -14,7 +14,8 @@ import java.util.List;
 public class TransactionDaoImpl extends GenericAbstractDao<Transaction> implements ITransactionDao {
 
     private Connection connection;
-    private static String SQL_selectAll = "SELECT * FROM transactions";
+    private static String SQL_select_base = "SELECT * FROM transactions ";
+    private static String SQL_selectAll = "SELECT * FROM transactions;";
     private static String SQL_selectByInvoice = "SELECT * FROM transactions WHERE invoice_code=?;";
     private static String SQL_selectByUserName = "SELECT * FROM transactions WHERE user_name=?;";
     private static String SQL_selectByType = "SELECT * FROM transactions WHERE transaction_type=?;";
@@ -51,8 +52,19 @@ public class TransactionDaoImpl extends GenericAbstractDao<Transaction> implemen
     }
 
     @Override
+    public Integer calculateTransactionsNumber() throws DataNotFoundException {
+        return calculateRowCounts(connection, "transactions");
+    }
+
+    @Override
     public List<Transaction> findAllTransactions() throws DataNotFoundException {
         return findAll(this.connection, Transaction.class, SQL_selectAll);
+    }
+
+    @Override
+    public List<Transaction> findTransactions(Integer first, Integer offset) throws DataNotFoundException {
+        List<Transaction> transactions = findAllFromTo(connection, Transaction.class, first, offset, SQL_select_base);
+        return transactions;
     }
 
     @Override

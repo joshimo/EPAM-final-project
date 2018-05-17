@@ -1,6 +1,7 @@
 package com.epam.project.dao;
 
 import com.epam.project.domain.Invoice;
+import com.epam.project.domain.User;
 import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.DataNotFoundException;
 import com.epam.project.exceptions.IncorrectPropertyException;
@@ -12,11 +13,27 @@ import java.util.List;
 public interface IInvoiceDao {
 
     /**
+     * Calculates total invoices number available in DB
+     * @return count of products in DB
+     * @throws DataNotFoundException if connection is down, broken or unable to retrieve information for certain reasons
+     */
+    Integer calculateInvoiceNumber() throws DataNotFoundException;
+
+    /**
      * Finds all invoices in database
      * @return List of invoices
      * @throws DataNotFoundException if connection is down, broken or unable to retrieve information for certain reasons
      */
     List<Invoice> findAllInvoices() throws DataNotFoundException;
+
+    /**
+     * Finds invoices in DB from
+     * @param first first row number
+     * @param offset offset
+     * @return List of invoices
+     * @throws DataNotFoundException if connection is down, broken or unable to retrieve information for certain reasons
+     */
+    List<Invoice> findInvoices(Integer first, Integer offset) throws DataNotFoundException;
 
     /**
      * Finds all new invoices in database

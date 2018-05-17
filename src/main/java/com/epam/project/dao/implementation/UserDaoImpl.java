@@ -15,6 +15,8 @@ import java.util.List;
 
 public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao {
     private Connection connection;
+    private static String SQL_select_base = "SELECT * FROM users JOIN user_roles ON users.role_id=user_roles.role_id " +
+            "ORDER BY user_id ";
     private static String SQL_selectAll = "SELECT * FROM users JOIN user_roles ON users.role_id=user_roles.role_id " +
             "ORDER BY user_id;";
     private static String SQL_selectById = "SELECT * FROM users JOIN user_roles ON users.role_id=user_roles.role_id " +
@@ -62,8 +64,19 @@ public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao {
     }
 
     @Override
+    public Integer calculateUsersNumber() throws DataNotFoundException {
+        return calculateRowCounts(connection, "users");
+    }
+
+    @Override
     public List<User> findAllUsersInDB() throws DataNotFoundException {
         List<User> users = findAll(connection, User.class, SQL_selectAll);
+        return users;
+    }
+
+    @Override
+    public List<User> findUsers(Integer first, Integer offset) throws DataNotFoundException {
+        List<User> users = findAllFromTo(connection, User.class, first, offset, SQL_select_base);
         return users;
     }
 

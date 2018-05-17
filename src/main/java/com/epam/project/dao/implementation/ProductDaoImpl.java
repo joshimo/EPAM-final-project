@@ -16,6 +16,7 @@ import java.util.List;
 public class ProductDaoImpl extends GenericAbstractDao<Product> implements IProductDao {
 
     private Connection connection;
+    private static String SQL_select_base = "SELECT * FROM products ";
     private static String SQL_selectAll = "SELECT * FROM products;";
     private static String SQL_selectById = "SELECT * FROM products WHERE product_id=?;";
     private static String SQL_selectByCode = "SELECT * FROM products WHERE product_code=?;";
@@ -72,8 +73,19 @@ public class ProductDaoImpl extends GenericAbstractDao<Product> implements IProd
     }
 
     @Override
+    public Integer calculateProductNumber() throws DataNotFoundException {
+        return calculateRowCounts(connection, "products");
+    }
+
+    @Override
     public List<Product> findAllProductsInDB() throws DataNotFoundException {
         List<Product> products = findAll(connection, Product.class, SQL_selectAll);
+        return products;
+    }
+
+    @Override
+    public List<Product> findProductsInDB(Integer first, Integer offset) throws DataNotFoundException {
+        List<Product> products = findAllFromTo(connection, Product.class, first, offset, SQL_select_base);
         return products;
     }
 

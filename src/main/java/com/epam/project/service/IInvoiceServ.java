@@ -8,8 +8,13 @@ import java.util.List;
 
 public interface IInvoiceServ {
 
+    Integer calculateInvoicesNumber();
+
     @Button
     List<Invoice> findAllInvoices();
+
+    @Button
+    List<Invoice> findInvoices(Integer from, Integer offset);
 
     @Button
     List<Invoice> findNewInvoices();

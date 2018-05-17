@@ -20,10 +20,14 @@ public class CommandOpenMainPage implements ICommand{
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
-            //System.out.println("CommandOpenMainPage");
             IProductServ productServ = ServiceFactory.getProductService();
-            List<Product> products = productServ.findAllProducts();
+            Integer totalPages = (int) Math.floor(productServ.calculateProductsNumber() / 5) + 1;
+            Integer pageNum = content.checkRequestParameter("pageNum") ?
+                    Integer.parseInt(content.getRequestParameter("pageNum")[0]) : 1;
+            List<Product> products = productServ.findProducts((pageNum - 1) * 5,5);
             result.addRequestAttribute("products", products);
+            result.addRequestAttribute("totalPages", totalPages);
+            result.addRequestAttribute("pageNum", pageNum);
             result.setPage(Configuration.getInstance().getPage("main"));
         }
         catch (ProductServiceException uue) {

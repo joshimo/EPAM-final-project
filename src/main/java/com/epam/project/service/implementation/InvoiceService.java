@@ -35,7 +35,24 @@ public class InvoiceService implements IInvoiceServ {
         }
     }
 
+
+
     /** CRUD methods */
+
+    @Override
+    public Integer calculateInvoicesNumber() {
+        Integer result = 0;
+        try {
+            daoFactory.beginTransaction();
+            invoiceDao = daoFactory.getInvoiceDao();
+            result = invoiceDao.calculateInvoiceNumber();
+            daoFactory.commitTransaction();
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+        }
+        return result;
+    }
+
     @Button
     public List<Invoice> findAllInvoices() {
         List<Invoice> invoices = new LinkedList<>();
@@ -45,6 +62,27 @@ public class InvoiceService implements IInvoiceServ {
             paymentDao = daoFactory.getPaymentDao();
             productDao = daoFactory.getProductDao();
             invoices = invoiceDao.findAllInvoices();
+            for (Invoice invoice : invoices) {
+                if (!addPaymentsToInvoice(invoice, paymentDao, productDao))
+                    daoFactory.rollbackTransaction();
+            }
+            daoFactory.commitTransaction();
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+        }
+        return invoices;
+    }
+
+    @Button
+    @Override
+    public List<Invoice> findInvoices(Integer from, Integer offset) {
+        List<Invoice> invoices = new LinkedList<>();
+        try {
+            daoFactory.beginTransaction();
+            invoiceDao = daoFactory.getInvoiceDao();
+            paymentDao = daoFactory.getPaymentDao();
+            productDao = daoFactory.getProductDao();
+            invoices = invoiceDao.findInvoices(from, offset);
             for (Invoice invoice : invoices) {
                 if (!addPaymentsToInvoice(invoice, paymentDao, productDao))
                     daoFactory.rollbackTransaction();

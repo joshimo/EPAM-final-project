@@ -12,6 +12,8 @@ import java.util.*;
 public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvoiceDao {
 
     private Connection connection;
+    private static String SQL_select_base = "SELECT * FROM invoices " +
+            "JOIN invoice_status ON invoices.status_id=invoice_status.status_id ";
     private static String SQL_selectAll = "SELECT * FROM invoices " +
             "JOIN invoice_status ON invoices.status_id=invoice_status.status_id;";
     private static String SQL_selectAllByStatus = "SELECT * FROM invoices " +
@@ -51,8 +53,19 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
     }
 
     @Override
+    public Integer calculateInvoiceNumber() throws DataNotFoundException {
+        return calculateRowCounts(connection, "invoices");
+    }
+
+    @Override
     public List<Invoice> findAllInvoices() throws DataNotFoundException {
         List<Invoice> invoices = findAll(connection, Invoice.class, SQL_selectAll);
+        return invoices;
+    }
+
+    @Override
+    public List<Invoice> findInvoices(Integer first, Integer offset) throws DataNotFoundException {
+        List<Invoice> invoices = findAllFromTo(connection, Invoice.class, first, offset, SQL_select_base);
         return invoices;
     }
 

@@ -15,8 +15,6 @@ import java.util.List;
 
 public class UserService implements IUserServ {
 
-    private static final String SUPER_ADMIN_NAME = "Yaroslav";
-    private static final String SUPER_ADMIN_PASSWORD = "golota";
     private static final DataBaseSelector source = DataBaseSelector.MY_SQL;
     private static final Logger log = Logger.getLogger(UserService.class);
     private static DaoFactory daoFactory;
@@ -32,6 +30,7 @@ public class UserService implements IUserServ {
     }
 
     @Button
+    @Override
     public User findUser(String name, String password) throws UnknownUserException{
         User user = new User();
         try {
@@ -49,6 +48,7 @@ public class UserService implements IUserServ {
     }
 
     @Button
+    @Override
     public List<User> findAllUsers() throws UnknownUserException {
         List<User> users = new LinkedList<>();
         try {
@@ -64,6 +64,23 @@ public class UserService implements IUserServ {
     }
 
     @Button
+    @Override
+    public List<User> findUsers(Integer from, Integer offset) throws UnknownUserException {
+        List<User> users = new LinkedList<>();
+        try {
+            daoFactory.open();
+            userDao = daoFactory.getUserDao();
+            users = userDao.findUsers(from, offset);
+            daoFactory.close();
+            return users;
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+            throw new UnknownUserException();
+        }
+    }
+
+    @Button
+    @Override
     public List<User> findUsersByRole(UserRole userRole) throws UnknownUserException {
         List<User> users = new LinkedList<>();
         try {
@@ -88,13 +105,25 @@ public class UserService implements IUserServ {
                 || user.getUserRole() == null);
     }
 
-    public boolean checkIfSuperAdmin(String name, String password) {
-        return name.equals(SUPER_ADMIN_NAME) && password.equals(SUPER_ADMIN_PASSWORD);
-    }
 
     /** Data access and storing methods */
 
+    @Override
+    public Integer calculateUsersNumber() {
+        Integer result = 0;
+        try {
+            daoFactory.beginTransaction();
+            userDao = daoFactory.getUserDao();
+            result = userDao.calculateUsersNumber();
+            daoFactory.commitTransaction();
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+        }
+        return result;
+    }
+
     @Button
+    @Override
     public boolean addUser(User user) {
         boolean result;
         try {
@@ -110,6 +139,7 @@ public class UserService implements IUserServ {
     }
 
     @Button
+    @Override
     public boolean updateUser(User user) {
         boolean result;
         try {
@@ -125,6 +155,7 @@ public class UserService implements IUserServ {
     }
 
     @Button
+    @Override
     public boolean deleteUser(User user) {
         boolean result;
         try {

@@ -7,8 +7,13 @@ import java.util.List;
 
 public interface IProductServ {
 
+    Integer calculateProductsNumber();
+
     @Button
     List<Product> findAllProducts() throws ProductServiceException;
+
+    @Button
+    List<Product> findProducts(Integer from, Integer offset) throws ProductServiceException;
 
     Product findProductByCode(String code) throws ProductServiceException;
 

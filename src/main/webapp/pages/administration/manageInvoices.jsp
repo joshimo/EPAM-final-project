@@ -13,6 +13,7 @@
 <body>
 <h1>Управление заказами</h1>
 <div class="widemenu">
+    <p><c:out value="${user.name}, ${user.userRole}"/></p>
     <form name="addProductForm" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageInvoices" />
         <!-- SHALL BE HANDLED IN COMMAND CommandOpenInvoiceMngPage() -->

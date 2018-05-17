@@ -8,7 +8,12 @@ import java.util.List;
 
 public interface ITransactionServ {
 
+    Integer calculateTransactionsNumber();
+
     List<Transaction> findAllTransactions() throws TransactionServiceException;
+
+    @Button
+    List<Transaction> findTransactions(Integer from, Integer offset) throws TransactionServiceException;
 
     List<Transaction> findAllTransactionsByInvoice(Long invoiceCode) throws TransactionServiceException;
 

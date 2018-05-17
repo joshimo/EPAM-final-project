@@ -45,7 +45,23 @@ public class TransactionService implements ITransactionServ {
     }
 
     /** CRUD methods */
+
+    @Override
+    public Integer calculateTransactionsNumber() {
+        Integer result = 0;
+        try {
+            daoFactory.beginTransaction();
+            transactionDao = daoFactory.getTransactionDao();
+            result = transactionDao.calculateTransactionsNumber();
+            daoFactory.commitTransaction();
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+        }
+        return result;
+    }
+
     @Button
+    @Override
     public List<Transaction> findAllTransactions() throws TransactionServiceException {
         List<Transaction> transactions = new LinkedList<>();
         try {
@@ -61,6 +77,23 @@ public class TransactionService implements ITransactionServ {
     }
 
     @Button
+    @Override
+    public List<Transaction> findTransactions(Integer from, Integer offset) throws TransactionServiceException {
+        List<Transaction> transactions = new LinkedList<>();
+        try {
+            daoFactory.open();
+            transactionDao = daoFactory.getTransactionDao();
+            transactions = transactionDao.findTransactions(from, offset);
+            daoFactory.close();
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+            throw new TransactionServiceException();
+        }
+        return transactions;
+    }
+
+    @Button
+    @Override
     public List<Transaction> findAllTransactionsByInvoice(Long invoiceCode) throws TransactionServiceException {
         List<Transaction> transactions = new LinkedList<>();
         try {
@@ -76,6 +109,7 @@ public class TransactionService implements ITransactionServ {
     }
 
     @Button
+    @Override
     public List<Transaction> findAllTransactionsByUser(String userName) throws TransactionServiceException {
         List<Transaction> transactions = new LinkedList<>();
         try {
@@ -91,6 +125,7 @@ public class TransactionService implements ITransactionServ {
     }
 
     @Button
+    @Override
     public List<Transaction> findAllTransactionsByType(TransactionType type) throws TransactionServiceException {
         List<Transaction> transactions = new LinkedList<>();
         try {
@@ -119,6 +154,7 @@ public class TransactionService implements ITransactionServ {
         return transaction;
     }
 
+    @Override
     public boolean addTransaction(Transaction transaction) {
         try {
             daoFactory.open();

@@ -44,6 +44,23 @@ public abstract class GenericAbstractDao<T> {
         return items;
     }
 
+    protected List<T> findAllFromTo(Connection connection, Class t, Integer first, Integer offset, String SQL_getAll_base)
+            throws DataNotFoundException {
+        List<T> items = new LinkedList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL_getAll_base + " limit " + first + ", " + offset + ";");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                T item = getItemInstance(t);
+                mapperFromDB.map(resultSet, item);
+                items.add(item);
+            }
+        } catch (SQLException sqle) {
+            throw new DataNotFoundException();
+        }
+        return items;
+    }
+
     protected <V> T findBy(Connection connection, Class t, String SQL_selectByParameter, V value)
             throws DataNotFoundException {
         T item = getItemInstance(t);
@@ -117,6 +134,21 @@ public abstract class GenericAbstractDao<T> {
         } catch (SQLException sqle) {
             log.error(sqle);
             return false;
+        }
+        return result;
+    }
+
+    /** Method for table row count calculation. Used for pagination */
+    public Integer calculateRowCounts(Connection connection, String tableName) throws DataNotFoundException {
+        Integer result = 0;
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) AS ROWCOUNT FROM " + tableName + ";");
+            ResultSet resultSet = ps.executeQuery();
+            if (resultSet.next()) {
+                result = resultSet.getInt("ROWCOUNT");
+            }
+        } catch (SQLException sqle) {
+            throw new DataNotFoundException();
         }
         return result;
     }

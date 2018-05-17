@@ -9,8 +9,11 @@
 </style>
 <body>
 <h1>Новый продукт</h1>
+<div class="widemenu">
+    <p><c:out value="${user.name}, ${user.userRole}"/></p>
+</div>
 <div class = "inner_div">
-    <form name="LoginForm" method="post" action="project" >
+    <form name="newProductForm" method="post" action="project" >
         <input type="hidden" name="command" value="saveNewProduct" />
         <h4>Артикул:</h4>
         <input type="text" name="code" size="24" class="input" required/><br/>

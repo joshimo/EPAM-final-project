@@ -13,6 +13,7 @@
 <body>
 <h1>Управление пользователями</h1>
 <div class="widemenu">
+    <p><c:out value="${user.name}, ${user.userRole}"/></p>
     <form name="addProductForm" method="post" action="project" class="menuitem">
         <input type="hidden" name="command" value="administration" />
         <button type="submit" class="menubutton">Назад</button>

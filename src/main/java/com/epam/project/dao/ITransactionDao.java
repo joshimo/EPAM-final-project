@@ -12,11 +12,27 @@ import java.util.List;
 public interface ITransactionDao {
 
     /**
+     * Calculates total transactions number available in DB
+     * @return count of transactions in DB
+     * @throws DataNotFoundException if connection is down, broken or unable to retrieve information for certain reasons
+     */
+    Integer calculateTransactionsNumber() throws DataNotFoundException;
+
+    /**
      * Finds all transactions in DB
      * @return List of all transactions
      * @throws DataNotFoundException if connection is down, broken or unable to retrieve information for certain reasons
      */
     List<Transaction> findAllTransactions() throws DataNotFoundException;
+
+    /**
+     * Finds transactions in DB from
+     * @param first first row number
+     * @param offset offset
+     * @return List transactions
+     * @throws DataNotFoundException if connection is down, broken or unable to retrieve information for certain reasons
+     */
+    List<Transaction> findTransactions(Integer first, Integer offset) throws DataNotFoundException;
 
     /**
      * Finds all transactions in DB by invoice number

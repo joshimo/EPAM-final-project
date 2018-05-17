@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set value="${sessionScope.get(\"user\")}" var="user" scope="page" />
+<c:set value="${pageScope.get(\"pageNum\")}" var="pageNum" scope="page" />
 
 <html>
 <head>
@@ -81,6 +82,16 @@
             </tr>
             </c:forEach>
         </table>
+        <div class="pagination">
+            <c:forEach var = "i" begin="1" end = "${totalPages}">
+                <c:if test="${i==pageNum}">
+                    <a class="active" href="/project?command=main&pageNum=${i}">${i}</a>
+                </c:if>
+                <c:if test="${i!=pageNum}">
+                    <a href="/project?command=main&pageNum=${i}">${i}</a>
+                </c:if>
+            </c:forEach>
+        </div>
     </div>
     <footer>
         <p class="footer">Учебный проект по курсу Java Winter, Киев, 2018</p>

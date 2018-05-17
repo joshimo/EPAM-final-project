@@ -26,7 +26,8 @@ public class CommandMissing implements ICommand {
             result.addSessionAttribute("cart", cart);
             result.addSessionAttribute("config", Configuration.getInstance());
             result.addRequestAttribute("command", "main");
-            result.setPage("/project?command=main");
+            result.addRequestAttribute("pageNum", 1);
+            result.setPage("/project?command=main&pageNum=1");
         } catch (UnknownUserException pse) {
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("generalErr"));
             result.setPage(conf.getPage("error"));

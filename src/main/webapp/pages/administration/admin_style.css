@@ -55,7 +55,6 @@ td {
     text-align: center;
     margin: 10%;
     border-width: 2px;
-    border-color: #7554ff;
     border-radius: 10px;
 }
 .main_div {
@@ -89,8 +88,6 @@ tr:hover {
 }
 
 .widemenu, .narrowmenu {
-    margin-top: 20px;
-    margin-bottom: 20px;
     text-align: right;
     margin-top: 40px;
     margin-bottom: 10px;
@@ -159,6 +156,28 @@ tr:hover {
 }
 .hidden {
     display: none;
+}
+.pagination {
+    display: inline-block;
+    text-align: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+}
+.pagination a.active {
+    background-color: rgba(255,70,0,0.5);
+    color: white;
+}
+.pagination a:hover:not(.active) {
+    background-color: rgba(255,70,0,0.2);
 }
 footer {
     text-align: center;
