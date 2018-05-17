@@ -22,7 +22,7 @@ public class CommandOpenEditProductPage implements ICommand {
             result.addRequestAttribute("product", product);
             result.setPage(config.getPage("editProduct"));
         } catch (Exception e) {
-            result.addRequestAttribute("errorMessage", config.getErrorMessage("saveNewUserErr"));
+            result.addRequestAttribute("errorMessage", config.getErrorMessage("editProductPageErr"));
             result.setPage(config.getPage("error"));
         }
         return result;

@@ -30,7 +30,7 @@
             <input type="checkbox" name="isAvailable" checked/><b>Есть на складе</b><br/>
         </c:if>
         <c:if test="${!product.available}">
-            <input type="checkbox" name="isAvailable" required/><b>Есть на складе</b><br/>
+            <input type="checkbox" name="isAvailable" /><b>Есть на складе</b><br/>
         </c:if>
         <h4>Количество на складе:</h4>
         <input type="text" name="quantity" size="24" class="input" value="${product.quantity}"/><br/>

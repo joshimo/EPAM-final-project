@@ -1,11 +1,13 @@
 package com.epam.project.commands.implementation;
 
 import com.epam.project.commands.ICommand;
+import com.epam.project.commands.Security;
 import com.epam.project.config.Configuration;
 import com.epam.project.controller.Direction;
 import com.epam.project.controller.ExecutionResult;
 import com.epam.project.controller.SessionRequestContent;
 import com.epam.project.domain.Product;
+import com.epam.project.domain.UserRole;
 import com.epam.project.service.IProductServ;
 import com.epam.project.service.ServiceFactory;
 
@@ -17,6 +19,10 @@ public class CommandSaveNewProduct implements ICommand {
         IProductServ serv = ServiceFactory.getProductService();
         result.setDirection(Direction.FORWARD);
         try {
+            if (!Security.checkSecurity(content, UserRole.MERCHANT, UserRole.ADMIN)) {
+                result.setPage(conf.getPage("securityError"));
+                return result;
+            }
             Product product = new Product();
             product.setCode(content.getRequestParameter("code")[0]);
             product.setNameRu(content.getRequestParameter("nameRu")[0]);
@@ -34,12 +40,12 @@ public class CommandSaveNewProduct implements ICommand {
                 result.setPage("/project?command=manageProducts");
             }
             else {
-                result.addRequestAttribute("errorMessage", conf.getErrorMessage("saveNewUserErr"));
+                result.addRequestAttribute("errorMessage", conf.getErrorMessage("saveNewProductErr"));
                 result.setPage(Configuration.getInstance().getPage("error"));
             }
         }
         catch (Exception uue) {
-            result.addRequestAttribute("errorMessage", conf.getErrorMessage("saveNewUserErr"));
+            result.addRequestAttribute("errorMessage", conf.getErrorMessage("saveNewProductErr"));
             result.setPage(Configuration.getInstance().getPage("error"));
         }
         return result;

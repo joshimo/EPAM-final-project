@@ -17,14 +17,14 @@ public class CommandOpenAdminPage implements ICommand {
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
-            if (!Security.checkSecurity(content, UserRole.ADMIN)) {
+            if (!Security.checkSecurity(content, UserRole.CASHIER, UserRole.SENIOR_CASHIER, UserRole.MERCHANT, UserRole.ADMIN)) {
                 result.setPage(conf.getPage("securityError"));
                 return result;
             }
             result.setPage(conf.getPage("administration"));
         }
         catch (Exception e) {
-            result.addRequestAttribute("errorMessage", conf.getErrorMessage("showMainPageErr"));
+            result.addRequestAttribute("errorMessage", conf.getErrorMessage("administrationErr"));
             result.setPage(conf.getPage("error"));
         }
         return result;

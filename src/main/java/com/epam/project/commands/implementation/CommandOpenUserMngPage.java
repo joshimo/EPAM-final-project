@@ -1,6 +1,7 @@
 package com.epam.project.commands.implementation;
 
 import com.epam.project.commands.ICommand;
+import com.epam.project.commands.Security;
 import com.epam.project.config.Configuration;
 import com.epam.project.controller.Direction;
 import com.epam.project.controller.ExecutionResult;
@@ -21,6 +22,10 @@ public class CommandOpenUserMngPage implements ICommand {
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
+            if (!Security.checkSecurity(content, UserRole.ADMIN)) {
+                result.setPage(conf.getPage("securityError"));
+                return result;
+            }
             String type = (String) content.getRequestParameter("type")[0];
             IUserServ serv = ServiceFactory.getUserService();
             List<User> users = new LinkedList<>();
@@ -40,7 +45,7 @@ public class CommandOpenUserMngPage implements ICommand {
             result.setPage(conf.getPage("manageUsers"));
         }
         catch (Exception e) {
-            result.addRequestAttribute("errorMessage", conf.getErrorMessage("showMainPageErr"));
+            result.addRequestAttribute("errorMessage", conf.getErrorMessage("manageUsersErr"));
             result.setPage(conf.getPage("error"));
         }
         return result;

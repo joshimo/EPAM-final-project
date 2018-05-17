@@ -1,12 +1,14 @@
 package com.epam.project.commands.implementation;
 
 import com.epam.project.commands.ICommand;
+import com.epam.project.commands.Security;
 import com.epam.project.config.Configuration;
 import com.epam.project.controller.Direction;
 import com.epam.project.controller.ExecutionResult;
 import com.epam.project.controller.SessionRequestContent;
 import com.epam.project.domain.Transaction;
 import com.epam.project.domain.TransactionType;
+import com.epam.project.domain.UserRole;
 import com.epam.project.service.ITransactionServ;
 import com.epam.project.service.ServiceFactory;
 
@@ -21,6 +23,10 @@ public class CommandOpenTransMngPage implements ICommand {
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
+            if (!Security.checkSecurity(content, UserRole.CASHIER, UserRole.SENIOR_CASHIER, UserRole.ADMIN)) {
+                result.setPage(conf.getPage("securityError"));
+                return result;
+            }
             String type = (String) content.getRequestParameter("type")[0];
             ITransactionServ serv = ServiceFactory.getTransactionService();
             List<Transaction> transactions = new LinkedList<>();
@@ -34,7 +40,7 @@ public class CommandOpenTransMngPage implements ICommand {
             result.setPage(conf.getPage("manageTransactions"));
         }
         catch (Exception e) {
-            result.addRequestAttribute("errorMessage", conf.getErrorMessage("showMainPageErr"));
+            result.addRequestAttribute("errorMessage", conf.getErrorMessage("manageTransactionsErr"));
             result.setPage(conf.getPage("error"));
         }
         return result;
