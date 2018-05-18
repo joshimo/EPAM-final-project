@@ -8,6 +8,7 @@ public class UserCart {
     private String userName;
     private String orderNotes;
     private Map<String, Double> products;
+    private Double totalCost = 0d;
 
     public UserCart(String userName) {
         this.userName = userName;
@@ -26,6 +27,10 @@ public class UserCart {
         return products;
     }
 
+    public Double getTotalCost() {
+        return totalCost;
+    }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -36,6 +41,10 @@ public class UserCart {
 
     public void setProducts(Map<String, Double> products) {
         this.products = products;
+    }
+
+    public void setTotalCost(Double totalCost) {
+        this.totalCost = totalCost;
     }
 
     public void addProduct(String productCode, Double quantity) {

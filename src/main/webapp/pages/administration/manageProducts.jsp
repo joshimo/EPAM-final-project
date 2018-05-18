@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set value="${sessionScope.get(\"user\")}" var="user" scope="page" />
+<c:set value="${pageScope.get(\"pageNum\")}" var="pageNum" scope="page" />
 
 <html>
 <head>
@@ -42,9 +43,15 @@
                 <td class="tdl"><c:out value="${product.nameEn}"/></td>
                 <td class="tdl"><c:out value="${product.descriptionRu}"/></td>
                 <td class="tdl"><c:out value="${product.descriptionEn}"/></td>
-                <td class="tdl"><fmt:formatNumber value="${product.cost}" maxFractionDigits="2" minFractionDigits="2"/></td>
-                <c:if test="${product.available == true}"><td class="tdc" style="color: green">В наличии</td></c:if>
-                <c:if test="${product.available == false}"><td class="tdc" style="color: darkred">Отсутствует</td></c:if>
+                <td class="tdl">
+                    <fmt:formatNumber value="${product.cost}" maxFractionDigits="2" minFractionDigits="2"/>
+                </td>
+                <c:if test="${product.available == true}">
+                    <td class="tdc" style="color: green">В наличии</td>
+                </c:if>
+                <c:if test="${product.available == false}">
+                    <td class="tdc" style="color: darkred">Отсутствует</td>
+                </c:if>
                 <td class="tdc"><c:out value="${product.quantity}"/></td>
                 <td class="tdc"><c:out value="${product.reservedQuantity}"/></td>
                 <td class="tdc"><c:out value="${product.notesRu}"/></td>
@@ -64,6 +71,16 @@
             </tr>
         </c:forEach>
     </table>
+    <div class="pagination">
+        <c:forEach var = "i" begin="1" end = "${totalPages}">
+            <c:if test="${i==pageNum}">
+                <a class="active" href="/project?command=manageProducts&pageNum=${i}">${i}</a>
+            </c:if>
+            <c:if test="${i!=pageNum}">
+                <a href="/project?command=manageProducts&pageNum=${i}">${i}</a>
+            </c:if>
+        </c:forEach>
+    </div>
 </div>
 <div class="button_div">
     <form action="project" method="get">

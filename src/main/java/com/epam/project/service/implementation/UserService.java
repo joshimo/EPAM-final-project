@@ -97,7 +97,7 @@ public class UserService implements IUserServ {
 
     /** User validation method to check user before storing in DB */
 
-    public boolean validateUserData(User user) {
+    private boolean validateUserData(User user) {
         return !(user.getName() == null
                 || user.getName().isEmpty()
                 || user.getPassword() == null

@@ -26,7 +26,13 @@ public class CommandOpenProductMngPage implements ICommand {
                 return result;
             }
             IProductServ serv = ServiceFactory.getProductService();
-            List<Product> products = serv.findAllProducts();
+            Integer totalPages = (int) Math.floor(serv.calculateProductsNumber() / 5) + 1;
+            Integer pageNum = content.checkRequestParameter("pageNum") ?
+                    Integer.parseInt(content.getRequestParameter("pageNum")[0]) : 1;
+            List<Product> products = serv.findProducts((pageNum - 1) * 5,5);
+            //List<Product> products = serv.findAllProducts();
+            result.addRequestAttribute("totalPages", totalPages);
+            result.addRequestAttribute("pageNum", pageNum);
             result.addRequestAttribute("products", products);
             result.setPage(conf.getPage("manageProducts"));
         }

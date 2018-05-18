@@ -1,9 +1,6 @@
 package com.epam.project.service;
 
-import com.epam.project.service.implementation.InvoiceService;
-import com.epam.project.service.implementation.ProductService;
-import com.epam.project.service.implementation.TransactionService;
-import com.epam.project.service.implementation.UserService;
+import com.epam.project.service.implementation.*;
 
 public class ServiceFactory {
 
@@ -24,5 +21,9 @@ public class ServiceFactory {
 
     public static IInvoiceServ getInvoiceService() {
         return new InvoiceService();
+    }
+
+    public static IPaymentServ getPaymentService() {
+        return new PaymentService();
     }
 }

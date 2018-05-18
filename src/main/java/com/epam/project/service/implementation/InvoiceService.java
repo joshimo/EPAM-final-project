@@ -35,8 +35,6 @@ public class InvoiceService implements IInvoiceServ {
         }
     }
 
-
-
     /** CRUD methods */
 
     @Override
@@ -54,6 +52,7 @@ public class InvoiceService implements IInvoiceServ {
     }
 
     @Button
+    @Override
     public List<Invoice> findAllInvoices() {
         List<Invoice> invoices = new LinkedList<>();
         try {
@@ -67,6 +66,7 @@ public class InvoiceService implements IInvoiceServ {
                     daoFactory.rollbackTransaction();
             }
             daoFactory.commitTransaction();
+            invoices.forEach((invoice) -> invoice.setCost(this.calculateTotalCost(invoice)));
         } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
         }
@@ -88,6 +88,7 @@ public class InvoiceService implements IInvoiceServ {
                     daoFactory.rollbackTransaction();
             }
             daoFactory.commitTransaction();
+            invoices.forEach((invoice) -> invoice.setCost(this.calculateTotalCost(invoice)));
         } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
         }
@@ -95,6 +96,7 @@ public class InvoiceService implements IInvoiceServ {
     }
 
     @Button
+    @Override
     public List<Invoice> findNewInvoices() {
         List<Invoice> invoices = new LinkedList<>();
         try {
@@ -108,6 +110,7 @@ public class InvoiceService implements IInvoiceServ {
                     daoFactory.rollbackTransaction();
             }
             daoFactory.commitTransaction();
+            invoices.forEach((invoice) -> invoice.setCost(this.calculateTotalCost(invoice)));
         } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
         }
@@ -115,6 +118,7 @@ public class InvoiceService implements IInvoiceServ {
     }
 
     @Button
+    @Override
     public List<Invoice> findFinishedInvoices() {
         List<Invoice> invoices = new LinkedList<>();
         try {
@@ -128,6 +132,7 @@ public class InvoiceService implements IInvoiceServ {
                     daoFactory.rollbackTransaction();
             }
             daoFactory.commitTransaction();
+            invoices.forEach((invoice) -> invoice.setCost(this.calculateTotalCost(invoice)));
         } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
         }
@@ -135,6 +140,7 @@ public class InvoiceService implements IInvoiceServ {
     }
 
     @Button
+    @Override
     public List<Invoice> findCancelledInvoices() {
         List<Invoice> invoices = new LinkedList<>();
         try {
@@ -148,6 +154,7 @@ public class InvoiceService implements IInvoiceServ {
                     daoFactory.rollbackTransaction();
             }
             daoFactory.commitTransaction();
+            invoices.forEach((invoice) -> invoice.setCost(this.calculateTotalCost(invoice)));
         } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
         }
@@ -155,6 +162,7 @@ public class InvoiceService implements IInvoiceServ {
     }
 
     @Button
+    @Override
     public List<Invoice> findInvoicesByUser(String userName) {
         List<Invoice> invoices = new LinkedList<>();
         try {
@@ -168,6 +176,7 @@ public class InvoiceService implements IInvoiceServ {
                     daoFactory.rollbackTransaction();
             }
             daoFactory.commitTransaction();
+            invoices.forEach((invoice) -> invoice.setCost(this.calculateTotalCost(invoice)));
         } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
         }
@@ -175,6 +184,7 @@ public class InvoiceService implements IInvoiceServ {
     }
 
     @Button
+    @Override
     public Invoice findInvoiceByOrderNumber(Long orderNum) {
         Invoice invoice = new Invoice();
         try {
@@ -186,6 +196,7 @@ public class InvoiceService implements IInvoiceServ {
             if (!addPaymentsToInvoice(invoice, paymentDao, productDao))
                 daoFactory.rollbackTransaction();
             daoFactory.commitTransaction();
+            invoice.setCost(this.calculateTotalCost(invoice));
         } catch (DataBaseConnectionException | DataNotFoundException ex) {
             log.error(ex);
         }
@@ -193,6 +204,7 @@ public class InvoiceService implements IInvoiceServ {
     }
 
     @Button
+    @Override
     public boolean addInvoice(Invoice invoice) {
         try {
             if (!validateInvoice(invoice))
@@ -229,6 +241,7 @@ public class InvoiceService implements IInvoiceServ {
     }
 
     @Button
+    @Override
     public boolean updateInvoice(Invoice invoice) {
         if (!validateInvoice(invoice))
             return false;
@@ -243,6 +256,7 @@ public class InvoiceService implements IInvoiceServ {
     }
 
     @Button
+    @Override
     public boolean deleteInvoice(Long orderCode) {
         Invoice invoice = findInvoiceByOrderNumber(orderCode);
         return !((invoice == null) || (invoice.getStatus() != InvoiceStatus.CREATED) || (invoice.getPaid()))
@@ -278,6 +292,7 @@ public class InvoiceService implements IInvoiceServ {
     }
 
     @Button
+    @Override
     public boolean cancelInvoice(Long orderCode) {
         Invoice invoice = findInvoiceByOrderNumber(orderCode);
         return !((invoice == null) || (invoice.getStatus() != InvoiceStatus.CREATED)) && cancelInvoice(invoice);
@@ -325,6 +340,7 @@ public class InvoiceService implements IInvoiceServ {
     /** Special methods */
 
     @Button
+    @Override
     public boolean removeProductFromInvoice(Long orderCode, String productCode) {
         Invoice invoice = findInvoiceByOrderNumber(orderCode);
         return !((invoice == null) || (invoice.getStatus() != InvoiceStatus.CREATED))
@@ -343,6 +359,7 @@ public class InvoiceService implements IInvoiceServ {
     }
 
     @Button
+    @Override
     public boolean payByInvoice(Long invoiceCode) {
         Invoice invoice = findInvoiceByOrderNumber(invoiceCode);
         return !((invoice == null) || (invoice.getPaid()) || (invoice.getStatus() != InvoiceStatus.CREATED))
@@ -377,6 +394,8 @@ public class InvoiceService implements IInvoiceServ {
         return true;
     }
 
+    @Button
+    @Override
     public boolean closeInvoice(Long invoiceCode) {
         Invoice invoice = findInvoiceByOrderNumber(invoiceCode);
         return !((invoice == null) || (invoice.getStatus() != InvoiceStatus.CREATED)) && closeInvoice(invoice);
@@ -421,6 +440,7 @@ public class InvoiceService implements IInvoiceServ {
         return createInvoiceFromUserCart(userCart, System.currentTimeMillis());
     }
 
+    @Override
     public Invoice createInvoiceFromUserCart(UserCart userCart, Long orderCode) throws InvoiceServiceException {
         Invoice invoice = new Invoice();
         invoice.setInvoiceCode(orderCode);
@@ -440,7 +460,6 @@ public class InvoiceService implements IInvoiceServ {
             payment.setOrderCode(orderCode);
             payment.setProductCode(unit.getKey());
             payment.setQuantity(unit.getValue());
-            //payment.setPaymentValue(payment.getQuantity() * product.getCost());
             payment.setStatusId(InvoiceStatus.CREATED);
             payment.setPaymentNotes(userCart.getOrderNotes());
             invoice.addPayment(payment);
@@ -500,5 +519,12 @@ public class InvoiceService implements IInvoiceServ {
             return false;
         }
         return true;
+    }
+
+    private synchronized Double calculateTotalCost(Invoice invoice) {
+        Double result = 0d;
+        for (Map.Entry<String, Payment> paymentEntry : invoice.getPayments().entrySet())
+            result += paymentEntry.getValue().getPaymentValue();
+        return result;
     }
 }

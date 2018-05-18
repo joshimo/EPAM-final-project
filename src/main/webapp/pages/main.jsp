@@ -68,9 +68,15 @@
                 <td class="tdc"><c:out value="${product.code}"/></td>
                 <td class="tdl"><c:out value="${product.nameRu}"/></td>
                 <td class="tdl"><c:out value="${product.descriptionRu}"/></td>
-                <td class="tdl"><fmt:formatNumber value="${product.cost}" maxFractionDigits="2" minFractionDigits="2"/></td>
-                <c:if test="${product.available == true}"><td class="tdc" style="color: green">В наличии</td></c:if>
-                <c:if test="${product.available == false}"><td class="tdc" style="color: darkred">Отсутствует</td></c:if>
+                <td class="tdl">
+                    <fmt:formatNumber value="${product.cost}" maxFractionDigits="2" minFractionDigits="2"/>
+                </td>
+                <c:if test="${product.available == true}">
+                    <td class="tdc" style="color: green">В наличии</td>
+                </c:if>
+                <c:if test="${product.available == false}">
+                    <td class="tdc" style="color: darkred">Отсутствует</td>
+                </c:if>
                 <td class="tdc"><c:out value="${product.notesRu}"/></td>
                 <td class="tdc">
                     <form name="addProductForm" method="get" action="project" >

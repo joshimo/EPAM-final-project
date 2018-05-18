@@ -14,7 +14,7 @@ public class Invoice {
     private InvoiceStatus status;
     private Timestamp date;
     private String invoiceNotes;
-    private Double cost;
+    private Double cost = 0d;
     private Map<String, Payment> payments;
     private Map<String, Product> products;
 

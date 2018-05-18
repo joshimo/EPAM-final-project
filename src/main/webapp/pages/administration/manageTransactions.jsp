@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set value="${sessionScope.get(\"user\")}" var="user" scope="page" />
 
@@ -37,20 +38,27 @@
 <div>
     <table class="widetable">
         <tr>
-            <th style="width: 5%;">Код заказа</th>
-            <th style="width: 5%;">Имя пользователя</th>
-            <th style="width: 5%;">Тип транзакции</th>
-            <th style="width: 5%;">Сумма</th>
-            <th style="width: 5%;">Дата</th>
-            <th style="width: 5%;">Примечания</th>
+            <th style="width: 15%;">Код заказа</th>
+            <th style="width: 15%;">Имя пользователя</th>
+            <th style="width: 15%;">Тип транзакции</th>
+            <th style="width: 10%;">Сумма</th>
+            <th style="width: 20%;">Дата</th>
+            <th style="width: 25%;">Примечания</th>
         </tr>
         <c:forEach items="${transactions}" var="transaction">
             <tr>
                 <td class="tdc"><c:out value="${transaction.invoiceCode}"/></td>
                 <td class="tdl"><c:out value="${transaction.userName}"/></td>
-                <td class="tdl"><c:out value="${transaction.transactionType}"/></td>
-                <td class="tdl"><c:out value="${transaction.paymentValue}"/></td>
-                <td class="tdc"><c:out value="${transaction.time}"/></td>
+                <c:if test="${transaction.transactionType == 'PAYMENT'}">
+                    <td class="tdl" style="color: green">Оплата</td>
+                </c:if>
+                <c:if test="${transaction.transactionType != 'PAYMENT'}">
+                    <td class="tdl" style="color: darkred">Возврат средств</td>
+                </c:if>
+                <td class="tdc">
+                    <fmt:formatNumber value="${transaction.paymentValue}" maxFractionDigits="2" minFractionDigits="2"/>
+                </td>
+                <td class="tdc"><fmt:formatDate type="both" value="${transaction.time}" /></td>
                 <td class="tdc"><c:out value="${transaction.notes}"/></td>
             </tr>
         </c:forEach>

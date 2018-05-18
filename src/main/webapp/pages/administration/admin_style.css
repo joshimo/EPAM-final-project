@@ -43,14 +43,26 @@ td {
     padding: 10px 20px;
     background: #F8E391;
 }
+li {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 .main_div {
     padding: 10px 20px;
     background: #F8E391;
+}
+.multitext {
+    height: 75px;
+    border-radius: 3px;
 }
 .input {
     height: 25px;
     border-radius: 3px;
 }
+.input:hover, .multitext:hover, .input:active, .multitext:active {
+    box-shadow: 0 0 8px rgba(220,120,0,0.7);
+}
+
 .index_div {
     text-align: center;
     margin: 10%;
@@ -91,7 +103,7 @@ tr:hover {
     text-align: right;
     margin-top: 40px;
     margin-bottom: 10px;
-    height: 30px;
+    height: 60px;
 }
 .widemenu {
     width: 90%;
@@ -105,7 +117,7 @@ tr:hover {
 }
 .menuitem {
     float: right;
-    width: 170px
+    width: 180px
 }
 .menubutton:hover {
     border: 2px solid orangered;
@@ -125,7 +137,7 @@ tr:hover {
 }
 .menubutton {
     height: 20px;
-    width: 150px;
+    width: 160px;
     margin: 5px 10px;
     border: 1px solid rgba(65,40,0,0.6);
     background-color: transparent;
