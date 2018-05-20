@@ -12,6 +12,7 @@ import java.util.Set;
 public class SessionRequestContent {
 
     private String referer;
+    private String contextPath;
     private Map<String, Object> reqAttributes;
     private Map<String, String[]> reqParameters;
     private Map<String, Object> sessionAttributes;
@@ -36,6 +37,7 @@ public class SessionRequestContent {
                 }
             }
             referer = req.getHeader("Referer");
+            System.out.println(referer);
         } catch (NullPointerException npe) {
             log.error(npe);
         }
@@ -56,6 +58,10 @@ public class SessionRequestContent {
     /** returns a refer to redirect */
     public String getReferer() {
         return referer;
+    }
+
+    public String getContextPath() {
+        return contextPath;
     }
 
     public Object getRequestAttribute(String key) {

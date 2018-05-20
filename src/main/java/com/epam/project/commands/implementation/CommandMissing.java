@@ -11,6 +11,8 @@ import com.epam.project.exceptions.UnknownUserException;
 import com.epam.project.service.IUserServ;
 import com.epam.project.service.ServiceFactory;
 
+import java.util.Locale;
+
 public class CommandMissing implements ICommand {
 
     @Override
@@ -22,10 +24,13 @@ public class CommandMissing implements ICommand {
             IUserServ userServ = ServiceFactory.getUserService();
             User guest = userServ.findUser("Guest", "");
             UserCart cart = new UserCart(guest.getName());
-            result.addSessionAttribute("user", guest);
-            result.addSessionAttribute("cart", cart);
-            result.addSessionAttribute("config", Configuration.getInstance());
-            result.addRequestAttribute("command", "main");
+            if (!content.checkSessionAttribute("user"))
+                result.addSessionAttribute("user", guest);
+            if (!content.checkSessionAttribute("cart"))
+                result.addSessionAttribute("cart", cart);
+            if (!content.checkSessionAttribute("local"))
+                result.addSessionAttribute("locale", new Locale("ru", "RU"));
+            //result.addRequestAttribute("command", "main");
             result.addRequestAttribute("pageNum", 1);
             result.setPage("/project?command=main&pageNum=1");
         } catch (UnknownUserException pse) {

@@ -33,10 +33,13 @@ public class ControllerServlet extends HttpServlet {
         log.info(content);
         ICommand command = commandResolver.getCommand(req);
         ExecutionResult result = command.execute(content);
+        if (result.isInvalidated())
+            req.getSession(false).invalidate();
         result.updateRequest(req);
         if (result.getDirection() == Direction.FORWARD)
             req.getRequestDispatcher(result.getPage()).forward(req, resp);
-        if (result.getDirection() == Direction.REDIRECT)
-            req.getRequestDispatcher(req.getContextPath() + result.getPage());
+        if (result.getDirection() == Direction.REDIRECT) {
+            resp.sendRedirect(result.getPage());
+        }
     }
 }

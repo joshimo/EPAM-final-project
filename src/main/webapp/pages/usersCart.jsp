@@ -1,54 +1,84 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set value="${requestScope.get(\"cartView\")}" var="view" scope="page" />
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.get(\"locale\")}" />
+<fmt:setBundle basename="legend" var="legend"/>
+<fmt:setBundle basename="menu" var="menu"/>
+<fmt:setBundle basename="buttons" var="buttons"/>
 
 <html>
 <head>
-    <title>Title</title>
+    <title><fmt:message key="userCart.title" bundle="${legend}"/></title>
 </head>
 <style>
     <%@include file='main_style.css' %>
 </style>
 <body>
-<h1>Корзина</h1>
+<h1><fmt:message key="userCart.h1" bundle="${legend}"/></h1>
 <div class="narrowmenu">
     <p><c:out value="${sessionScope.get(\"user\").name}" /></p>
     <form name="remove" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="main" />
-        <button type="submit" class="menubutton">Назад</button>
+        <button type="submit" class="menubutton"><fmt:message key="userCart.back" bundle="${menu}"/></button>
     </form>
 </div>
 <div>
     <table class="narrowtable">
         <tr>
-            <th style="width: 20%;">Артикул</th>
-            <th style="width: 20%;">Количество</th>
-            <th style="width: 20%;">Цена</th>
+            <th style="width: 20%;"><fmt:message key="userCart.table.col1" bundle="${legend}"/></th>
+            <th style="width: 20%;"><fmt:message key="userCart.table.col2" bundle="${legend}"/></th>
+            <th style="width: 20%;"><fmt:message key="userCart.table.col3" bundle="${legend}"/></th>
+            <th style="width: 20%;"><fmt:message key="userCart.table.col4" bundle="${legend}"/></th>
+            <th style="width: 20%;"><fmt:message key="userCart.table.col5" bundle="${legend}"/></th>
             <th style="width: 40%;"></th>
         </tr>
-        <c:forEach items="${sessionScope.get(\"cart\").products}" var="product">
+        <c:forEach items="${view.products}" var="product">
         <tr>
-            <td class="tdc">${product.key}</td>
+            <td class="tdc">${product.key.code}</td>
+            <td class="tdc">${product.key.nameRu}</td>
+            <td class="tdc">${product.key.descriptionRu}</td>
             <td class="tdc">${product.value}</td>
-            <td class="tdc"></td>
             <td class="tdc">
-                <form name="remove" method="get" action="project" >
+                <fmt:formatNumber value="${product.value * product.key.cost}" maxFractionDigits="2" minFractionDigits="2"/>
+            </td>
+            <td class="tdc">
+                <form name="remove" method="post" action="project" >
                     <input type="hidden" name="command" value="removeProductFromCart" />
-                    <button type="submit" name="productCode" value="${product.key}" class="menu-button">Удалить</button>
+                    <button type="submit" name="productCode" value="${product.key.code}" class="menu-button">
+                        <fmt:message key="userCart.remove" bundle="${buttons}"/>
+                    </button>
                 </form>
             </td>
         </tr>
         </c:forEach>
     </table>
+    <h3 style="margin-left: 20%; margin-right: 20%;">
+        <fmt:message key="userCart.total" bundle="${legend}"/>
+        <fmt:formatNumber value="${view.totalCost}" maxFractionDigits="2" minFractionDigits="2"/>
+    </h3>
 </div>
     <div class="button_div">
-        <form name="remove" method="get" action="project" >
-            <input type="hidden" name="command" value="createInvoice" />
-            <button type="submit" class="bigbutton">Оформить заказ</button>
-        </form>
-        <form name="remove" method="get" action="project" >
-            <input type="hidden" name="command" value="createInvoiceAndPay" />
-            <button type="submit" class="bigbutton">Оплатить заказ</button>
-        </form>
+        <c:if test="${view.size > 0}">
+            <form name="remove" method="post" action="project" >
+                <input type="hidden" name="command" value="createInvoice" />
+                <button type="submit" class="bigbutton"><fmt:message key="userCart.order" bundle="${buttons}"/></button>
+            </form>
+            <form name="remove" method="post" action="project" >
+                <input type="hidden" name="command" value="createInvoiceAndPay" />
+                <button type="submit" class="bigbutton"><fmt:message key="userCart.pay" bundle="${buttons}"/></button>
+            </form>
+        </c:if>
+        <c:if test="${view.size == 0}">
+            <form name="remove" method="post" action="project" >
+                <input type="hidden" name="command" value="createInvoice" />
+                <button type="submit" class="bigbutton" disabled><fmt:message key="userCart.order" bundle="${buttons}"/></button>
+            </form>
+            <form name="remove" method="post" action="project" >
+                <input type="hidden" name="command" value="createInvoiceAndPay" />
+                <button type="submit" class="bigbutton" disabled><fmt:message key="userCart.pay" bundle="${buttons}"/></button>
+            </form>
+        </c:if>
     </div>
 <footer>
     <p class="footer">Учебный проект по курсу Java Winter, Киев, 2018</p>

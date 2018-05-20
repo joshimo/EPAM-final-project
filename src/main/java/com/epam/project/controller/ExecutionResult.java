@@ -9,6 +9,7 @@ public class ExecutionResult {
 
     private String page;
     private Direction direction;
+    private boolean isInvalidated;
     private Map<String, Object> sessionAttributes = new HashMap<>();
     private Map<String, Object> requestAttributes = new HashMap<>();
     private Map<String, Object> requestParameters = new HashMap<>();
@@ -40,6 +41,10 @@ public class ExecutionResult {
         return direction;
     }
 
+    public boolean isInvalidated() {
+        return isInvalidated;
+    }
+
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
@@ -47,6 +52,10 @@ public class ExecutionResult {
     public void updateRequest(HttpServletRequest request) {
         requestAttributes.forEach(request::setAttribute);
         sessionAttributes.forEach(request.getSession()::setAttribute);
+    }
+
+    public void invalidateSession() {
+        isInvalidated = true;
     }
 
 }

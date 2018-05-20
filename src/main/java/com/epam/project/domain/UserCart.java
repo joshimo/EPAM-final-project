@@ -31,6 +31,10 @@ public class UserCart {
         return totalCost;
     }
 
+    public Integer getSize() {
+        return products.size();
+    }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }

@@ -56,4 +56,8 @@ public class Configuration {
     public String getLegend(String key) {
         return (String) legend.getObject(key);
     }
+
+    public Locale getLocale() {
+        return locale;
+    }
 }

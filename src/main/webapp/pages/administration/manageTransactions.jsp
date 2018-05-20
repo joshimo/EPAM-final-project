@@ -1,59 +1,74 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<fmt:setLocale value="${sessionScope.get(\"locale\")}" />
+<fmt:setBundle basename="legend" var="legend"/>
+<fmt:setBundle basename="menu" var="menu"/>
+<fmt:setBundle basename="buttons" var="buttons"/>
 <c:set value="${sessionScope.get(\"user\")}" var="user" scope="page" />
 
 <html>
 <head>
-    <title>Главная</title>
+    <title><fmt:message key="transactions.title" bundle="${legend}"/></title>
 </head>
 <style>
     <%@include file='admin_style.css' %>
 </style>
 <body>
-<h1>Транзакции</h1>
+<h1><fmt:message key="transactions.h1" bundle="${legend}"/></h1>
 <div class="widemenu">
     <p><c:out value="${user.name}, ${user.userRole}"/></p>
-    <form name="addProductForm" method="post" action="project" class="menuitem">
+    <form name="addProductForm" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageTransactions" />
         <input type="hidden" name="type" value="payment" />
-        <button type="submit" class="menubutton">Оплаты</button>
+        <button type="submit" class="menubutton">
+            <fmt:message key="transactions.payments" bundle="${menu}"/>
+        </button>
     </form>
-    <form name="addProductForm" method="post" action="project" class="menuitem">
+    <form name="addProductForm" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageTransactions" />
         <input type="hidden" name="type" value="refund" />
-        <button type="submit" class="menubutton">Возвраты</button>
+        <button type="submit" class="menubutton">
+            <fmt:message key="transactions.refunds" bundle="${menu}"/>
+        </button>
     </form>
-    <form name="addProductForm" method="post" action="project" class="menuitem">
+    <form name="addProductForm" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageTransactions" />
         <input type="hidden" name="type" value="all" />
-        <button type="submit" class="menubutton">Все</button>
+        <button type="submit" class="menubutton">
+            <fmt:message key="transactions.all" bundle="${menu}"/>
+        </button>
     </form>
-    <form name="addProductForm" method="post" action="project" class="menuitem">
+    <form name="addProductForm" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="administration" />
-        <button type="submit" class="menubutton">Назад</button>
+        <button type="submit" class="menubutton">
+            <fmt:message key="transactions.back" bundle="${menu}"/>
+        </button>
     </form>
 </div>
 <div>
     <table class="widetable">
         <tr>
-            <th style="width: 15%;">Код заказа</th>
-            <th style="width: 15%;">Имя пользователя</th>
-            <th style="width: 15%;">Тип транзакции</th>
-            <th style="width: 10%;">Сумма</th>
-            <th style="width: 20%;">Дата</th>
-            <th style="width: 25%;">Примечания</th>
+            <th style="width: 15%;"><fmt:message key="transactions.table.col1" bundle="${legend}"/></th>
+            <th style="width: 15%;"><fmt:message key="transactions.table.col2" bundle="${legend}"/></th>
+            <th style="width: 15%;"><fmt:message key="transactions.table.col3" bundle="${legend}"/></th>
+            <th style="width: 10%;"><fmt:message key="transactions.table.col4" bundle="${legend}"/></th>
+            <th style="width: 20%;"><fmt:message key="transactions.table.col5" bundle="${legend}"/></th>
+            <th style="width: 25%;"><fmt:message key="transactions.table.col6" bundle="${legend}"/></th>
         </tr>
         <c:forEach items="${transactions}" var="transaction">
             <tr>
                 <td class="tdc"><c:out value="${transaction.invoiceCode}"/></td>
                 <td class="tdl"><c:out value="${transaction.userName}"/></td>
                 <c:if test="${transaction.transactionType == 'PAYMENT'}">
-                    <td class="tdl" style="color: green">Оплата</td>
+                    <td class="tdl" style="color: green">
+                        <fmt:message key="transactions.payment" bundle="${legend}"/>
+                    </td>
                 </c:if>
                 <c:if test="${transaction.transactionType != 'PAYMENT'}">
-                    <td class="tdl" style="color: darkred">Возврат средств</td>
+                    <td class="tdl" style="color: darkred">
+                        <fmt:message key="transactions.refund" bundle="${legend}"/>
+                    </td>
                 </c:if>
                 <td class="tdc">
                     <fmt:formatNumber value="${transaction.paymentValue}" maxFractionDigits="2" minFractionDigits="2"/>

@@ -1,63 +1,81 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.get(\"locale\")}" />
+<fmt:setBundle basename="legend" var="legend"/>
+<fmt:setBundle basename="menu" var="menu"/>
+<fmt:setBundle basename="buttons" var="buttons"/>
 <c:set value="${sessionScope.get(\"user\")}" var="user" scope="page" />
 
 <html>
 <head>
-    <title>Главная</title>
+    <title><fmt:message key="manageUsers.title" bundle="${legend}"/></title>
 </head>
 <style>
     <%@include file='admin_style.css' %>
 </style>
 <body>
-<h1>Управление пользователями</h1>
+<h1><fmt:message key="manageUsers.h1" bundle="${legend}"/></h1>
 <div class="widemenu">
     <p><c:out value="${user.name}, ${user.userRole}"/></p>
     <form name="addProductForm" method="post" action="project" class="menuitem">
         <input type="hidden" name="command" value="administration" />
-        <button type="submit" class="menubutton">Назад</button>
+        <button type="submit" class="menubutton">
+            <fmt:message key="manageUsers.back" bundle="${menu}"/>
+        </button>
     </form>
     <form name="addProductForm" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageUsers" />
         <input type="hidden" name="type" value="all" />
-        <button type="submit" class="menubutton">Все пользователи</button>
+        <button type="submit" class="menubutton">
+            <fmt:message key="manageUsers.allUsers" bundle="${menu}"/>
+        </button>
     </form>
     <form name="addProductForm" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageUsers" />
         <input type="hidden" name="type" value="user" />
-        <button type="submit" class="menubutton">Пользователи</button>
+        <button type="submit" class="menubutton">
+            <fmt:message key="manageUsers.users" bundle="${menu}"/>
+        </button>
     </form>
     <form name="addProductForm" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageUsers" />
         <input type="hidden" name="type" value="cashier" />
-        <button type="submit" class="menubutton">Кассиры</button>
+        <button type="submit" class="menubutton">
+            <fmt:message key="manageUsers.cashiers" bundle="${menu}"/>
+        </button>
     </form>
     <form name="addProductForm" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageUsers" />
         <input type="hidden" name="type" value="seniorCashier" />
-        <button type="submit" class="menubutton">Старшие кассиры</button>
+        <button type="submit" class="menubutton">
+            <fmt:message key="manageUsers.senior_cashiers" bundle="${menu}"/>
+        </button>
     </form>
     <form name="addProductForm" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageUsers" />
         <input type="hidden" name="type" value="merchant" />
-        <button type="submit" class="menubutton">Товароведы</button>
+        <button type="submit" class="menubutton">
+            <fmt:message key="manageUsers.merchants" bundle="${menu}"/>
+        </button>
     </form>
     <form name="addProductForm" method="get" action="project" class="menuitem">
         <input type="hidden" name="command" value="manageUsers" />
         <input type="hidden" name="type" value="admin" />
-        <button type="submit" class="menubutton">Администраторы</button>
+        <button type="submit" class="menubutton">
+            <fmt:message key="manageUsers.admins" bundle="${menu}"/>
+        </button>
     </form>
 </div>
 <div>
     <table class="widetable">
         <tr>
-            <th style="width: 15%;">Имя пользователя</th>
-            <th style="width: 10%;">Тип учетной записи</th>
-            <th style="width: 15%;">Телефон</th>
-            <th style="width: 15%;">e-mail</th>
-            <th style="width: 25%;">Адрес</th>
-            <th style="width: 20%;">Примечания</th>
+            <th style="width: 15%;"><fmt:message key="manageUsers.table.col1" bundle="${legend}"/></th>
+            <th style="width: 10%;"><fmt:message key="manageUsers.table.col2" bundle="${legend}"/></th>
+            <th style="width: 15%;"><fmt:message key="manageUsers.table.col3" bundle="${legend}"/></th>
+            <th style="width: 15%;"><fmt:message key="manageUsers.table.col4" bundle="${legend}"/></th>
+            <th style="width: 25%;"><fmt:message key="manageUsers.table.col5" bundle="${legend}"/></th>
+            <th style="width: 20%;"><fmt:message key="manageUsers.table.col6" bundle="${legend}"/></th>
             <th></th>
         </tr>
         <c:forEach items="${users}" var="user">
@@ -72,8 +90,10 @@
                     <form name="details" method="post" action="project" >
                         <input type="hidden" name="command" value="editUserByAdmin" />
                         <input type="hidden" name="id" value="${user.id}" />
-                        <!-- SHALL BE HANDLED BY ADDING CommandEditUserByAdmin() -->
-                        <button type="submit" class="smallbutton">Подробно</button>
+                        <!-- UNSUPPORTED -->
+                        <button type="submit" class="smallbutton" disabled>
+                            <fmt:message key="manageUsers.detailed" bundle="${buttons}"/>
+                        </button>
                     </form>
                 </td>
             </tr>

@@ -92,7 +92,7 @@ tr:hover {
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: right;
-    height: 80px;
+    height: 30px;
 }
 .widemenu {
     width: 90%;
@@ -172,11 +172,24 @@ tr:hover {
     padding: 8px 16px;
     text-decoration: none;
 }
-.pagination a.active {
+.langmenu {
+    width: 90%;
+    text-align: right;
+    display: inline-block;
+    margin: 5px 5%;
+}
+.langmenu a {
+    color: black;
+    padding: 4px 8px;
+    text-decoration: none;
+    font-size: 12px;
+    font-style: italic;
+}
+.pagination a.active, .langmenu a.active {
     background-color: rgba(255,70,0,0.5);
     color: white;
 }
-.pagination a:hover:not(.active) {
+.pagination a:hover:not(.active), .langmenu a:hover:not(.active) {
     background-color: rgba(255,70,0,0.2);
 }
 footer {

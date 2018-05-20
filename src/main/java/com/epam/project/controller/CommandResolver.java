@@ -43,6 +43,8 @@ public class CommandResolver {
         commands.put("updateProduct", new CommandUpdateProduct());
         commands.put("deleteProduct", new CommandDeleteProduct());
         commands.put("addNewPayment", new CommandAddNewPayment());
+        commands.put("confirmPayment", new CommandConfirmPayment());
+        commands.put("changeLang", new CommandChangeLang());
     }
 
     public ICommand getCommand(HttpServletRequest request) {

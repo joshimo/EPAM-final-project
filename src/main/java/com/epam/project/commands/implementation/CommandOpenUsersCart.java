@@ -5,6 +5,11 @@ import com.epam.project.config.Configuration;
 import com.epam.project.controller.Direction;
 import com.epam.project.controller.ExecutionResult;
 import com.epam.project.controller.SessionRequestContent;
+import com.epam.project.domain.UserCart;
+import com.epam.project.domain.UserCartView;
+import com.epam.project.exceptions.InvoiceServiceException;
+import com.epam.project.service.IInvoiceServ;
+import com.epam.project.service.ServiceFactory;
 
 public class CommandOpenUsersCart implements ICommand {
 
@@ -14,9 +19,12 @@ public class CommandOpenUsersCart implements ICommand {
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.FORWARD);
         try {
+            IInvoiceServ serv = ServiceFactory.getInvoiceService();
+            UserCartView view = serv.createUsersCartView((UserCart) content.getSessionAttribute("cart"));
+            result.addRequestAttribute("cartView", view);
             result.setPage(conf.getPage("usersCart"));
         }
-        catch (NullPointerException uue) {
+        catch (NullPointerException | InvoiceServiceException uue) {
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("showUserCartErr"));
             result.setPage(conf.getPage("error"));
         }

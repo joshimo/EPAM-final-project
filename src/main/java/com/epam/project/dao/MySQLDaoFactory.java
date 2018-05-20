@@ -5,56 +5,45 @@ import com.epam.project.exceptions.DataBaseConnectionException;
 import com.epam.project.exceptions.IncorrectPropertyException;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.log4j.Logger;
-
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class MySQLDaoFactory extends DaoFactory {
 
-    private String user;
-    private String password;
-    private String host;
-    private String port;
-    private String database;
-    private String useUnicode;
-    private String encoding;
-    private String url;
-    private Integer minIdle;
-    private Integer maxIdle;
-    private Integer maxOpenPStatements;
     private static BasicDataSource basicDataSource;
-
     private static final Logger log = Logger.getLogger(MySQLDaoFactory.class);
     private Connection connection;
 
-    MySQLDaoFactory() throws IncorrectPropertyException, DataBaseConnectionException {
-        Properties dbProperties = new Properties();
+    MySQLDaoFactory() throws IncorrectPropertyException {
+        String user;
+        String password;
+        String host;
+        String port;
+        String database;
+        String useUnicode;
+        String encoding;
+        String url;
+        Integer minIdle;
+        Integer maxIdle;
+        Integer maxActive;
+        Integer maxOpenPStatements;
+        ResourceBundle dbConfig = ResourceBundle.getBundle("dbConfig");
         try {
-            dbProperties.load(new FileReader("dbConfig.properties"));
-        } catch (IOException ioe) {
-            log.error("Database property file not found");
-            throw new IncorrectPropertyException("Database property file not found");
-        }
-        try {
-            user = dbProperties.getProperty("user");
-            password = dbProperties.getProperty("password");
-            host = dbProperties.getProperty("host");
-            port = dbProperties.getProperty("port");
-            database = dbProperties.getProperty("database");
-            useUnicode = dbProperties.getProperty("useUnicode");
-            encoding = dbProperties.getProperty("encoding");
+            user = dbConfig.getString("user");
+            password = dbConfig.getString("password");
+            host = dbConfig.getString("host");
+            port = dbConfig.getString("port");
+            database = dbConfig.getString("database");
+            useUnicode = dbConfig.getString("useUnicode");
+            encoding = dbConfig.getString("encoding");
             url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?useUnicode=" + useUnicode + "&characterEncoding=" + encoding;
-            minIdle = Integer.parseInt(dbProperties.getProperty("minIdle"));
-            maxIdle = Integer.parseInt(dbProperties.getProperty("maxIdle"));
-            maxOpenPStatements = Integer.parseInt(dbProperties.getProperty("maxOpenPreparedStatements"));
-        } catch (NullPointerException npe) {
-            log.error("Incorrect db property");
-            throw new IncorrectPropertyException("Incorrect db property");
-        } catch (NumberFormatException nfe) {
-            log.error("Incorrect db property");
+            minIdle = Integer.parseInt(dbConfig.getString("minIdle"));
+            maxIdle = Integer.parseInt(dbConfig.getString("maxIdle"));
+            maxActive = Integer.parseInt(dbConfig.getString("maxActive"));
+            maxOpenPStatements = Integer.parseInt(dbConfig.getString("maxOpenPreparedStatements"));
+        } catch (NullPointerException | NumberFormatException npe) {
+            log.error(npe);
             throw new IncorrectPropertyException("Incorrect db property");
         }
         basicDataSource = new BasicDataSource();
@@ -64,6 +53,7 @@ public class MySQLDaoFactory extends DaoFactory {
         basicDataSource.setUrl(url);
         basicDataSource.setMinIdle(minIdle);
         basicDataSource.setMaxIdle(maxIdle);
+        basicDataSource.setMaxActive(maxActive);
         basicDataSource.setMaxOpenPreparedStatements(maxOpenPStatements);
     }
 
@@ -77,7 +67,6 @@ public class MySQLDaoFactory extends DaoFactory {
     }
 
     /** Transaction methods */
-
     public void beginTransaction() throws DataBaseConnectionException {
         try {
             connection = getConnection();
@@ -109,7 +98,6 @@ public class MySQLDaoFactory extends DaoFactory {
     }
 
     /** Connection open and closing methods */
-
     @Override
     public void close() {
         try {

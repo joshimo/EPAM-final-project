@@ -360,6 +360,12 @@ public class InvoiceService implements IInvoiceServ {
 
     @Button
     @Override
+    public boolean confirmPayment(Long invoiceCode) {
+        return payByInvoice(invoiceCode);
+    }
+
+    @Button
+    @Override
     public boolean payByInvoice(Long invoiceCode) {
         Invoice invoice = findInvoiceByOrderNumber(invoiceCode);
         return !((invoice == null) || (invoice.getPaid()) || (invoice.getStatus() != InvoiceStatus.CREATED))
@@ -465,6 +471,24 @@ public class InvoiceService implements IInvoiceServ {
             invoice.addPayment(payment);
         }
         return invoice;
+    }
+
+    public UserCartView createUsersCartView(UserCart userCart) throws InvoiceServiceException {
+        UserCartView view = new UserCartView(userCart.getUserName());
+        Double cost = 0d;
+        view.setOrderNotes(userCart.getOrderNotes());
+        try {
+            for (Map.Entry<String, Double> unit : userCart.getProducts().entrySet()) {
+                Product product = productService.findProductByCode(unit.getKey());
+                view.addProduct(product, unit.getValue());
+                cost += product.getCost() * unit.getValue();
+            }
+            view.setTotalCost(cost);
+        } catch (ProductServiceException pse) {
+            log.error(pse);
+            throw new InvoiceServiceException();
+        }
+        return view;
     }
 
     private boolean validateInvoice(Invoice invoice) {

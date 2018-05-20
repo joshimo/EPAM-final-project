@@ -2,6 +2,7 @@ package com.epam.project.service;
 
 import com.epam.project.domain.Invoice;
 import com.epam.project.domain.UserCart;
+import com.epam.project.domain.UserCartView;
 import com.epam.project.exceptions.InvoiceServiceException;
 
 import java.util.List;
@@ -34,6 +35,8 @@ public interface IInvoiceServ {
     @Button
     Invoice createInvoiceFromUserCart(UserCart userCart, Long orderCode) throws InvoiceServiceException;
 
+    UserCartView createUsersCartView(UserCart userCart) throws InvoiceServiceException;
+
     @Button
     boolean addInvoice(Invoice invoice);
 
@@ -51,6 +54,9 @@ public interface IInvoiceServ {
 
     @Button
     boolean removeProductFromInvoice(Long orderCode, String productCode);
+
+    @Button
+    boolean confirmPayment(Long invoiceCode);
 
     @Button
     boolean payByInvoice(Long invoiceCode);

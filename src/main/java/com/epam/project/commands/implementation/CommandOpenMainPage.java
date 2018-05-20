@@ -28,11 +28,11 @@ public class CommandOpenMainPage implements ICommand{
             result.addRequestAttribute("products", products);
             result.addRequestAttribute("totalPages", totalPages);
             result.addRequestAttribute("pageNum", pageNum);
-            result.setPage(Configuration.getInstance().getPage("main"));
+            result.setPage(conf.getPage("main"));
         }
         catch (ProductServiceException uue) {
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("showMainPageErr"));
-            result.setPage(Configuration.getInstance().getPage("error"));
+            result.setPage(conf.getPage("error"));
         }
         return result;
     }

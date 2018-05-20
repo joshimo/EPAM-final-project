@@ -4,6 +4,7 @@ import com.epam.project.service.*;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import java.sql.Timestamp;
 import java.util.List;
@@ -34,6 +35,7 @@ public class TransactionServiceTest {
     }
 
     @Test
+    @Ignore
     public void findTransactionsTest() throws TransactionServiceException {
         List<Transaction> transactions = transactionService.findAllTransactions();
         log.info(transactions);

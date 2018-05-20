@@ -5,26 +5,21 @@ import com.epam.project.config.Configuration;
 import com.epam.project.controller.Direction;
 import com.epam.project.controller.ExecutionResult;
 import com.epam.project.controller.SessionRequestContent;
-import com.epam.project.domain.User;
-import com.epam.project.domain.UserCart;
-import com.epam.project.exceptions.UnknownUserException;
-import com.epam.project.service.ServiceFactory;
 
-public class CommandLogout implements ICommand {
+import java.util.Locale;
 
+public class CommandChangeLang implements ICommand {
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
         Configuration conf = Configuration.getInstance();
         ExecutionResult result = new ExecutionResult();
         result.setDirection(Direction.REDIRECT);
-        try {
-            result.invalidateSession();
-            result.setPage("/project");
-        }
-        catch (Exception uue) {
-            result.addRequestAttribute("errorMessage", conf.getErrorMessage("generalErr"));
-            result.setPage(conf.getPage("error"));
-        }
+        String lang = content.getRequestParameter("lang")[0];
+        if (lang.equals("en"))
+            result.addSessionAttribute("locale", new Locale("en", "EN"));
+        else
+            result.addSessionAttribute("locale", new Locale("ru", "RU"));
+        result.setPage(content.getReferer());
         return result;
     }
 }

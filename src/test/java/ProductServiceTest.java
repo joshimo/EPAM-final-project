@@ -55,18 +55,21 @@ public class ProductServiceTest {
 
     /** Product CRUD operations tests */
     @Test
+    @Ignore
     @Ordinal(order = 3)
     public void testFindAllProducts() throws ProductServiceException {
         assertTrue(productService.findAllProducts().size() > 0);
     }
 
     @Test
+    @Ignore
     @Ordinal(order = 4)
     public void testFindProductByCode() throws ProductServiceException {
         assertEquals(correctProduct, productService.findProductByCode("D001"));
     }
 
     @Test
+    @Ignore
     @Ordinal(order = 5)
     public void testAddProduct() throws ProductServiceException {
         Product testProduct = createTestProduct();
@@ -90,6 +93,7 @@ public class ProductServiceTest {
     }
 
     @Test
+    @Ignore
     @Ordinal(order = 7)
     public void testDeleteProduct() {
         Product testProduct = createTestProduct();
