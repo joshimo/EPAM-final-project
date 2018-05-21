@@ -10,8 +10,11 @@ import com.epam.project.domain.UserCartView;
 import com.epam.project.exceptions.InvoiceServiceException;
 import com.epam.project.service.IInvoiceServ;
 import com.epam.project.service.ServiceFactory;
+import org.apache.log4j.Logger;
 
 public class CommandOpenUsersCart implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandOpenUsersCart.class);
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
@@ -25,6 +28,7 @@ public class CommandOpenUsersCart implements ICommand {
             result.setPage(conf.getPage("usersCart"));
         }
         catch (NullPointerException | InvoiceServiceException uue) {
+            log.error(uue);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("showUserCartErr"));
             result.setPage(conf.getPage("error"));
         }

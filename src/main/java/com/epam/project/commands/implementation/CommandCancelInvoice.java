@@ -10,8 +10,11 @@ import com.epam.project.domain.Invoice;
 import com.epam.project.domain.UserRole;
 import com.epam.project.service.IInvoiceServ;
 import com.epam.project.service.ServiceFactory;
+import org.apache.log4j.Logger;
 
 public class CommandCancelInvoice implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandCancelInvoice.class);
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
@@ -37,7 +40,7 @@ public class CommandCancelInvoice implements ICommand {
             }
         }
         catch (NullPointerException npe) {
-            npe.printStackTrace();
+            log.error(npe);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("cancelInvoiceErr"));
             result.setPage(Configuration.getInstance().getPage("error"));
         }

@@ -4,6 +4,7 @@ import com.epam.project.domain.Product;
 import com.epam.project.exceptions.ProductServiceException;
 
 import java.util.List;
+import java.util.Set;
 
 public interface IProductServ {
 
@@ -11,6 +12,8 @@ public interface IProductServ {
 
     @Button
     List<Product> findAllProducts() throws ProductServiceException;
+
+    Set<String> createProductSet() throws ProductServiceException;
 
     @Button
     List<Product> findProducts(Integer from, Integer offset) throws ProductServiceException;

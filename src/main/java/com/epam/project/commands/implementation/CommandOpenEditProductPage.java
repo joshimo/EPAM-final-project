@@ -8,8 +8,12 @@ import com.epam.project.controller.SessionRequestContent;
 import com.epam.project.domain.Product;
 import com.epam.project.service.IProductServ;
 import com.epam.project.service.ServiceFactory;
+import org.apache.log4j.Logger;
 
 public class CommandOpenEditProductPage implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandOpenEditProductPage.class);
+
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
         Configuration config = Configuration.getInstance();
@@ -22,6 +26,7 @@ public class CommandOpenEditProductPage implements ICommand {
             result.addRequestAttribute("product", product);
             result.setPage(config.getPage("editProduct"));
         } catch (Exception e) {
+            log.error(e);
             result.addRequestAttribute("errorMessage", config.getErrorMessage("editProductPageErr"));
             result.setPage(config.getPage("error"));
         }

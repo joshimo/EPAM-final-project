@@ -7,19 +7,26 @@ import com.epam.project.controller.ExecutionResult;
 import com.epam.project.controller.SessionRequestContent;
 
 import java.util.Locale;
+import java.util.Map;
 
 public class CommandChangeLang implements ICommand {
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
         Configuration conf = Configuration.getInstance();
         ExecutionResult result = new ExecutionResult();
-        result.setDirection(Direction.REDIRECT);
-        String lang = content.getRequestParameter("lang")[0];
-        if (lang.equals("en"))
+        Map<String, String[]> parameters = content.getRequestParameters();
+        String lang = parameters.get("lang")[0];
+        if (lang.toLowerCase().equals("en"))
             result.addSessionAttribute("locale", new Locale("en", "EN"));
-        else
+        if (lang.toLowerCase().equals("ru"))
             result.addSessionAttribute("locale", new Locale("ru", "RU"));
-        result.setPage(content.getReferer());
+        parameters.forEach((key, value) -> {
+            if (!key.toLowerCase().equals("command"))
+                result.addRequestParameter(key, value[0]);});
+        result.setDirection(Direction.REDIRECT);
+        result.addRequestParameter("command", content.getRequestParameter("returnPage")[0]);
+        result.setPage(conf.getPage("base"));
+        result.addParametersToPage();
         return result;
     }
 }

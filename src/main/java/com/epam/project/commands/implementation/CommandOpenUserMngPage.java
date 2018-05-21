@@ -10,11 +10,14 @@ import com.epam.project.domain.User;
 import com.epam.project.domain.UserRole;
 import com.epam.project.service.IUserServ;
 import com.epam.project.service.ServiceFactory;
+import org.apache.log4j.Logger;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class CommandOpenUserMngPage implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandOpenUserMngPage.class);
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
@@ -45,6 +48,7 @@ public class CommandOpenUserMngPage implements ICommand {
             result.setPage(conf.getPage("manageUsers"));
         }
         catch (Exception e) {
+            log.error(e);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("manageUsersErr"));
             result.setPage(conf.getPage("error"));
         }

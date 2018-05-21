@@ -10,8 +10,12 @@ import com.epam.project.domain.Product;
 import com.epam.project.domain.UserRole;
 import com.epam.project.service.IProductServ;
 import com.epam.project.service.ServiceFactory;
+import org.apache.log4j.Logger;
 
 public class CommandSaveNewProduct implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandSaveNewProduct.class);
+
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
         Configuration conf = Configuration.getInstance();
@@ -45,6 +49,7 @@ public class CommandSaveNewProduct implements ICommand {
             }
         }
         catch (Exception uue) {
+            log.error(uue);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("saveNewProductErr"));
             result.setPage(Configuration.getInstance().getPage("error"));
         }

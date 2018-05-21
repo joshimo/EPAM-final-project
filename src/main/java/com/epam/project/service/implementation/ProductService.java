@@ -9,8 +9,10 @@ import com.epam.project.service.Button;
 import com.epam.project.service.IProductServ;
 import org.apache.log4j.Logger;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class ProductService implements IProductServ {
 
@@ -69,6 +71,23 @@ public class ProductService implements IProductServ {
             throw new ProductServiceException();
         }
         return products;
+    }
+
+    @Override
+    public Set<String> createProductSet() throws ProductServiceException {
+        Set<String> productSet = new HashSet<>();
+        List<Product> products = new LinkedList<>();
+        try {
+            daoFactory.open();
+            productDao = daoFactory.getProductDao();
+            products = productDao.findAllProductsInDB();
+            daoFactory.close();
+            products.forEach((product) -> {productSet.add(product.getCode());});
+        } catch (DataBaseConnectionException | DataNotFoundException ex) {
+            log.error(ex);
+            throw new ProductServiceException();
+        }
+        return productSet;
     }
 
     @Button

@@ -6,8 +6,12 @@ import com.epam.project.controller.Direction;
 import com.epam.project.controller.ExecutionResult;
 import com.epam.project.controller.SessionRequestContent;
 import com.epam.project.domain.UserCart;
+import org.apache.log4j.Logger;
 
 public class CommandRemoveFromCart implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandRemoveFromCart.class);
+
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
         Configuration conf = Configuration.getInstance();
@@ -21,7 +25,7 @@ public class CommandRemoveFromCart implements ICommand {
             result.setPage("/project?command=usersCart");
         }
         catch (NullPointerException npe) {
-            npe.printStackTrace();
+            log.error(npe);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("removefromCartErr"));
             result.setPage(Configuration.getInstance().getPage("error"));
         }

@@ -51,6 +51,7 @@
                 <td class="tdl"><c:out value="${product.descriptionEn}"/></td>
                 <td class="tdl">
                     <fmt:formatNumber value="${product.cost}" maxFractionDigits="2" minFractionDigits="2"/>
+                    <fmt:message key="currency" bundle="${legend}"/>
                 </td>
                 <c:if test="${product.available == true}">
                     <td class="tdc" style="color: green">

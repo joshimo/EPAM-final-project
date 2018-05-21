@@ -11,11 +11,14 @@ import com.epam.project.domain.TransactionType;
 import com.epam.project.domain.UserRole;
 import com.epam.project.service.ITransactionServ;
 import com.epam.project.service.ServiceFactory;
+import org.apache.log4j.Logger;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class CommandOpenTransMngPage implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandOpenTransMngPage.class);
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
@@ -40,6 +43,7 @@ public class CommandOpenTransMngPage implements ICommand {
             result.setPage(conf.getPage("manageTransactions"));
         }
         catch (Exception e) {
+            log.error(e);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("manageTransactionsErr"));
             result.setPage(conf.getPage("error"));
         }

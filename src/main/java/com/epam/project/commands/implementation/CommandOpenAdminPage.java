@@ -8,8 +8,11 @@ import com.epam.project.controller.ExecutionResult;
 import com.epam.project.controller.SessionRequestContent;
 import com.epam.project.domain.User;
 import com.epam.project.domain.UserRole;
+import org.apache.log4j.Logger;
 
 public class CommandOpenAdminPage implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandOpenAdminPage.class);
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
@@ -24,6 +27,7 @@ public class CommandOpenAdminPage implements ICommand {
             result.setPage(conf.getPage("administration"));
         }
         catch (Exception e) {
+            log.error(e);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("administrationErr"));
             result.setPage(conf.getPage("error"));
         }

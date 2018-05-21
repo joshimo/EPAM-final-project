@@ -11,8 +11,6 @@ import java.util.Set;
 
 public class SessionRequestContent {
 
-    private String referer;
-    private String contextPath;
     private Map<String, Object> reqAttributes;
     private Map<String, String[]> reqParameters;
     private Map<String, Object> sessionAttributes;
@@ -36,8 +34,6 @@ public class SessionRequestContent {
                     sessionAttributes.put(attributeName, currentSession.getAttribute(attributeName));
                 }
             }
-            referer = req.getHeader("Referer");
-            System.out.println(referer);
         } catch (NullPointerException npe) {
             log.error(npe);
         }
@@ -55,21 +51,20 @@ public class SessionRequestContent {
         return sessionAttributes.containsKey(attrName);
     }
 
-    /** returns a refer to redirect */
-    public String getReferer() {
-        return referer;
-    }
-
-    public String getContextPath() {
-        return contextPath;
-    }
-
     public Object getRequestAttribute(String key) {
         return reqAttributes.get(key);
     }
 
+    public Map<String, Object> getRequestAttributes() {
+        return reqAttributes;
+    }
+
     public String[] getRequestParameter(String key) {
         return reqParameters.get(key);
+    }
+
+    public Map<String, String[]> getRequestParameters() {
+        return reqParameters;
     }
 
     public Object getSessionAttribute(String key) {
@@ -79,7 +74,6 @@ public class SessionRequestContent {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\nReferer: " + getReferer());
         Set<String> keys = reqAttributes.keySet();
         for (String key : keys)
             sb.append("\nRequest attribute: key = " + key + " value = " + getRequestAttribute(key));

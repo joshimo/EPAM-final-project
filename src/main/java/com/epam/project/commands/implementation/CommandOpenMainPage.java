@@ -9,10 +9,13 @@ import com.epam.project.domain.Product;
 import com.epam.project.exceptions.ProductServiceException;
 import com.epam.project.service.IProductServ;
 import com.epam.project.service.ServiceFactory;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public class CommandOpenMainPage implements ICommand{
+
+    private static final Logger log = Logger.getLogger(CommandOpenMainPage.class);
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
@@ -31,6 +34,7 @@ public class CommandOpenMainPage implements ICommand{
             result.setPage(conf.getPage("main"));
         }
         catch (ProductServiceException uue) {
+            log.error(uue);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("showMainPageErr"));
             result.setPage(conf.getPage("error"));
         }

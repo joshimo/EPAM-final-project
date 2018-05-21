@@ -10,8 +10,12 @@ import com.epam.project.domain.UserCart;
 import com.epam.project.exceptions.InvoiceServiceException;
 import com.epam.project.service.IInvoiceServ;
 import com.epam.project.service.ServiceFactory;
+import org.apache.log4j.Logger;
 
 public class CommandCreateInvoiceAndPay implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandCreateInvoiceAndPay.class);
+
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
         Configuration conf = Configuration.getInstance();
@@ -32,7 +36,7 @@ public class CommandCreateInvoiceAndPay implements ICommand {
             }
         }
         catch (NullPointerException | InvoiceServiceException npe) {
-            npe.printStackTrace();
+            log.error(npe);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("invoiceCreationErr"));
             result.setPage(conf.getPage("error"));
         }

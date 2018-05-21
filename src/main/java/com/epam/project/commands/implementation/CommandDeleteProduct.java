@@ -9,8 +9,12 @@ import com.epam.project.controller.SessionRequestContent;
 import com.epam.project.domain.UserRole;
 import com.epam.project.service.IProductServ;
 import com.epam.project.service.ServiceFactory;
+import org.apache.log4j.Logger;
 
 public class CommandDeleteProduct implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandDeleteProduct.class);
+
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
         Configuration conf = Configuration.getInstance();
@@ -32,7 +36,7 @@ public class CommandDeleteProduct implements ICommand {
             }
         }
         catch (Exception uue) {
-            uue.printStackTrace();
+            log.error(uue);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("deleteProductErr"));
             result.setPage(Configuration.getInstance().getPage("error"));
         }

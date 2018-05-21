@@ -72,6 +72,7 @@
                 </c:if>
                 <td class="tdc">
                     <fmt:formatNumber value="${transaction.paymentValue}" maxFractionDigits="2" minFractionDigits="2"/>
+                    <fmt:message key="currency" bundle="${legend}"/>
                 </td>
                 <td class="tdc"><fmt:formatDate type="both" value="${transaction.time}" /></td>
                 <td class="tdc"><c:out value="${transaction.notes}"/></td>

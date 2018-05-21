@@ -11,8 +11,12 @@ import com.epam.project.domain.UserCart;
 import com.epam.project.domain.UserRole;
 import com.epam.project.service.IInvoiceServ;
 import com.epam.project.service.ServiceFactory;
+import org.apache.log4j.Logger;
 
 public class CommandRemoveFromInvoice implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandRemoveFromInvoice.class);
+
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
         Configuration conf = Configuration.getInstance();
@@ -38,7 +42,7 @@ public class CommandRemoveFromInvoice implements ICommand {
                 result.setPage(Configuration.getInstance().getPage("error"));
             }
         } catch (NullPointerException npe) {
-            npe.printStackTrace();
+            log.error(npe);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("removeProductFromInvoiceErr"));
             result.setPage(Configuration.getInstance().getPage("error"));
         }

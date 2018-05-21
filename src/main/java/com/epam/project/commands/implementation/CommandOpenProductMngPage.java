@@ -10,10 +10,13 @@ import com.epam.project.domain.Product;
 import com.epam.project.domain.UserRole;
 import com.epam.project.service.IProductServ;
 import com.epam.project.service.ServiceFactory;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public class CommandOpenProductMngPage implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandOpenProductMngPage.class);
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
@@ -30,13 +33,13 @@ public class CommandOpenProductMngPage implements ICommand {
             Integer pageNum = content.checkRequestParameter("pageNum") ?
                     Integer.parseInt(content.getRequestParameter("pageNum")[0]) : 1;
             List<Product> products = serv.findProducts((pageNum - 1) * 5,5);
-            //List<Product> products = serv.findAllProducts();
             result.addRequestAttribute("totalPages", totalPages);
             result.addRequestAttribute("pageNum", pageNum);
             result.addRequestAttribute("products", products);
             result.setPage(conf.getPage("manageProducts"));
         }
         catch (Exception e) {
+            log.error(e);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("manageProductsErr"));
             result.setPage(conf.getPage("error"));
         }

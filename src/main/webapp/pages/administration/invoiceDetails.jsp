@@ -48,7 +48,10 @@
         </li>
         <li>
             <fmt:message key="invoiceDetails.total" bundle="${legend}"/>
-            <b><i><fmt:formatNumber value="${invoice.cost}" maxFractionDigits="2" minFractionDigits="2"/></i></b>
+            <b><i>
+                <fmt:formatNumber value="${invoice.cost}" maxFractionDigits="2" minFractionDigits="2"/>
+                <fmt:message key="currency" bundle="${legend}"/>
+            </i></b>
         </li>
         <li>
             <fmt:message key="invoiceDetails.payed" bundle="${legend}"/>
@@ -91,6 +94,7 @@
                 <td class="tdl">${payment.value.quantity}</td>
                 <td class="tdc">
                     <fmt:formatNumber value="${payment.value.paymentValue}" maxFractionDigits="2" minFractionDigits="2"/>
+                    <fmt:message key="currency" bundle="${legend}"/>
                 </td>
                 <td class="tdl">${payment.value.paymentNotes}</td>
                 <td class="tdc">
@@ -115,7 +119,13 @@
         <c:if test="${!invoice.paid && invoice.status == 'CREATED'}">
         <form name="remove" method="post" action="project" >
             <tr>
-                <td class="tdl"><input class="input" type="text" name="productCode" size="8" required /></td>
+                <td class="tdl">
+                    <select name="productCode" required>
+                        <c:forEach items="${products}" var="product">
+                            <option><c:out value="${product}"/></option>
+                        </c:forEach>
+                    </select>
+                </td>
                 <td class="tdl"><input class="input" type="text" name="quantity" size="8" required /></td>
                 <td class="tdc"><input class="input" type="text" name="paymentValue" size="12" required /></td>
                 <td class="tdl"><input class="input" type="text" name="paymentNotes" size="24" /></td>

@@ -92,17 +92,18 @@ tr:hover {
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: right;
-    height: 30px;
 }
 .widemenu {
     width: 90%;
     margin-right: 5%;
     margin-left: 5%;
+    height: 30px;
 }
 .narrowmenu {
     width: 60%;
     margin-right: 20%;
     margin-left: 20%;
+    height: 60px;
 }
 .menuitem {
     float: right;
@@ -174,22 +175,51 @@ tr:hover {
 }
 .langmenu {
     width: 90%;
+    margin-right: 5%;
+    margin-left: 5%;
     text-align: right;
-    display: inline-block;
-    margin: 5px 5%;
+    height: 30px;
 }
-.langmenu a {
-    color: black;
-    padding: 4px 8px;
-    text-decoration: none;
+.langmenu_item {
+    float: right;
+    width: 48px
+}
+.lang_button {
+    height: 20px;
+    width: 36px;
+    margin: 5px 5px;
+    border: none;
+    background-color: transparent;
+    border-radius: 3px;
     font-size: 12px;
     font-style: italic;
 }
-.pagination a.active, .langmenu a.active {
+.lang_button:hover {
+    height: 20px;
+    width: 36px;
+    margin: 5px 5px;
+    border: none;
+    background-color: rgba(255,70,0,0.2);
+    border-radius: 3px;
+    font-size: 12px;
+    font-style: italic;
+}
+.lang_button_active {
+    height: 20px;
+    width: 36px;
+    margin: 5px 5px;
+    border: none;
+    background-color: rgba(255,70,0,0.5);
+    border-radius: 3px;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.pagination a.active {
     background-color: rgba(255,70,0,0.5);
     color: white;
 }
-.pagination a:hover:not(.active), .langmenu a:hover:not(.active) {
+.pagination a:hover:not(.active) {
     background-color: rgba(255,70,0,0.2);
 }
 footer {

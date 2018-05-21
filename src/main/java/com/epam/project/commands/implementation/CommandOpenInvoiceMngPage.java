@@ -12,11 +12,14 @@ import com.epam.project.domain.UserRole;
 import com.epam.project.service.IInvoiceServ;
 import com.epam.project.service.ITransactionServ;
 import com.epam.project.service.ServiceFactory;
+import org.apache.log4j.Logger;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class CommandOpenInvoiceMngPage implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandOpenInvoiceMngPage.class);
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
@@ -43,6 +46,7 @@ public class CommandOpenInvoiceMngPage implements ICommand {
             result.setPage(conf.getPage("manageInvoices"));
         }
         catch (Exception e) {
+            log.error(e);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("manageInvoicesErr"));
             result.setPage(conf.getPage("error"));
         }

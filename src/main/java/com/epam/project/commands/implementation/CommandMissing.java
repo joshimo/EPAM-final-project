@@ -10,10 +10,13 @@ import com.epam.project.domain.UserCart;
 import com.epam.project.exceptions.UnknownUserException;
 import com.epam.project.service.IUserServ;
 import com.epam.project.service.ServiceFactory;
+import org.apache.log4j.Logger;
 
 import java.util.Locale;
 
 public class CommandMissing implements ICommand {
+
+    private static final Logger log = Logger.getLogger(CommandMissing.class);
 
     @Override
     public ExecutionResult execute(SessionRequestContent content) {
@@ -30,10 +33,10 @@ public class CommandMissing implements ICommand {
                 result.addSessionAttribute("cart", cart);
             if (!content.checkSessionAttribute("local"))
                 result.addSessionAttribute("locale", new Locale("ru", "RU"));
-            //result.addRequestAttribute("command", "main");
             result.addRequestAttribute("pageNum", 1);
             result.setPage("/project?command=main&pageNum=1");
-        } catch (UnknownUserException pse) {
+        } catch (UnknownUserException uue) {
+            log.error(uue);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("generalErr"));
             result.setPage(conf.getPage("error"));
         }

@@ -17,17 +17,17 @@ public class ExecutionResult {
     public ExecutionResult() {
     }
 
-    public Object addRequestAttribute(String key, Object value) {
-        return requestAttributes.put(key, value);
+    public void addRequestAttribute(String key, Object value) {
+        requestAttributes.put(key, value);
     }
 
-    public Object addSessionAttribute(String key, Object value) {
-        return sessionAttributes.put(key, value);
+    public void addSessionAttribute(String key, Object value) {
+        sessionAttributes.put(key, value);
     }
 
-    /*public Object addRequestParameter(String key, Object value) {
-        return requestParameters.put(key, value);
-    }*/
+    public void addRequestParameter(String key, Object value) {
+        requestParameters.put(key, value);
+    }
 
     public String getPage() {
         return page;
@@ -52,6 +52,12 @@ public class ExecutionResult {
     public void updateRequest(HttpServletRequest request) {
         requestAttributes.forEach(request::setAttribute);
         sessionAttributes.forEach(request.getSession()::setAttribute);
+    }
+
+    public void addParametersToPage() {
+        requestParameters.forEach((String key, Object value) -> {
+            page = page.concat(key).concat("=").concat((String) value).concat("&");
+        });
     }
 
     public void invalidateSession() {

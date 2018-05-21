@@ -6,6 +6,7 @@
 <fmt:setBundle basename="legend" var="legend"/>
 <fmt:setBundle basename="menu" var="menu"/>
 <fmt:setBundle basename="buttons" var="buttons"/>
+<c:set value="${sessionScope.get(\"locale\").language}" var="lang"  scope="page"/>
 
 <html>
 <head>
@@ -36,11 +37,15 @@
         <c:forEach items="${view.products}" var="product">
         <tr>
             <td class="tdc">${product.key.code}</td>
-            <td class="tdc">${product.key.nameRu}</td>
-            <td class="tdc">${product.key.descriptionRu}</td>
-            <td class="tdc">${product.value}</td>
+            <td class="tdc"><c:out value="${lang == 'ru' ? product.key.nameRu : product.key.nameEn}"/></td>
+            <td class="tdc"><c:out value="${lang == 'ru' ? product.key.descriptionRu : product.key.descriptionEn}" /></td>
+            <td class="tdc">
+                <c:out value="${product.value}"/>
+                <c:out value="${lang == 'ru' ? product.key.uomRu : product.key.uomEn}"/>
+            </td>
             <td class="tdc">
                 <fmt:formatNumber value="${product.value * product.key.cost}" maxFractionDigits="2" minFractionDigits="2"/>
+                <fmt:message key="currency" bundle="${legend}"/>
             </td>
             <td class="tdc">
                 <form name="remove" method="post" action="project" >
@@ -56,6 +61,7 @@
     <h3 style="margin-left: 20%; margin-right: 20%;">
         <fmt:message key="userCart.total" bundle="${legend}"/>
         <fmt:formatNumber value="${view.totalCost}" maxFractionDigits="2" minFractionDigits="2"/>
+        <fmt:message key="currency" bundle="${legend}"/>
     </h3>
 </div>
     <div class="button_div">
