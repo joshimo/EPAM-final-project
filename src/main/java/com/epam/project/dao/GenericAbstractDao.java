@@ -48,8 +48,8 @@ public abstract class GenericAbstractDao<T> {
             throws DataNotFoundException {
         List<T> items = new LinkedList<>();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL_getAll_base + " limit " + first + ", " + offset + ";");
-            ResultSet resultSet = preparedStatement.executeQuery();
+            PreparedStatement ps = connection.prepareStatement(SQL_getAll_base + " limit " + first + ", " + offset + ";");
+            ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()) {
                 T item = getItemInstance(t);
                 mapperFromDB.map(resultSet, item);
@@ -158,10 +158,8 @@ public abstract class GenericAbstractDao<T> {
         T item = null;
         try {
             item = (T) t.newInstance();
-        } catch (InstantiationException ie) {
+        } catch (InstantiationException | IllegalAccessException ie) {
             log.error(ie);
-        } catch (IllegalAccessException iae) {
-            log.error(iae);
         }
         return item;
     }

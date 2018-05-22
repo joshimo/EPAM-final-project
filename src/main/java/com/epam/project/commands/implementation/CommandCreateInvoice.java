@@ -28,7 +28,7 @@ public class CommandCreateInvoice implements ICommand {
             Invoice invoice = invoiceServ.createInvoiceFromUserCart(cart, invoiceCode);
             if (invoiceServ.addInvoice(invoice)) {
                 cart.removeAll();
-                result.setPage("/project?command=main");
+                result.setPage(conf.getPage("redirect_home"));
             }
             else {
                 result.addSessionAttribute("errorMessage", conf.getErrorMessage("invoiceCreationErr"));

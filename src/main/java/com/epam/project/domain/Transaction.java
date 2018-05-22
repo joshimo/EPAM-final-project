@@ -1,9 +1,10 @@
 package com.epam.project.domain;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-/** Mapped to transactions table */
-public class Transaction {
+/** Transaction entity mapped to transactions table */
+public class Transaction implements Serializable {
 
     private Integer transactionId;
     private Integer paymentId;

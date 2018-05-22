@@ -28,7 +28,7 @@ public class CommandCreateInvoiceAndPay implements ICommand {
             Invoice invoice = invoiceServ.createInvoiceFromUserCart(cart, invoiceCode);
             if (invoiceServ.addInvoice(invoice) && invoiceServ.payByInvoice(invoiceCode)) {
                 cart.removeAll();
-                result.setPage("/project?command=main");
+                result.setPage(conf.getPage("redirect_home"));
             }
             else {
                 result.addRequestAttribute("errorMessage", conf.getErrorMessage("invoiceCreationErr"));

@@ -205,7 +205,7 @@ public class InvoiceService implements IInvoiceServ {
 
     @Button
     @Override
-    public boolean addInvoice(Invoice invoice) {
+    public synchronized boolean addInvoice(Invoice invoice) {
         try {
             if (!validateInvoice(invoice))
                 return false;
@@ -242,7 +242,7 @@ public class InvoiceService implements IInvoiceServ {
 
     @Button
     @Override
-    public boolean updateInvoice(Invoice invoice) {
+    public synchronized boolean updateInvoice(Invoice invoice) {
         if (!validateInvoice(invoice))
             return false;
         Invoice oldInvoice = findInvoiceByOrderNumber(invoice.getInvoiceCode());
@@ -263,7 +263,7 @@ public class InvoiceService implements IInvoiceServ {
                 && deleteInvoice(invoice);
     }
 
-    private boolean deleteInvoice(Invoice invoice) {
+    private synchronized boolean deleteInvoice(Invoice invoice) {
         try {
             Set<String> productCodes = invoice.getPayments().keySet();
             daoFactory.beginTransaction();
@@ -298,7 +298,7 @@ public class InvoiceService implements IInvoiceServ {
         return !((invoice == null) || (invoice.getStatus() != InvoiceStatus.CREATED)) && cancelInvoice(invoice);
     }
 
-    private boolean cancelInvoice(Invoice invoice) {
+    private synchronized boolean cancelInvoice(Invoice invoice) {
         Set<String> productCodes = invoice.getPayments().keySet();
         try {
             daoFactory.beginTransaction();
@@ -347,7 +347,7 @@ public class InvoiceService implements IInvoiceServ {
                 && removeProductFromInvoice(invoice, productCode);
     }
 
-    private boolean removeProductFromInvoice(Invoice invoice, String productCode) {
+    private synchronized boolean removeProductFromInvoice(Invoice invoice, String productCode) {
         if (invoice.getProducts().containsKey(productCode)
                 && invoice.getPayments().containsKey(productCode)) {
             Payment payment = invoice.getPayments().get(productCode);
@@ -372,7 +372,7 @@ public class InvoiceService implements IInvoiceServ {
                 && payByInvoice(invoice);
     }
 
-    private boolean payByInvoice(Invoice invoice) {
+    private synchronized boolean payByInvoice(Invoice invoice) {
         Set<String> products = invoice.getProducts().keySet();
         try {
             daoFactory.beginTransaction();
@@ -407,7 +407,7 @@ public class InvoiceService implements IInvoiceServ {
         return !((invoice == null) || (invoice.getStatus() != InvoiceStatus.CREATED)) && closeInvoice(invoice);
     }
 
-    private boolean closeInvoice(Invoice invoice) {
+    private synchronized boolean closeInvoice(Invoice invoice) {
         Set<String> productCodes = invoice.getPayments().keySet();
         try {
             daoFactory.beginTransaction();
@@ -506,7 +506,7 @@ public class InvoiceService implements IInvoiceServ {
         return true;
     }
 
-    private boolean removePayment(Payment payment) {
+    private synchronized boolean removePayment(Payment payment) {
         try {
             daoFactory.beginTransaction();
             paymentDao = daoFactory.getPaymentDao();

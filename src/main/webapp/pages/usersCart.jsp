@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="t" uri="/WEB-INF/tlds/bodytag" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set value="${requestScope.get(\"cartView\")}" var="view" scope="page" />
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -86,8 +87,6 @@
             </form>
         </c:if>
     </div>
-<footer>
-    <p class="footer">Учебный проект по курсу Java Winter, Киев, 2018</p>
-</footer>
+<t:colontitle/>
 </body>
 </html>

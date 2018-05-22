@@ -1,11 +1,12 @@
 package com.epam.project.domain;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Mapped to invoices table */
-public class Invoice {
+/** Invoice entity mapped to invoices table */
+public class Invoice implements Serializable {
 
     private Integer invoiceId;
     private Long invoiceCode;
@@ -17,6 +18,7 @@ public class Invoice {
     private Double cost = 0d;
     private Map<String, Payment> payments;
     private Map<String, Product> products;
+
 
     public Invoice() {
         payments = new HashMap<>();

@@ -11,6 +11,8 @@ import com.epam.project.service.Button;
 import com.epam.project.service.IPaymentServ;
 import org.apache.log4j.Logger;
 
+import java.util.List;
+
 public class PaymentService implements IPaymentServ{
 
     private static final DataBaseSelector source = DataBaseSelector.MY_SQL;
@@ -38,7 +40,7 @@ public class PaymentService implements IPaymentServ{
 
     @Button
     @Override
-    public boolean updatePayment(Payment payment) {
+    public synchronized boolean updatePayment(Payment payment) {
         boolean result;
         if (validatePayment(payment))
             try {
@@ -56,17 +58,32 @@ public class PaymentService implements IPaymentServ{
 
     @Button
     @Override
-    public boolean addPayment(Payment payment) {
-        if (validatePayment(payment))
+    public synchronized boolean addPayment(Payment newPayment) {
+        if (validatePayment(newPayment))
             try {
+                boolean update = false;
                 daoFactory.beginTransaction();
                 paymentDao = daoFactory.getPaymentDao();
                 productDao = daoFactory.getProductDao();
-                Product product = productDao.findProductByCode(payment.getProductCode());
-                payment.setPaymentValue(product.getCost() * payment.getQuantity());
-                product.setQuantity(product.getQuantity() - payment.getQuantity());
-                product.setReservedQuantity(product.getReservedQuantity() + payment.getQuantity());
-                if ((!productDao.updateProductInDB(product)) || (!paymentDao.addPaymentToDB(payment))) {
+                Product product = productDao.findProductByCode(newPayment.getProductCode());
+                List<Payment> payments = paymentDao.findAllPaymentsByOrderCode(newPayment.getOrderCode());
+                for (Payment existPayment : payments) {
+                    if (existPayment.getProductCode().equals(newPayment.getProductCode())) {
+                        update = true;
+                        product.setQuantity(product.getQuantity() - newPayment.getQuantity());
+                        product.setReservedQuantity(product.getReservedQuantity() + newPayment.getQuantity());
+                        newPayment.setPaymentId(existPayment.getPaymentId());
+                        newPayment.setQuantity(existPayment.getQuantity() + newPayment.getQuantity());
+                        newPayment.setPaymentValue(product.getCost() * newPayment.getQuantity());
+                    }
+                }
+                if (!update) {
+                    newPayment.setPaymentValue(product.getCost() * newPayment.getQuantity());
+                    product.setQuantity(product.getQuantity() - newPayment.getQuantity());
+                    product.setReservedQuantity(product.getReservedQuantity() + newPayment.getQuantity());
+                }
+                if ((!productDao.updateProductInDB(product))
+                        || (!(update ? paymentDao.updatePaymentInDB(newPayment) : paymentDao.addPaymentToDB(newPayment)))) {
                     daoFactory.rollbackTransaction();
                     return false;
                 }

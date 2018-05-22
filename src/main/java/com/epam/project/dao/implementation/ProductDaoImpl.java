@@ -85,44 +85,37 @@ public class ProductDaoImpl extends GenericAbstractDao<Product> implements IProd
 
     @Override
     public List<Product> findProductsInDB(Integer first, Integer offset) throws DataNotFoundException {
-        List<Product> products = findAllFromTo(connection, Product.class, first, offset, SQL_select_base);
-        return products;
+        return findAllFromTo(connection, Product.class, first, offset, SQL_select_base);
     }
 
     @Override
     public Product findProductById(Integer id) throws DataNotFoundException {
-        Product product = findBy(connection, Product.class, SQL_selectById, id);
-        return product;
+        return findBy(connection, Product.class, SQL_selectById, id);
     }
 
     @Override
     public Product findProductByCode(String code) throws DataNotFoundException {
-        Product product = findBy(connection, Product.class, SQL_selectByCode, code);
-        return product;
+        return findBy(connection, Product.class, SQL_selectByCode, code);
     }
 
     @Override
     public boolean addProductToDB(Product product) {
-        boolean result = addToDB(connection, product, SQL_addNewProduct);
-        return result;
+        return addToDB(connection, product, SQL_addNewProduct);
     }
 
     @Override
     public boolean updateProductInDB(Product product) {
         Integer id = product.getId();
-        boolean result = updateInDB(connection, product, SQL_updateProduct, 14, id);
-        return result;
+        return updateInDB(connection, product, SQL_updateProduct, 14, id);
     }
 
     @Override
     public boolean deleteProductFromDB(Integer id) {
-        boolean result = deleteFromDB(connection, SQL_deleteProductById, id);
-        return result;
+        return deleteFromDB(connection, SQL_deleteProductById, id);
     }
 
     @Override
     public boolean deleteProductFromDB(String code) {
-        boolean result = deleteFromDB(connection, SQL_deleteProductByCode, code);
-        return result;
+        return deleteFromDB(connection, SQL_deleteProductByCode, code);
     }
 }

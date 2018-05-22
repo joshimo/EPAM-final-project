@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="t" uri="/WEB-INF/tlds/bodytag" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.get(\"locale\")}" />
@@ -61,8 +62,6 @@
     </form>
     </c:if>
 </div>
-<footer>
-    <p class="footer">Учебный проект по курсу Java Winter, Киев, 2018</p>
-</footer>
+<t:colontitle/>
 </body>
 </html>

@@ -9,9 +9,13 @@ import com.epam.project.controller.SessionRequestContent;
 import com.epam.project.domain.Invoice;
 import com.epam.project.domain.UserCart;
 import com.epam.project.domain.UserRole;
+import com.epam.project.exceptions.ProductServiceException;
 import com.epam.project.service.IInvoiceServ;
+import com.epam.project.service.IProductServ;
 import com.epam.project.service.ServiceFactory;
 import org.apache.log4j.Logger;
+
+import java.util.Set;
 
 public class CommandRemoveFromInvoice implements ICommand {
 
@@ -32,7 +36,10 @@ public class CommandRemoveFromInvoice implements ICommand {
             IInvoiceServ serv = ServiceFactory.getInvoiceService();
             if (serv.removeProductFromInvoice(invCode, productCode)) {
                 Invoice inv = serv.findInvoiceByOrderNumber(invCode);
+                IProductServ prodServ = ServiceFactory.getProductService();
+                Set<String> products = prodServ.createProductSet();
                 result.addRequestAttribute("invoice", inv);
+                result.addRequestAttribute("products", products);
                 result.addRequestAttribute("command", "showInvoiceDetail");
                 result.addRequestAttribute("code", invCode);
                 result.setPage(conf.getPage("invoiceDetails"));
@@ -41,7 +48,7 @@ public class CommandRemoveFromInvoice implements ICommand {
                 result.addRequestAttribute("errorMessage", conf.getErrorMessage("removeProductFromInvoiceErr"));
                 result.setPage(Configuration.getInstance().getPage("error"));
             }
-        } catch (NullPointerException npe) {
+        } catch (ProductServiceException | NullPointerException npe) {
             log.error(npe);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("removeProductFromInvoiceErr"));
             result.setPage(Configuration.getInstance().getPage("error"));

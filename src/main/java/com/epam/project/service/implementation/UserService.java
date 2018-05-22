@@ -124,7 +124,7 @@ public class UserService implements IUserServ {
 
     @Button
     @Override
-    public boolean addUser(User user) {
+    public synchronized boolean addUser(User user) {
         boolean result;
         try {
             daoFactory.open();
@@ -140,7 +140,7 @@ public class UserService implements IUserServ {
 
     @Button
     @Override
-    public boolean updateUser(User user) {
+    public synchronized boolean updateUser(User user) {
         boolean result;
         try {
             daoFactory.open();
@@ -156,7 +156,7 @@ public class UserService implements IUserServ {
 
     @Button
     @Override
-    public boolean deleteUser(User user) {
+    public synchronized boolean deleteUser(User user) {
         boolean result;
         try {
             daoFactory.open();

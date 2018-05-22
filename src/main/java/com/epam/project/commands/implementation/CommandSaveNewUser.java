@@ -38,7 +38,7 @@ public class CommandSaveNewUser implements ICommand {
             if (userServ.addUser(user)) {
                 result.addSessionAttribute("cart", new UserCart(user.getName()));
                 result.addSessionAttribute("user", userServ.findUser(login, password));
-                result.setPage("/project?command=main");
+                result.setPage(conf.getPage("redirect_home"));
             }
             else {
                 result.addRequestAttribute("errorMessage", conf.getErrorMessage("saveNewUserErr"));

@@ -70,49 +70,41 @@ public class UserDaoImpl extends GenericAbstractDao<User> implements IUserDao {
 
     @Override
     public List<User> findAllUsersInDB() throws DataNotFoundException {
-        List<User> users = findAll(connection, User.class, SQL_selectAll);
-        return users;
+        return findAll(connection, User.class, SQL_selectAll);
     }
 
     @Override
     public List<User> findUsers(Integer first, Integer offset) throws DataNotFoundException {
-        List<User> users = findAllFromTo(connection, User.class, first, offset, SQL_select_base);
-        return users;
+        return findAllFromTo(connection, User.class, first, offset, SQL_select_base);
     }
 
     @Override
     public List<User> findUserByRole(UserRole role) throws DataNotFoundException {
-        List<User> users = findAsListBy(connection, User.class, SQL_selectByRole, role.toString());
-        return users;
+        return findAsListBy(connection, User.class, SQL_selectByRole, role.toString());
     }
 
     @Override
     public User findUserById(Integer id) throws DataNotFoundException {
-        User user = findBy(connection, User.class, SQL_selectById, id);
-        return user;
+        return findBy(connection, User.class, SQL_selectById, id);
     }
 
     @Override
     public User findUserByName(String name) throws DataNotFoundException {
-        User user = findBy(connection, User.class, SQL_selectByName, name);
-        return user;
+        return findBy(connection, User.class, SQL_selectByName, name);
     }
 
     @Override
     public boolean addUserToDB(User user) {
-        boolean result = addToDB(connection, user, SQL_addNew);
-        return result;
+        return addToDB(connection, user, SQL_addNew);
     }
 
     @Override
     public boolean updateUserInDB(User user) {
-        boolean result = updateInDB(connection, user, SQL_updateById, 8, user.getId());
-        return result;
+        return updateInDB(connection, user, SQL_updateById, 8, user.getId());
     }
 
     @Override
     public boolean deleteUserFromDB(User user) {
-        boolean result = deleteFromDB(connection, SQL_deleteUser, user.getName());
-        return result;
+        return deleteFromDB(connection, SQL_deleteUser, user.getName());
     }
 }

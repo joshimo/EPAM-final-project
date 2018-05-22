@@ -1,7 +1,9 @@
 package com.epam.project.domain;
 
+import java.io.Serializable;
+
 /** 'User' Enity is mapped both to project.users & project.user_roles tables*/
-public class User {
+public class User implements Serializable {
 
     private Integer id;
     private String name;
@@ -13,7 +15,6 @@ public class User {
     private String notes;
 
     public User() {
-
     }
 
     public User(String name, String password) {

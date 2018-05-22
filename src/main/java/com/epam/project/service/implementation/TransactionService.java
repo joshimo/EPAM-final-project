@@ -46,7 +46,6 @@ public class TransactionService implements ITransactionServ {
 
     /** CRUD methods */
 
-    @Override
     public Integer calculateTransactionsNumber() {
         Integer result = 0;
         try {
@@ -77,7 +76,6 @@ public class TransactionService implements ITransactionServ {
     }
 
     @Button
-    @Override
     public List<Transaction> findTransactions(Integer from, Integer offset) throws TransactionServiceException {
         List<Transaction> transactions = new LinkedList<>();
         try {
@@ -93,7 +91,6 @@ public class TransactionService implements ITransactionServ {
     }
 
     @Button
-    @Override
     public List<Transaction> findAllTransactionsByInvoice(Long invoiceCode) throws TransactionServiceException {
         List<Transaction> transactions = new LinkedList<>();
         try {
@@ -109,7 +106,6 @@ public class TransactionService implements ITransactionServ {
     }
 
     @Button
-    @Override
     public List<Transaction> findAllTransactionsByUser(String userName) throws TransactionServiceException {
         List<Transaction> transactions = new LinkedList<>();
         try {
@@ -154,8 +150,7 @@ public class TransactionService implements ITransactionServ {
         return transaction;
     }
 
-    @Override
-    public boolean addTransaction(Transaction transaction) {
+    public synchronized boolean addTransaction(Transaction transaction) {
         try {
             daoFactory.open();
             transactionDao = daoFactory.getTransactionDao();

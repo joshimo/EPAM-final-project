@@ -3,6 +3,7 @@ package com.epam.project.domain;
 import java.util.HashMap;
 import java.util.Map;
 
+/** Data transfer object */
 public class UserCartView {
 
     private String userName;

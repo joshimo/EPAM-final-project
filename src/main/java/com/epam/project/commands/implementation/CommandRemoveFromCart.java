@@ -22,7 +22,7 @@ public class CommandRemoveFromCart implements ICommand {
             String productCode = content.getRequestParameter("productCode")[0];
             cart.removeProduct(productCode);
             result.addSessionAttribute("cart", cart);
-            result.setPage("/project?command=usersCart");
+            result.setPage(conf.getPage("redirect_usersCart"));
         }
         catch (NullPointerException npe) {
             log.error(npe);

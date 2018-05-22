@@ -34,7 +34,7 @@ public class CommandMissing implements ICommand {
             if (!content.checkSessionAttribute("local"))
                 result.addSessionAttribute("locale", new Locale("ru", "RU"));
             result.addRequestAttribute("pageNum", 1);
-            result.setPage("/project?command=main&pageNum=1");
+            result.setPage(conf.getPage("redirect_home"));
         } catch (UnknownUserException uue) {
             log.error(uue);
             result.addRequestAttribute("errorMessage", conf.getErrorMessage("generalErr"));

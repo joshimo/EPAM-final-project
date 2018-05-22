@@ -27,7 +27,7 @@ public class CommandValidateUser implements ICommand {
             UserCart cart = new UserCart(user.getName());
             result.addSessionAttribute("user", user);
             result.addSessionAttribute("cart", cart);
-            result.setPage("/project?command=main");
+            result.setPage(conf.getPage("redirect_home"));
         }
         catch (UnknownUserException uue) {
             log.error(uue);

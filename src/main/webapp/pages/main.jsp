@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="t" uri="/WEB-INF/tlds/bodytag" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set value="${sessionScope.get(\"cart\")}" var="userCart" scope="page" />
 <c:set value="${sessionScope.get(\"user\")}" var="user" scope="page" />
@@ -160,8 +161,6 @@
             </c:forEach>
         </div>
     </div>
-    <footer>
-        <p class="footer">Учебный проект по курсу Java Winter, Киев, 2018</p>
-    </footer>
+    <t:colontitle />
 </body>
 </html>

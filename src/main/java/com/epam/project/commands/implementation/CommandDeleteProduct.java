@@ -28,7 +28,7 @@ public class CommandDeleteProduct implements ICommand {
             }
             String productCode = (String) content.getRequestParameter("productCode")[0];
             if (serv.deleteProduct(productCode)) {
-                result.setPage("/project?command=manageProducts");
+                result.setPage(conf.getPage("redirect_manageProducts"));
             }
             else {
                 result.addRequestAttribute("errorMessage", conf.getErrorMessage("deleteProductErr"));

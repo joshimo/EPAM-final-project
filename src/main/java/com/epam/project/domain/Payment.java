@@ -1,6 +1,9 @@
 package com.epam.project.domain;
 
-public class Payment {
+import java.io.Serializable;
+
+/** Payment entity mapped to payments table */
+public class Payment implements Serializable {
 
     private Integer paymentId;
     private Long orderCode;

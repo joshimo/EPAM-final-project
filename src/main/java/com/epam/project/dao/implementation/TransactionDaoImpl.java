@@ -25,13 +25,13 @@ public class TransactionDaoImpl extends GenericAbstractDao<Transaction> implemen
             "VALUES (?, ?, ?, ?, ?, ?);";
 
 
-    private Mapper<Transaction, PreparedStatement> mapperToDB = (Transaction transaction, PreparedStatement preparedStatement) -> {
-        preparedStatement.setInt(1, transaction.getPaymentId());
-        preparedStatement.setLong(2, transaction.getInvoiceCode());
-        preparedStatement.setString(3, transaction.getUserName());
-        preparedStatement.setString(4, transaction.getTransactionType().name());
-        preparedStatement.setDouble(5, transaction.getPaymentValue());
-        preparedStatement.setString(6, transaction.getNotes());
+    private Mapper<Transaction, PreparedStatement> mapperToDB = (Transaction transaction, PreparedStatement ps) -> {
+        ps.setInt(1, transaction.getPaymentId());
+        ps.setLong(2, transaction.getInvoiceCode());
+        ps.setString(3, transaction.getUserName());
+        ps.setString(4, transaction.getTransactionType().name());
+        ps.setDouble(5, transaction.getPaymentValue());
+        ps.setString(6, transaction.getNotes());
     };
 
     private Mapper<ResultSet, Transaction> mapperFromDB = (ResultSet resultSet, Transaction transaction) -> {
@@ -63,8 +63,7 @@ public class TransactionDaoImpl extends GenericAbstractDao<Transaction> implemen
 
     @Override
     public List<Transaction> findTransactions(Integer first, Integer offset) throws DataNotFoundException {
-        List<Transaction> transactions = findAllFromTo(connection, Transaction.class, first, offset, SQL_select_base);
-        return transactions;
+        return findAllFromTo(connection, Transaction.class, first, offset, SQL_select_base);
     }
 
     @Override

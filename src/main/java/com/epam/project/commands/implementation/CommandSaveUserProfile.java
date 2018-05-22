@@ -37,7 +37,7 @@ public class CommandSaveUserProfile implements ICommand {
             user.setUserRole(UserRole.USER);
             IUserServ userServ = ServiceFactory.getUserService();
             if (userServ.updateUser(user)) {
-                result.setPage("/project?command=main");
+                result.setPage(conf.getPage("redirect_home"));
                 result.addSessionAttribute("user", user);
             }
             else {

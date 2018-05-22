@@ -123,7 +123,7 @@ public class ProductService implements IProductServ {
 
     @Button
     @Override
-    public boolean addProduct(Product product) {
+    public synchronized boolean addProduct(Product product) {
         boolean result;
         try {
             daoFactory.beginTransaction();
@@ -139,7 +139,7 @@ public class ProductService implements IProductServ {
 
     @Button
     @Override
-    public boolean updateProduct(Product product) {
+    public synchronized boolean updateProduct(Product product) {
         boolean result;
         try {
             daoFactory.beginTransaction();
@@ -153,7 +153,7 @@ public class ProductService implements IProductServ {
         return result;
     }
 
-    public boolean updateProducts(List<Product> products) {
+    public synchronized boolean updateProducts(List<Product> products) {
         try {
             daoFactory.beginTransaction();
             productDao = daoFactory.getProductDao();
@@ -171,7 +171,7 @@ public class ProductService implements IProductServ {
     }
 
     @Override
-    public boolean deleteProduct(Product product) {
+    public synchronized boolean deleteProduct(Product product) {
         boolean result;
         try {
             daoFactory.beginTransaction();
@@ -187,7 +187,7 @@ public class ProductService implements IProductServ {
 
     @Button
     @Override
-    public boolean deleteProduct(String code) {
+    public synchronized boolean deleteProduct(String code) {
         boolean result;
         try {
             daoFactory.beginTransaction();

@@ -59,44 +59,37 @@ public class InvoiceDaoImpl extends GenericAbstractDao<Invoice> implements IInvo
 
     @Override
     public List<Invoice> findAllInvoices() throws DataNotFoundException {
-        List<Invoice> invoices = findAll(connection, Invoice.class, SQL_selectAll);
-        return invoices;
+        return findAll(connection, Invoice.class, SQL_selectAll);
     }
 
     @Override
     public List<Invoice> findInvoices(Integer first, Integer offset) throws DataNotFoundException {
-        List<Invoice> invoices = findAllFromTo(connection, Invoice.class, first, offset, SQL_select_base);
-        return invoices;
+        return findAllFromTo(connection, Invoice.class, first, offset, SQL_select_base);
     }
 
     @Override
     public List<Invoice> findAllNewInvoices() throws DataNotFoundException {
-        List<Invoice> invoices = findAsListBy(connection, Invoice.class, SQL_selectAllByStatus, 0);
-        return invoices;
+        return findAsListBy(connection, Invoice.class, SQL_selectAllByStatus, 0);
     }
 
     @Override
     public List<Invoice> findAllFinishedInvoices() throws DataNotFoundException {
-        List<Invoice> invoices = findAsListBy(connection, Invoice.class, SQL_selectAllByStatus, 1);
-        return invoices;
+        return findAsListBy(connection, Invoice.class, SQL_selectAllByStatus, 1);
     }
 
     @Override
     public List<Invoice> findAllCancelledInvoices() throws DataNotFoundException {
-        List<Invoice> invoices = findAsListBy(connection, Invoice.class, SQL_selectAllByStatus, 2);
-        return invoices;
+        return findAsListBy(connection, Invoice.class, SQL_selectAllByStatus, 2);
     }
 
     @Override
     public List<Invoice> findAllInvoicesByUser(String userName) throws DataNotFoundException {
-        List<Invoice> invoices = findAsListBy(connection, Invoice.class, SQL_selectAllByUserName, userName);
-        return invoices;
+        return findAsListBy(connection, Invoice.class, SQL_selectAllByUserName, userName);
     }
 
     @Override
     public Invoice findInvoiceByOrderNumber(Long orderCode) throws DataNotFoundException {
-        Invoice invoice = findBy(connection, Invoice.class, SQL_selectByCode, orderCode);
-        return invoice;
+        return findBy(connection, Invoice.class, SQL_selectByCode, orderCode);
     }
 
     @Override

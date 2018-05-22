@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="t" uri="/WEB-INF/tlds/bodytag" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.get(\"locale\")}" />
@@ -127,7 +128,7 @@
                     </select>
                 </td>
                 <td class="tdl"><input class="input" type="text" name="quantity" size="8" required /></td>
-                <td class="tdc"><input class="input" type="text" name="paymentValue" size="12" required /></td>
+                <td class="tdc"></td>
                 <td class="tdl"><input class="input" type="text" name="paymentNotes" size="24" /></td>
                 <td class="tdc">
                     <input type="hidden" name="command" value="addNewPayment" />
@@ -185,8 +186,6 @@
         </form>
     </div>
 </div>
-<footer>
-    <p class="footer">Учебный проект по курсу Java Winter, Киев, 2018</p>
-</footer>
+<t:colontitle/>
 </body>
 </html>

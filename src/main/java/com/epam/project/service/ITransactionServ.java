@@ -7,19 +7,18 @@ import com.epam.project.exceptions.TransactionServiceException;
 import java.util.List;
 
 public interface ITransactionServ {
-
-    Integer calculateTransactionsNumber();
-
+    /**
+     * Finds all transactions
+     * @return List of transactions
+     * @throws TransactionServiceException if unable to retrieve information for certain reasons
+     */
     List<Transaction> findAllTransactions() throws TransactionServiceException;
 
-    @Button
-    List<Transaction> findTransactions(Integer from, Integer offset) throws TransactionServiceException;
-
-    List<Transaction> findAllTransactionsByInvoice(Long invoiceCode) throws TransactionServiceException;
-
-    List<Transaction> findAllTransactionsByUser(String userName) throws TransactionServiceException;
-
+    /**
+     * Finds all transactions by transaction type (PAYMENT or REFUND)
+     * @param type - transaction type
+     * @return List of selected transactions
+     * @throws TransactionServiceException if unable to retrieve information for certain reasons
+     */
     List<Transaction> findAllTransactionsByType(TransactionType type) throws TransactionServiceException;
-
-    boolean addTransaction(Transaction transaction);
 }
